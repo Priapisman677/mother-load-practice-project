@@ -11,6 +11,7 @@ class Tank {
   speed: number = 0;
   isStorageOpen: boolean = false;
   movingStatus: string = "stopped";
+
   constructor(tankDetails: TankDetails) {
     this.drill = tankDetails.drill;
     this.engine = tankDetails.engine;
@@ -22,15 +23,15 @@ class Tank {
         this.speed
       }km/h, ${
         this.isStorageOpen === true ? "Storage is open" : "Storage is closed"
-      }`
+      }`, `movingStatus: ${this.movingStatus}`,  `fuelType: ${this.fuelType}`
     );
   }
   go(): void {
     if (this.isStorageOpen === false) {
       this.speed += 5;
     } else {
-      //*console.log("You tried moving the tank but the storage is open!");
-      message = 'You tried moving the tank but the storage is open!'
+      console.log("You tried moving the tank but the storage is open!");
+      //* */ message = 'You tried moving the tank but the storage is open!'
     }
     if (this.speed > 200) {
       this.speed = 200;
@@ -45,7 +46,7 @@ class Tank {
     if (this.speed < 0) {
       this.speed = 0;
       console.log(
-        "The tank is fully stopped, there is no purpose on using the brake!"
+        "The tank is fully stopped, there is no purpose on using the break!"
       );
     }
     this.updateMovingStatus();

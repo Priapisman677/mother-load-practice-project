@@ -38,13 +38,13 @@ function renderHTML() {
 
       <div class="features-container">
         <div class="drill-container">
-          <p>Drill: ${t1tank.drill}</p>
+          <img class="item-feature" src="../../images/${t1tank.drill}-drill.PNG">
         </div>
         <div class="engine-container">
-          <p>Engine: ${t1tank.engine}</p>
+          <img class="item-feature" src="../../images/${t1tank.engine}-engine.PNG">
         </div>
         <div class="fuel-type-container">
-          <p>Fuel type: ${t1tank.fuelType}</p>
+          <img class="item-feature" src="../../images/${t1tank.fuelType}-fuel.PNG">
         </div>
       </div>
     </div>

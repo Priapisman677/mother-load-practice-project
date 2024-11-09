@@ -64,7 +64,7 @@ body {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   border: solid;
   border-radius: 5px;
   border-color: #ff0000;
@@ -90,24 +90,40 @@ body {
   border-color: #10ff30;
   height: 60px;
   width: 100%;
-  
+}
+.features-container{
+  height: 110px;
 }
 
 .message, .remove-message{
   border: solid;
   border-color: red;
   border-width: 5px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   width: 300px;
   height: 30px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
+}
+.message{
+  height: 50px;
 }
 .remove-message{
   width: 150px;
 }
+.message-container{
+  border: solid;
+  border-color: rgb(0, 26, 255);
+  border-width: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  margin-top: 20px;
+  height: 60px;
+}
 
-
-
+.item-feature{
+  height: 110px;
+}
 
 
 

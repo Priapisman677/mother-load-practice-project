@@ -3,24 +3,25 @@ class Tank {
     constructor(tankDetails) {
         this.speed = 0;
         this.isStorageOpen = false;
-        this.movingStatus = 'stopped';
+        this.movingStatus = "stopped";
         this.drill = tankDetails.drill;
         this.engine = tankDetails.engine;
         this.fuelType = tankDetails.fuelType;
     }
     displayInfo() {
-        console.log(`drill: ${this.drill}, engine: ${this.engine}, speed: ${this.speed}km/h, ${this.isStorageOpen === true ? "Storage is open" : "Storage is closed"}`);
+        console.log(`drill: ${this.drill}, engine: ${this.engine}, speed: ${this.speed}km/h, ${this.isStorageOpen === true ? "Storage is open" : "Storage is closed"}`, `movingStatus: ${this.movingStatus}`, `fuelType: ${this.fuelType}`);
     }
     go() {
         if (this.isStorageOpen === false) {
             this.speed += 5;
         }
         else {
-            console.log('You tried moving the tank but the storage is open!');
+            console.log("You tried moving the tank but the storage is open!");
+            //* */ message = 'You tried moving the tank but the storage is open!'
         }
         if (this.speed > 200) {
             this.speed = 200;
-            console.log('The tank is already at its maximum speed');
+            console.log("The tank is already at its maximum speed");
         }
         //console.log(`Speed: ${this.speed}`);
         this.updateMovingStatus();
@@ -29,28 +30,28 @@ class Tank {
         this.speed -= 5;
         if (this.speed < 0) {
             this.speed = 0;
-            console.log('The tank is fully stopped, there is no purpose on using the brake!');
+            console.log("The tank is fully stopped, there is no purpose on using the break!");
         }
         this.updateMovingStatus();
     }
     updateMovingStatus() {
-        this.movingStatus = this.speed > 0 ? 'moving' : 'stopped';
+        this.movingStatus = this.speed > 0 ? "moving" : "stopped";
         console.log(this.movingStatus);
     }
     openStorage() {
         if (this.isStorageOpen === true) {
-            console.log('storage is already open!');
+            console.log("storage is already open!");
         }
         if (this.speed === 0) {
             this.isStorageOpen = true;
         }
         else {
-            console.log('You tried opening the storage but the car is moving!');
+            console.log("You tried opening the storage but the car is moving!");
         }
     }
     closeStorage() {
         if (this.isStorageOpen === false) {
-            console.log('storage is already closed!');
+            console.log("storage is already closed!");
         }
         if (this.speed === 0) {
             this.isStorageOpen = false;
