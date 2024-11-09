@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MotherLoad</title>
+    <link rel="stylesheet" href="./MotherLoad.css" />
+  </head>
+  <body>
+    <div class="img-container">
+      <img class="image" src="../images/3_gameplay.jpg" />
+    </div>
+    <div class="welcome-message-container">
+      <div class="welcome-message">Welcome to MotherLoad</div>
+    </div>
+    <!-- *Start of JavaScript ---------------------------------------------------------- -->
+  <div class ="buttons">
+      <div class="lower-container">
+        <div class="speedUp-button-container">
+          <button class="speedUp-button">Speed Up</button>
+        </div>
+        <div class="slowDown-button-container">
+          <button class="slow-down-button">Slow down</button>
+        </div>
+        <div class="open-storage-button-container">
+          <button class="open-storage-button">Open storage</button>
+        </div>
+        <div class="close-storage-button-container">
+          <button class="close-storage-button">Close storage</button>
+        </div>
+      </div>
+
+      <div class="mid-container">
+        <div class="moving-status-container">
+          <p class="moving-status">Moving <br />status:</p>
+        </div>
+        <div class="storage-status-container">
+          <p>
+            Storage <br />
+            status:
+          </p>
+        </div>
+        <div class="speed">
+          <p>Speed:</p>
+        </div>
+      </div>
+
+      <div class="mid-container">
+        <div class="drill-container">
+          <p>Drill:</p>
+        </div>
+        <div class="engine-container">
+          <p>Engine:</p>
+        </div>
+        <div class="fuel-type-container">
+          <p>Fuel type:</p>
+        </div>
+      </div>
+    </div>
+        <!-- *End of JavaScript ---------------------------------------------------------- -->
+    <div class="message">
+      Message
+    </div>
+    <div class="remove-message">
+      Remove message
+    </div>
+    
+    <script src="../javascript/dist/MotherLoad.js"></script>
+    <script type="module" src="../javascript/dist/tankObjects.js"></script>
+    <script type="module" src="../javascript/dist/mainHTML.js"></script>
+  </body>
+</html>

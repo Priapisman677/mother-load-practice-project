@@ -1,0 +1,124 @@
+body {
+  background-color: #220000;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1000px;
+}
+.img-container {
+  background-color: #07002b;
+  border: solid;
+  border-color: #ff0000;
+  height: 360px;
+  border-width: 5px;
+}
+.image {
+  width: 100%;
+  height: 100%;
+  /* Cover will stretch to cover the whole div: */
+  object-fit: contain;
+  /* contain Will not stretch */
+  /* object-fit: contain; */
+  z-index: 0;
+}
+
+.welcome-message-container {
+  padding: 12px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgb(20, 20, 20);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  border-radius: 5px;
+  border-color: #5b5b5b;
+}
+.welcome-message {
+  font-size: inherit;
+  font-size: 30px;
+}
+.functions-container {
+  display: flex;
+  border: solid;
+  border-radius: 5px;
+  border-color: #10ff30;
+  height: 40px;
+  width: 500px;
+}
+
+.speedUp-button-container,
+.slowDown-button-container,
+.open-storage-button-container,
+.close-storage-button-container,
+.moving-status-container,
+.storage-status-container,
+.speed, 
+.drill-container,
+.engine-container,
+.fuel-type-container
+ {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  border-radius: 5px;
+  border-color: #ff0000;
+  height: 100%;
+  width: 100px;
+}
+
+.speedUp-button,
+.slow-down-button,
+.open-storage-button,
+.close-storage-button{
+  flex: 1;
+}
+
+.status-container,
+ .features-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  border-radius: 5px;
+  border-color: #10ff30;
+  height: 60px;
+  width: 100%;
+  
+}
+
+.message, .remove-message{
+  border: solid;
+  border-color: red;
+  border-width: 5px;
+  margin-top: 30px;
+  width: 300px;
+  height: 30px;
+  margin-left: 20px;
+}
+.remove-message{
+  width: 150px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Show div border:
+{
+  border: solid;
+  border-color: red;
+  border-width: 5px;
+} */
