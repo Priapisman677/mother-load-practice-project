@@ -4,7 +4,7 @@ interface TankDetails {
   fuelType: string;
 }
 
-class Tank {
+export class Tank {
   drill: string;
   engine: string;
   fuelType: string;

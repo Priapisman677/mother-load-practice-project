@@ -1,3 +1,4 @@
+import { Tank } from "./MotherLoad.js";
 export const t1tank = new Tank({ drill: "silver", engine: "turboDynamo", fuelType: "gas" });
 console.log('Storage', t1tank.isStorageOpen === true ? 'Open' : 'Closed');
 console.log('current speed:', t1tank.speed);

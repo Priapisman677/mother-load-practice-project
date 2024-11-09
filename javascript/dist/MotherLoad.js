@@ -1,5 +1,4 @@
-"use strict";
-class Tank {
+export class Tank {
     constructor(tankDetails) {
         this.speed = 0;
         this.isStorageOpen = false;
