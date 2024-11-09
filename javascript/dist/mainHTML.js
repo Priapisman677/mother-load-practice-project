@@ -1,4 +1,5 @@
 import { t1tank } from "./tankObjects.js";
+// import { tankMessage } from "./tankClass.js";
 const buttonsContainer = document.querySelector(".buttons");
 function renderHTML() {
     buttonsContainer.innerHTML = `
@@ -47,33 +48,39 @@ function renderHTML() {
     </div>
 `;
     const speedUpButton = document.querySelector(".speedUp-button");
-    // const slowDownButton = document.querySelector('.slow-down-button')!;
-    // const openStorageButton = document.querySelector('.open-storage-button')!;
-    // const closeStorageButton = document.querySelector('.close-storage-button')!;
     speedUpButton.addEventListener("click", () => {
         t1tank.go();
-        console.log("Test");
-        // const speed: Element = document.querySelector('.speed')!;
-        // speed.innerHTML = `Speed: ${t1tank.speed} !`
         renderHTML();
+        renderMessageSection();
     });
     const slowDownButton = document.querySelector(".slow-down-button");
     slowDownButton.addEventListener("click", () => {
         t1tank.break();
-        console.log(t1tank.speed, "test");
         renderHTML();
+        renderMessageSection();
     });
     const openStorageButton = document.querySelector(".open-storage-button");
     openStorageButton.addEventListener("click", () => {
         t1tank.openStorage();
-        console.log("storage:", t1tank.isStorageOpen === true ? "Open" : "Closed");
         renderHTML();
+        renderMessageSection();
     });
     const closeStorageButton = document.querySelector(".close-storage-button");
     closeStorageButton.addEventListener("click", () => {
         t1tank.closeStorage();
-        console.log("storage:", t1tank.isStorageOpen === true ? "Open" : "Closed");
         renderHTML();
+        renderMessageSection();
     });
 }
 renderHTML();
+function renderMessageSection() {
+    const messageContainer = document.querySelector(".message");
+    messageContainer.innerHTML = t1tank.tankMessage;
+}
+let removeMessage = document.querySelector('.remove-message');
+removeMessage.addEventListener('click', () => {
+    t1tank.tankMessage = '';
+    renderMessageSection();
+});
+renderMessageSection();
+//* Now I need to make the button be able to remove the message
