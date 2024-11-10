@@ -1,8 +1,8 @@
 import { t1tank } from "./tankObjects.js";
 // import { tankMessage } from "./tankClass.js";
-const tankInterface = document.querySelector(".tank-interface");
+const tankMenu = document.querySelector(".tank-menu");
 function renderHTML() {
-    tankInterface.innerHTML = `
+    tankMenu.innerHTML = `
      
     <div class="functions-container">
       <div class="speedUp-button-container">
@@ -110,22 +110,19 @@ function startRemoveMessageTimer() {
     }, 3300);
 }
 function setToLocalStorage(tankId) {
-    console.log("-----Testing setToLocalStorage----");
-    console.log(tankId);
     localStorage.setItem(tankId, JSON.stringify(t1tank));
 }
 //* This is a new function that I created to test the localStorage functionality:
-function new1(param) {
-    const LOCSTOR = localStorage.getItem(param);
-    console.log(LOCSTOR); // This will log the string retrieved from localStorage
-    if (LOCSTOR) {
-        // Check if there is data before parsing
-        const parsedData = JSON.parse(LOCSTOR);
-        console.log(parsedData); // Logs the parsed data, which should be an object
-        console.log(typeof parsedData); // Logs "object"
-    }
-    else {
-        console.log("No data found for this key in localStorage.");
-    }
-}
-new1("1");
+// function new1(param: string) {
+//   const LOCSTOR = localStorage.getItem(param);
+//   console.log(LOCSTOR); // This will log the string retrieved from localStorage
+//   if (LOCSTOR) {
+//     // Check if there is data before parsing
+//     const parsedData = JSON.parse(LOCSTOR);
+//     console.log(parsedData); // Logs the parsed data, which should be an object
+//     console.log(typeof parsedData); // Logs "object"
+//   } else {
+//     console.log("No data found for this key in localStorage.");
+//   }
+// }
+// new1("1");
