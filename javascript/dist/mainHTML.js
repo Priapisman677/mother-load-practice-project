@@ -50,6 +50,7 @@ function renderHTML() {
     const speedUpButton = document.querySelector(".speedUp-button");
     speedUpButton.addEventListener("click", () => {
         t1tank.go();
+        setToLocalStorage();
         renderHTML();
         renderMessageSection();
         startRemoveMessageTimer();
@@ -57,6 +58,7 @@ function renderHTML() {
     const slowDownButton = document.querySelector(".slow-down-button");
     slowDownButton.addEventListener("click", () => {
         t1tank.break();
+        setToLocalStorage();
         renderHTML();
         renderMessageSection();
         startRemoveMessageTimer();
@@ -64,6 +66,7 @@ function renderHTML() {
     const openStorageButton = document.querySelector(".open-storage-button");
     openStorageButton.addEventListener("click", () => {
         t1tank.openStorage();
+        setToLocalStorage();
         renderHTML();
         renderMessageSection();
         startRemoveMessageTimer();
@@ -71,6 +74,7 @@ function renderHTML() {
     const closeStorageButton = document.querySelector(".close-storage-button");
     closeStorageButton.addEventListener("click", () => {
         t1tank.closeStorage();
+        setToLocalStorage();
         renderHTML();
         renderMessageSection();
         startRemoveMessageTimer();
@@ -98,4 +102,19 @@ function startRemoveMessageTimer() {
         t1tank.tankMessage = "";
     }, 3300);
 }
-//* Now I need to make the button be able to remove the message
+function setToLocalStorage() {
+    localStorage.setItem('t1tank', JSON.stringify(t1tank));
+}
+function new1(param) {
+    const LOCSTOR = localStorage.getItem(param);
+    console.log(LOCSTOR); // This will log the string retrieved from localStorage
+    if (LOCSTOR) { // Check if there is data before parsing
+        const parsedData = JSON.parse(LOCSTOR);
+        console.log(parsedData); // Logs the parsed data, which should be an object
+        console.log(typeof parsedData); // Logs "object"
+    }
+    else {
+        console.log("No data found for this key in localStorage.");
+    }
+}
+new1('t1tank');

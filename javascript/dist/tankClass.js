@@ -8,6 +8,9 @@ export class Tank {
         this.drill = tankDetails.drill;
         this.engine = tankDetails.engine;
         this.fuelType = tankDetails.fuelType;
+        this.speed = tankDetails.speed;
+        this.isStorageOpen = tankDetails.isStorageOpen;
+        this.movingStatus = tankDetails.movingStatus;
     }
     displayInfo() {
         console.log(`drill: ${this.drill}, engine: ${this.engine}, speed: ${this.speed}km/h, ${this.isStorageOpen === true ? "Storage is open" : "Storage is closed"}`, `movingStatus: ${this.movingStatus}`, `fuelType: ${this.fuelType}`);

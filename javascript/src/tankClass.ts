@@ -2,6 +2,10 @@ interface TankDetails {
   drill: string;
   engine: string;
   fuelType: string;
+  speed: number;
+  isStorageOpen: boolean;
+  movingStatus: string;
+  id: number;
 }
 
 ;
@@ -14,11 +18,16 @@ export class Tank {
   isStorageOpen: boolean = false;
   movingStatus: string = "stopped";
   tankMessage: string = "";
+  id : number = 0
 
   constructor(tankDetails: TankDetails) {
     this.drill = tankDetails.drill;
     this.engine = tankDetails.engine;
     this.fuelType = tankDetails.fuelType;
+    this.speed = tankDetails.speed;
+    this.isStorageOpen = tankDetails.isStorageOpen;
+    this.movingStatus = tankDetails.movingStatus;
+    this.id = tankDetails.id;
   }
   displayInfo(): void {
     console.log(
