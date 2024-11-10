@@ -1,10 +1,10 @@
-import { t1tank } from "./tankObjects.js";
+import { tankList, t1tank } from "./tankObjects.js";
 // import { tankMessage } from "./tankClass.js";
 
-const tankMenu = document.querySelector(".tank-menu")!;
 function renderHTML() {
-  tankMenu.innerHTML = `
-     
+  let menuHTML: string = "";
+  tankList.forEach((tank) => {
+    menuHTML += `
     <div class="functions-container">
       <div class="speedUp-button-container">
         <button class="speedUp-button">Speed Up</button>
@@ -22,42 +22,41 @@ function renderHTML() {
 
     <div class="status-container">
       <div class="moving-status-container">
-        <p class="moving-status">Moving <br/>status: ${t1tank.movingStatus}</p>
+        <p class="moving-status">Moving <br/>status: ${tank.movingStatus}</p>
       </div>
       <div class="storage-status-container">
         <p>
           Storage <br />
-          status: ${t1tank.isStorageOpen === true ? "Open" : "Closed"}
+          status: ${tank.isStorageOpen === true ? "Open" : "Closed"}
         </p>
       </div>
       <div class="speed">
-        <p>Speed: ${t1tank.speed}</p>
+        <p>Speed: ${tank.speed}</p>
       </div>
     </div>
 
     <div class="features-container">
       <div class="drill-container">
-        <img class="item-feature" src="../../images/${t1tank.drill}-drill.PNG">
+        <img class="item-feature" src="../../images/${tank.drill}-drill.PNG">
       </div>
       <div class="engine-container">
-        <img class="item-feature" src="../../images/${
-          t1tank.engine
-        }-engine.PNG">
+        <img class="item-feature" src="../../images/${tank.engine}-engine.PNG">
       </div>
       <div class="fuel-type-container">
-        <img class="item-feature" src="../../images/${
-          t1tank.fuelType
-        }-fuel.PNG">
+        <img class="item-feature" src="../../images/${tank.fuelType}-fuel.PNG">
       </div>
     </div>
-        <div class="message-container">
+    <div class="message-container">
       <div class="message"></div>
       <div class="remove-message">
         <button>Remove message</button>
       </div>
     </div>
-      
-`;
+  `;
+  });
+
+  const tankMenu: Element = document.querySelector(".tank-menu")!;
+  tankMenu.innerHTML = menuHTML;
 
   const speedUpButton: Element = document.querySelector(".speedUp-button")!;
   speedUpButton.addEventListener("click", () => {
@@ -132,38 +131,6 @@ function startRemoveMessageTimer(): void {
 function setToLocalStorage(tankId: string): void {
   localStorage.setItem(tankId, JSON.stringify(t1tank));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //* This is a new function that I created to test the localStorage functionality:
 // function new1(param: string) {

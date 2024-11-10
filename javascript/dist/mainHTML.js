@@ -1,9 +1,10 @@
-import { t1tank } from "./tankObjects.js";
+import { tankList, t1tank } from "./tankObjects.js";
 // import { tankMessage } from "./tankClass.js";
-const tankMenu = document.querySelector(".tank-menu");
 function renderHTML() {
-    tankMenu.innerHTML = `
-     
+    let menuHTML = '';
+    tankList.forEach((tank) => {
+        menuHTML +=
+            `
     <div class="functions-container">
       <div class="speedUp-button-container">
         <button class="speedUp-button">Speed Up</button>
@@ -21,28 +22,28 @@ function renderHTML() {
 
     <div class="status-container">
       <div class="moving-status-container">
-        <p class="moving-status">Moving <br/>status: ${t1tank.movingStatus}</p>
+        <p class="moving-status">Moving <br/>status: ${tank.movingStatus}</p>
       </div>
       <div class="storage-status-container">
         <p>
           Storage <br />
-          status: ${t1tank.isStorageOpen === true ? "Open" : "Closed"}
+          status: ${tank.isStorageOpen === true ? "Open" : "Closed"}
         </p>
       </div>
       <div class="speed">
-        <p>Speed: ${t1tank.speed}</p>
+        <p>Speed: ${tank.speed}</p>
       </div>
     </div>
 
     <div class="features-container">
       <div class="drill-container">
-        <img class="item-feature" src="../../images/${t1tank.drill}-drill.PNG">
+        <img class="item-feature" src="../../images/${tank.drill}-drill.PNG">
       </div>
       <div class="engine-container">
-        <img class="item-feature" src="../../images/${t1tank.engine}-engine.PNG">
+        <img class="item-feature" src="../../images/${tank.engine}-engine.PNG">
       </div>
       <div class="fuel-type-container">
-        <img class="item-feature" src="../../images/${t1tank.fuelType}-fuel.PNG">
+        <img class="item-feature" src="../../images/${tank.fuelType}-fuel.PNG">
       </div>
     </div>
         <div class="message-container">
@@ -51,8 +52,10 @@ function renderHTML() {
         <button>Remove message</button>
       </div>
     </div>
-      
-`;
+  `;
+    });
+    const tankMenu = document.querySelector(".tank-menu");
+    tankMenu.innerHTML = menuHTML;
     const speedUpButton = document.querySelector(".speedUp-button");
     speedUpButton.addEventListener("click", () => {
         t1tank.go();
