@@ -2,8 +2,8 @@
 export class Tank {
     constructor(tankDetails) {
         this.speed = 0;
+        //! probably i could set this to always be initialized as false But I will never risk it until later:
         this.isStorageOpen = false;
-        this.movingStatus = "stopped";
         this.tankMessage = "";
         this.drill = tankDetails.drill;
         this.engine = tankDetails.engine;
