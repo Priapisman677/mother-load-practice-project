@@ -50,7 +50,7 @@ function renderHTML() {
     const speedUpButton = document.querySelector(".speedUp-button");
     speedUpButton.addEventListener("click", () => {
         t1tank.go();
-        setToLocalStorage();
+        setToLocalStorage(t1tank.id);
         renderHTML();
         renderMessageSection();
         startRemoveMessageTimer();
@@ -58,7 +58,7 @@ function renderHTML() {
     const slowDownButton = document.querySelector(".slow-down-button");
     slowDownButton.addEventListener("click", () => {
         t1tank.break();
-        setToLocalStorage();
+        setToLocalStorage(t1tank.id);
         renderHTML();
         renderMessageSection();
         startRemoveMessageTimer();
@@ -66,7 +66,7 @@ function renderHTML() {
     const openStorageButton = document.querySelector(".open-storage-button");
     openStorageButton.addEventListener("click", () => {
         t1tank.openStorage();
-        setToLocalStorage();
+        setToLocalStorage(t1tank.id);
         renderHTML();
         renderMessageSection();
         startRemoveMessageTimer();
@@ -74,7 +74,7 @@ function renderHTML() {
     const closeStorageButton = document.querySelector(".close-storage-button");
     closeStorageButton.addEventListener("click", () => {
         t1tank.closeStorage();
-        setToLocalStorage();
+        setToLocalStorage(t1tank.id);
         renderHTML();
         renderMessageSection();
         startRemoveMessageTimer();
@@ -94,7 +94,7 @@ removeMessage.addEventListener("click", () => {
 renderMessageSection();
 let timeOutId1 = 0;
 function startRemoveMessageTimer() {
-    //!I need to be careful and think about where I am going to initialize the "timeOutId" And where I am going to run the "clearTimeOut".
+    //I need to be careful and think about where I am going to initialize the "timeOutId" And where I am going to run the "clearTimeOut".
     clearTimeout(timeOutId1);
     timeOutId1 = setTimeout(() => {
         console.log(" timer Test");
@@ -102,9 +102,12 @@ function startRemoveMessageTimer() {
         t1tank.tankMessage = "";
     }, 3300);
 }
-function setToLocalStorage() {
-    localStorage.setItem('t1tank', JSON.stringify(t1tank));
+function setToLocalStorage(tankId) {
+    console.log('-----Testing setToLocalStorage----');
+    console.log(tankId);
+    localStorage.setItem(tankId, JSON.stringify(t1tank));
 }
+//* This is a new function that I created to test the localStorage functionality:
 function new1(param) {
     const LOCSTOR = localStorage.getItem(param);
     console.log(LOCSTOR); // This will log the string retrieved from localStorage
@@ -117,4 +120,4 @@ function new1(param) {
         console.log("No data found for this key in localStorage.");
     }
 }
-new1('t1tank');
+new1('1');

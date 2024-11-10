@@ -60,7 +60,7 @@ function renderHTML() {
   const speedUpButton: Element = document.querySelector(".speedUp-button")!;
   speedUpButton.addEventListener("click", () => {
     t1tank.go();
-    setToLocalStorage()
+    setToLocalStorage(t1tank.id)
     renderHTML();
     renderMessageSection();
     startRemoveMessageTimer();
@@ -69,7 +69,7 @@ function renderHTML() {
   const slowDownButton: Element = document.querySelector(".slow-down-button")!;
   slowDownButton.addEventListener("click", () => {
     t1tank.break();
-    setToLocalStorage()
+    setToLocalStorage(t1tank.id)
     renderHTML();
     renderMessageSection();
     startRemoveMessageTimer();
@@ -80,7 +80,7 @@ function renderHTML() {
   )!;
   openStorageButton.addEventListener("click", () => {
     t1tank.openStorage();
-    setToLocalStorage()
+    setToLocalStorage(t1tank.id)
     renderHTML();
     renderMessageSection();
     startRemoveMessageTimer()
@@ -91,7 +91,7 @@ function renderHTML() {
   )!;
   closeStorageButton.addEventListener("click", () => {
     t1tank.closeStorage();
-    setToLocalStorage()
+    setToLocalStorage(t1tank.id)
     renderHTML();
     renderMessageSection();
     startRemoveMessageTimer()
@@ -126,8 +126,10 @@ function startRemoveMessageTimer(): void {
   }, 3300);
 }
 
-function setToLocalStorage() {
-  localStorage.setItem('t1tank', JSON.stringify(t1tank));
+function setToLocalStorage(tankId :string): void {
+  console.log('-----Testing setToLocalStorage----');
+  console.log(tankId)
+  localStorage.setItem(tankId, JSON.stringify(t1tank));
 }
 
 
@@ -150,4 +152,4 @@ function new1(param: string) {
     console.log("No data found for this key in localStorage.");
   }
 }
-new1('t1tank');
+new1('1');

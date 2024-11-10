@@ -5,7 +5,7 @@ interface TankDetails {
   speed: number;
   isStorageOpen: boolean;
   movingStatus: string;
-  id: number;
+  id: string;
 }
 
 ;
@@ -15,10 +15,11 @@ export class Tank {
   engine: string;
   fuelType: string;
   speed: number = 0;
-  isStorageOpen: boolean = false;
-  movingStatus: string = "stopped";
+  //! probably i could set this to always be initialized as false But I will never risk it until later:
+  isStorageOpen: boolean = false
+  movingStatus: string
   tankMessage: string = "";
-  id : number = 0
+  id : string;
 
   constructor(tankDetails: TankDetails) {
     this.drill = tankDetails.drill;

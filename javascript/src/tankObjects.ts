@@ -1,10 +1,35 @@
 import { Tank } from "./tankClass.js";
 
-const storedTank = localStorage.getItem('t1tank');
+const storedTank1 = localStorage.getItem('1');
+export const t1tank = storedTank1
+? new Tank(JSON.parse(storedTank1))
+: new Tank({ 
+  drill: "silver",
+  engine: "turboDynamo", 
+  fuelType: "gas", 
+  speed: 0, 
+  isStorageOpen: false, 
+  movingStatus: "stopped", 
+  id: '1'});
 
-export const t1tank = storedTank
-? new Tank(JSON.parse(storedTank))
-: new Tank({ drill: "silver", engine: "turboDynamo", fuelType: "gas", speed: 0, isStorageOpen: false, movingStatus: "stopped", id: 1});
+
+
+const storedTank2 = localStorage.getItem('2');
+export const t2tank = storedTank2
+? new Tank(JSON.parse(storedTank2))
+: new Tank ({ drill: "ruby", 
+  engine: "fusionCore", 
+  fuelType: "uranium", 
+  speed: 0, 
+  isStorageOpen: false, 
+  movingStatus: "stopped", id: '1'})
+
+
+// const tankList = [storedTank1, storedTank2]
+
+
+
+
 // t1tank.displayInfo();
 // console.log(t1tank)
 
