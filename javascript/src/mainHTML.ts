@@ -60,6 +60,7 @@ function renderHTML() {
   const speedUpButton: Element = document.querySelector(".speedUp-button")!;
   speedUpButton.addEventListener("click", () => {
     t1tank.go();
+    
     renderHTML();
     renderMessageSection();
     startRemoveMessageTimer();
@@ -70,6 +71,7 @@ function renderHTML() {
     t1tank.break();
     renderHTML();
     renderMessageSection();
+    startRemoveMessageTimer();
   });
 
   const openStorageButton: Element = document.querySelector(
@@ -79,6 +81,7 @@ function renderHTML() {
     t1tank.openStorage();
     renderHTML();
     renderMessageSection();
+    startRemoveMessageTimer()
   });
 
   const closeStorageButton: Element = document.querySelector(
@@ -88,13 +91,15 @@ function renderHTML() {
     t1tank.closeStorage();
     renderHTML();
     renderMessageSection();
+    startRemoveMessageTimer()
   });
 }
 renderHTML();
 
+let message: Element = document.querySelector(".message")!;
+
 function renderMessageSection(): void {
-  const messageContainer: Element = document.querySelector(".message")!;
-  messageContainer.innerHTML = t1tank.tankMessage;
+  message.innerHTML = t1tank.tankMessage;
 }
 
 //*Functionality of remove message button:
@@ -106,4 +111,15 @@ removeMessage.addEventListener("click", () => {
 
 renderMessageSection();
 
-//* Now I need to make the button be able to remove the message
+let timeOutId1: number = 0;
+function startRemoveMessageTimer(): void {
+  //!I need to be careful and think about where I am going to initialize the "timeOutId" And where I am going to run the "clearTimeOut".
+  clearTimeout(timeOutId1);
+
+  timeOutId1 = setTimeout(() => {
+    console.log(" timer Test");
+    message.innerHTML = "";
+    t1tank.tankMessage = "";
+  }, 3300);
+}
+

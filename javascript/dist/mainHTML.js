@@ -52,35 +52,50 @@ function renderHTML() {
         t1tank.go();
         renderHTML();
         renderMessageSection();
+        startRemoveMessageTimer();
     });
     const slowDownButton = document.querySelector(".slow-down-button");
     slowDownButton.addEventListener("click", () => {
         t1tank.break();
         renderHTML();
         renderMessageSection();
+        startRemoveMessageTimer();
     });
     const openStorageButton = document.querySelector(".open-storage-button");
     openStorageButton.addEventListener("click", () => {
         t1tank.openStorage();
         renderHTML();
         renderMessageSection();
+        startRemoveMessageTimer();
     });
     const closeStorageButton = document.querySelector(".close-storage-button");
     closeStorageButton.addEventListener("click", () => {
         t1tank.closeStorage();
         renderHTML();
         renderMessageSection();
+        startRemoveMessageTimer();
     });
 }
 renderHTML();
+let message = document.querySelector(".message");
 function renderMessageSection() {
-    const messageContainer = document.querySelector(".message");
-    messageContainer.innerHTML = t1tank.tankMessage;
+    message.innerHTML = t1tank.tankMessage;
 }
-let removeMessage = document.querySelector('.remove-message');
-removeMessage.addEventListener('click', () => {
-    t1tank.tankMessage = '';
+//*Functionality of remove message button:
+let removeMessage = document.querySelector(".remove-message");
+removeMessage.addEventListener("click", () => {
+    t1tank.tankMessage = "";
     renderMessageSection();
 });
 renderMessageSection();
+let timeOutId1 = 0;
+function startRemoveMessageTimer() {
+    //!I need to be careful and think about where I am going to initialize the "timeOutId" And where I am going to run the "clearTimeOut".
+    clearTimeout(timeOutId1);
+    timeOutId1 = setTimeout(() => {
+        console.log(" timer Test");
+        message.innerHTML = "";
+        t1tank.tankMessage = "";
+    }, 3300);
+}
 //* Now I need to make the button be able to remove the message

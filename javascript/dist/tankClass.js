@@ -4,7 +4,7 @@ export class Tank {
         this.speed = 0;
         this.isStorageOpen = false;
         this.movingStatus = "stopped";
-        this.tankMessage = "Message: Be able to move more and more speed capacity depending on the engine";
+        this.tankMessage = "";
         this.drill = tankDetails.drill;
         this.engine = tankDetails.engine;
         this.fuelType = tankDetails.fuelType;
@@ -18,12 +18,10 @@ export class Tank {
         }
         else {
             this.tankMessage = "You tried moving the tank but the storage is open!";
-            console.log(this.tankMessage);
         }
         if (this.speed > 200) {
             this.speed = 200;
             this.tankMessage = "The tank is already at its maximum speed";
-            console.log(this.tankMessage);
         }
         //console.log(`Speed: ${this.speed}`);
         this.updateMovingStatus();
@@ -33,13 +31,11 @@ export class Tank {
         if (this.speed < 0) {
             this.speed = 0;
             this.tankMessage = "The tank is already stopped, There is no purpose on using the break!";
-            console.log("🚀 ~ Tank ~ break ~ tankMessage:", this.tankMessage);
         }
         this.updateMovingStatus();
     }
     updateMovingStatus() {
         this.movingStatus = this.speed > 0 ? "moving" : "stopped";
-        console.log(this.movingStatus);
     }
     openStorage() {
         if (this.isStorageOpen === true) {
