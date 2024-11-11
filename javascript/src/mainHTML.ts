@@ -37,27 +37,27 @@ function renderHTML() {
         </p>
       </div>
       <div class="speed">
-        <p>Speed: ${tank.speed}</p>
+        <p>Speed: ${tank.speed as number}</p>
       </div>
     </div>
 
     <div class="features-container">
       <div class="drill-container">
-        <img class="item-feature" src="../../images/${tank.drill}-drill.PNG">
+        <img class="item-feature" src="../../images/${tank.drill as string}-drill.PNG">
       </div>
       <div class="engine-container">
-        <img class="item-feature" src="../../images/${tank.engine}-engine.PNG">
+        <img class="item-feature" src="../../images/${tank.engine as string}-engine.PNG">
       </div>
       <div class="fuel-type-container">
-        <img class="item-feature" src="../../images/${tank.fuelType}-fuel.PNG">
+        <img class="item-feature" src="../../images/${tank.fuelType as string}-fuel.PNG">
       </div>
     </div>
     
     <div class="message-container">
-      <div class="message js-message${tank.id}">${tank.tankMessage}</div>
+      <div class="message js-message${tank.id as string}">${tank.tankMessage as string}</div>
       <div class="remove-message-button-container">
         <button class="remove-message-button"
-        data-tank-id="${tank.id}"">Remove message</button>
+        data-tank-id="${tank.id as string}"">Remove message</button>
       </div>
     </div>
   `;
@@ -71,10 +71,10 @@ function renderHTML() {
     document.querySelectorAll(".speedUp-button");
   speedUpButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId!;
-      let matchingTank: Tank = findTankById(tankId)!;
+      const tankId: string = button.dataset.tankId as string;
+      let matchingTank: Tank = findTankById(tankId) as Tank;
       //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
-      matchingTank!.go();
+      matchingTank.go();
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
       issueMessage(matchingTank);
@@ -86,9 +86,8 @@ function renderHTML() {
     document.querySelectorAll(".slow-down-button");
   slowDownButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      //!Down here I used the keyword as instead of the question mark and I believe it is very important to understand why.
       const tankId: string = button.dataset.tankId as string;
-      let matchingTank: Tank = findTankById(tankId)!;
+      let matchingTank: Tank = findTankById(tankId) as Tank;
       //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
       matchingTank.break();
       setToLocalStorage(matchingTank.id, matchingTank);
@@ -103,8 +102,8 @@ function renderHTML() {
   );
   openStorageButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId!;
-      let matchingTank: Tank = findTankById(tankId)!;
+      const tankId: string = button.dataset.tankId as string;
+      let matchingTank: Tank = findTankById(tankId) as Tank;
       //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
       matchingTank.openStorage();
       setToLocalStorage(matchingTank.id, matchingTank);
@@ -119,8 +118,8 @@ function renderHTML() {
   //! I also could add the word void to all functions:
   closeStorageButtons.forEach((button): void => {
     button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId!;
-      let matchingTank: Tank = findTankById(tankId)!;
+      const tankId: string = button.dataset.tankId as string;
+      let matchingTank: Tank = findTankById(tankId) as Tank;
       matchingTank.closeStorage();
       renderHTML();
       issueMessage(matchingTank as Tank);
@@ -130,11 +129,11 @@ function renderHTML() {
   });
 
   //*Functionality of remove message button:
-  //! this just needs review for a better understanding:
-  document.querySelectorAll(".remove-message-button").forEach((button) => {
+  const removeMessageButtons : NodeListOf<HTMLElement> = document.querySelectorAll(".remove-message-button");
+  removeMessageButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const tankId: string = (button as HTMLElement).dataset.tankId!;
-      let matchingTank: Tank = findTankById(tankId)!;
+      const tankId: string = button.dataset.tankId as string;
+      let matchingTank: Tank = findTankById(tankId) as Tank;
       matchingTank.tankMessage = "";
       issueMessage(matchingTank);
     });
