@@ -51,7 +51,8 @@ function renderHTML() {
     </div>
     <div class="message-container">
       <div class="message js-message${tank.id}">${tank.tankMessage}</div>
-      <div class="remove-message">
+      <div class="remove-message"
+      data-tank-id="${tank.id}">
         <button>Remove message</button>
       </div>
     </div>
@@ -105,17 +106,19 @@ function renderHTML() {
     });
     function renderMessageSection(matchingTank) {
         let message = document.querySelector(`.js-message${matchingTank.id}`);
-        console.log(matchingTank.tankMessage);
         message.innerHTML = matchingTank.tankMessage;
         //!This will not work because the message is not being updated.To fix it I need to pass the matchingTank as a parameter to the renderMessageSection function.
     }
     // //*Functionality of remove message button:
-    // let removeMessage: Element = document.querySelector(".remove-message")!;
-    // removeMessage.addEventListener("click", () => {
-    //   t1tank.tankMessage = "";
-    //   renderMessageSection();
-    // });
-    // renderMessageSection();
+    document.querySelectorAll(".remove-message").forEach((button) => {
+        button.addEventListener("click", () => {
+            const tankId = button.dataset.tankId;
+            let matchingTank = findTankById(tankId);
+            matchingTank.tankMessage = "";
+            renderMessageSection(matchingTank);
+        });
+    });
+    //renderMessageSection();
 }
 renderHTML();
 let timeOutId1 = 0;

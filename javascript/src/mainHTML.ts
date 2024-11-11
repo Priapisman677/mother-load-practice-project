@@ -53,7 +53,8 @@ function renderHTML() {
     </div>
     <div class="message-container">
       <div class="message js-message${tank.id}">${tank.tankMessage}</div>
-      <div class="remove-message">
+      <div class="remove-message"
+      data-tank-id="${tank.id}">
         <button>Remove message</button>
       </div>
     </div>
@@ -82,7 +83,7 @@ function renderHTML() {
       const tankId: string = (button as HTMLElement).dataset.tankId!;
       let matchingTank: Tank = findTankById(tankId)!;
       matchingTank.break();
-      setToLocalStorage(matchingTank.id,  matchingTank);
+      setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
       renderMessageSection(matchingTank);
       startRemoveMessageTimer(matchingTank);
@@ -94,7 +95,7 @@ function renderHTML() {
       const tankId: string = (button as HTMLElement).dataset.tankId!;
       let matchingTank: Tank = findTankById(tankId)!;
       matchingTank.openStorage();
-      setToLocalStorage(matchingTank.id,  matchingTank);
+      setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
       renderMessageSection(matchingTank);
       startRemoveMessageTimer(matchingTank);
@@ -106,32 +107,41 @@ function renderHTML() {
       const tankId: string = (button as HTMLElement).dataset.tankId!;
       let matchingTank: Tank = findTankById(tankId)!;
       matchingTank.closeStorage();
-      setToLocalStorage(matchingTank.id,  matchingTank);
+      setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
       renderMessageSection(matchingTank);
       startRemoveMessageTimer(matchingTank);
     });
   });
 
- 
-
   function renderMessageSection(matchingTank: Tank): void {
-    let message: Element = document.querySelector(`.js-message${matchingTank.id}`)!;
-    console.log(matchingTank.tankMessage);
+    let message: Element = document.querySelector(
+      `.js-message${matchingTank.id}`
+    )!;
     message.innerHTML = matchingTank.tankMessage;
     //!This will not work because the message is not being updated.To fix it I need to pass the matchingTank as a parameter to the renderMessageSection function.
   }
 
   // //*Functionality of remove message button:
-  // let removeMessage: Element = document.querySelector(".remove-message")!;
-  // removeMessage.addEventListener("click", () => {
-  //   t1tank.tankMessage = "";
-  //   renderMessageSection();
-  // });
+  document.querySelectorAll(".remove-message").forEach((button)=>{
+    button.addEventListener("click", () => {
+      const tankId: string = (button as HTMLElement).dataset.tankId!;
+      let matchingTank: Tank = findTankById(tankId)!;
+          matchingTank.tankMessage = "";
+          renderMessageSection(matchingTank);
+    })
+  
+  });
 
-  // renderMessageSection();
+  //renderMessageSection();
 }
 renderHTML();
+
+
+
+
+
+
 
 let timeOutId1: number = 0;
 function startRemoveMessageTimer(matchingTank: Tank): void {
@@ -139,15 +149,28 @@ function startRemoveMessageTimer(matchingTank: Tank): void {
   clearTimeout(timeOutId1);
   timeOutId1 = setTimeout(() => {
     console.log(" timer Test");
-    let message: Element = document.querySelector(`.js-message${matchingTank.id}`)!;
+    let message: Element = document.querySelector(
+      `.js-message${matchingTank.id}`
+    )!;
     message.innerHTML = "";
     matchingTank.tankMessage = "";
   }, 3300);
 }
 
-function setToLocalStorage(tankId: string, matchingTank : Tank): void {
+function setToLocalStorage(tankId: string, matchingTank: Tank): void {
   localStorage.setItem(tankId, JSON.stringify(matchingTank));
 }
+
+
+
+
+
+
+
+
+
+
+
 
 //* This is a new function that I created to test the localStorage functionality:
 // function new1(param: string) {
