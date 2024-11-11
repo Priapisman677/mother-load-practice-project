@@ -1,4 +1,5 @@
-import { tankList, t1tank } from "./tankObjects.js";
+import { tankList, findTankById } from "./tankObjects.js";
+import { Tank } from "./tankClass.js";
 // import { tankMessage } from "./tankClass.js";
 
 function renderHTML() {
@@ -7,16 +8,20 @@ function renderHTML() {
     menuHTML += `
     <div class="functions-container">
       <div class="speedUp-button-container">
-        <button class="speedUp-button">Speed Up</button>
+        <button class="speedUp-button"
+        data-tank-id="${tank.id}">Speed Up</button>
       </div>
       <div class="slowDown-button-container">
-        <button class="slow-down-button">Slow down</button>
+        <button class="slow-down-button"
+        data-tank-id="${tank.id}">Slow down</button>
       </div>
       <div class="open-storage-button-container">
-        <button class="open-storage-button">Open storage</button>
+        <button class="open-storage-button"
+        data-tank-id="${tank.id}">Open storage</button>
       </div>
       <div class="close-storage-button-container">
-        <button class="close-storage-button">Close storage</button>
+        <button class="close-storage-button"
+        data-tank-id="${tank.id}">Close storage</button>
       </div>
     </div>
 
@@ -47,7 +52,7 @@ function renderHTML() {
       </div>
     </div>
     <div class="message-container">
-      <div class="message"></div>
+      <div class="message js-message${tank.id}">${tank.tankMessage}</div>
       <div class="remove-message">
         <button>Remove message</button>
       </div>
@@ -58,78 +63,90 @@ function renderHTML() {
   const tankMenu: Element = document.querySelector(".tank-menu")!;
   tankMenu.innerHTML = menuHTML;
 
-  const speedUpButton: Element = document.querySelector(".speedUp-button")!;
-  speedUpButton.addEventListener("click", () => {
-    t1tank.go();
-    setToLocalStorage(t1tank.id);
-    renderHTML();
-    renderMessageSection();
-    startRemoveMessageTimer();
+  document.querySelectorAll(".speedUp-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId: string = (button as HTMLElement).dataset.tankId!;
+
+      let matchingTank: Tank = findTankById(tankId)!;
+
+      matchingTank!.go();
+      setToLocalStorage(matchingTank.id, matchingTank);
+      renderHTML();
+      renderMessageSection(matchingTank);
+      startRemoveMessageTimer(matchingTank);
+    });
   });
 
-  const slowDownButton: Element = document.querySelector(".slow-down-button")!;
-  slowDownButton.addEventListener("click", () => {
-    t1tank.break();
-    setToLocalStorage(t1tank.id);
-    renderHTML();
-    renderMessageSection();
-    startRemoveMessageTimer();
+  document.querySelectorAll(".slow-down-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId: string = (button as HTMLElement).dataset.tankId!;
+      let matchingTank: Tank = findTankById(tankId)!;
+      matchingTank.break();
+      setToLocalStorage(matchingTank.id,  matchingTank);
+      renderHTML();
+      renderMessageSection(matchingTank);
+      startRemoveMessageTimer(matchingTank);
+    });
   });
 
-  const openStorageButton: Element = document.querySelector(
-    ".open-storage-button"
-  )!;
-  openStorageButton.addEventListener("click", () => {
-    t1tank.openStorage();
-    setToLocalStorage(t1tank.id);
-    renderHTML();
-    renderMessageSection();
-    startRemoveMessageTimer();
+  document.querySelectorAll(".open-storage-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId: string = (button as HTMLElement).dataset.tankId!;
+      let matchingTank: Tank = findTankById(tankId)!;
+      matchingTank.openStorage();
+      setToLocalStorage(matchingTank.id,  matchingTank);
+      renderHTML();
+      renderMessageSection(matchingTank);
+      startRemoveMessageTimer(matchingTank);
+    });
   });
 
-  const closeStorageButton: Element = document.querySelector(
-    ".close-storage-button"
-  )!;
-  closeStorageButton.addEventListener("click", () => {
-    t1tank.closeStorage();
-    setToLocalStorage(t1tank.id);
-    renderHTML();
-    renderMessageSection();
-    startRemoveMessageTimer();
+  document.querySelectorAll(".close-storage-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId: string = (button as HTMLElement).dataset.tankId!;
+      let matchingTank: Tank = findTankById(tankId)!;
+      matchingTank.closeStorage();
+      setToLocalStorage(matchingTank.id,  matchingTank);
+      renderHTML();
+      renderMessageSection(matchingTank);
+      startRemoveMessageTimer(matchingTank);
+    });
   });
 
-  let message: Element = document.querySelector(".message")!;
+ 
 
-  function renderMessageSection(): void {
-    message.innerHTML = t1tank.tankMessage;
+  function renderMessageSection(matchingTank: Tank): void {
+    let message: Element = document.querySelector(`.js-message${matchingTank.id}`)!;
+    console.log(matchingTank.tankMessage);
+    message.innerHTML = matchingTank.tankMessage;
+    //!This will not work because the message is not being updated.To fix it I need to pass the matchingTank as a parameter to the renderMessageSection function.
   }
 
-  //*Functionality of remove message button:
-  let removeMessage: Element = document.querySelector(".remove-message")!;
-  removeMessage.addEventListener("click", () => {
-    t1tank.tankMessage = "";
-    renderMessageSection();
-  });
+  // //*Functionality of remove message button:
+  // let removeMessage: Element = document.querySelector(".remove-message")!;
+  // removeMessage.addEventListener("click", () => {
+  //   t1tank.tankMessage = "";
+  //   renderMessageSection();
+  // });
 
-  renderMessageSection();
+  // renderMessageSection();
 }
 renderHTML();
 
 let timeOutId1: number = 0;
-function startRemoveMessageTimer(): void {
+function startRemoveMessageTimer(matchingTank: Tank): void {
   //I need to be careful and think about where I am going to initialize the "timeOutId" And where I am going to run the "clearTimeOut".
   clearTimeout(timeOutId1);
-
   timeOutId1 = setTimeout(() => {
     console.log(" timer Test");
-    let message: Element = document.querySelector(".message")!;
+    let message: Element = document.querySelector(`.js-message${matchingTank.id}`)!;
     message.innerHTML = "";
-    t1tank.tankMessage = "";
+    matchingTank.tankMessage = "";
   }, 3300);
 }
 
-function setToLocalStorage(tankId: string): void {
-  localStorage.setItem(tankId, JSON.stringify(t1tank));
+function setToLocalStorage(tankId: string, matchingTank : Tank): void {
+  localStorage.setItem(tankId, JSON.stringify(matchingTank));
 }
 
 //* This is a new function that I created to test the localStorage functionality:

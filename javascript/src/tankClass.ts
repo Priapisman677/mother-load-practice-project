@@ -73,6 +73,7 @@ export class Tank {
     } else {
       this.tankMessage = "You tried opening the storage while the tank is moving!";
     }
+ 
   }
 
   closeStorage(): void {

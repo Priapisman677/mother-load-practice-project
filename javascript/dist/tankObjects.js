@@ -37,8 +37,17 @@ export const t3tank = storedTank3
         id: "3",
     });
 export const tankList = [t1tank, t2tank, t3tank];
-console.log("🚀 ~ storedTank1:", typeof t1tank);
-console.log("🚀 ~ storedTank1:", typeof t2tank);
-console.log("🚀 ~ storedTank1:", typeof t3tank);
-// export const t3tank = new Tank({ drill: "amazonite", engine: "quantumDrive", fuelType: "antimater" });
-//   // t3tank.displayInfo();
+//I need to try replacing the current code for finding a tank by:
+// function findTankById(id: string): Tank {
+//   return tankList.find((tank) => tank.id === id)!;
+// }
+//$This line worked succesfully because it's a miracle :D
+export function findTankById(id) {
+    let matchingTank = null;
+    tankList.forEach((tank) => {
+        if (tank.id === id) {
+            matchingTank = tank;
+        }
+    });
+    return matchingTank;
+}
