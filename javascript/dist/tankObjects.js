@@ -1,7 +1,7 @@
 import { Tank } from "./tankClass.js";
-//*In the instance below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty.
+//*In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
 const storedTank1 = localStorage.getItem("1");
-export const t1tank = storedTank1
+const t1tank = storedTank1
     ? new Tank(JSON.parse(storedTank1))
     : new Tank({
         drill: "silver",
@@ -13,7 +13,7 @@ export const t1tank = storedTank1
         id: "1",
     });
 const storedTank2 = localStorage.getItem("2");
-export const t2tank = storedTank2
+const t2tank = storedTank2
     ? new Tank(JSON.parse(storedTank2))
     : new Tank({
         drill: "ruby",
@@ -25,7 +25,7 @@ export const t2tank = storedTank2
         id: "2",
     });
 const storedTank3 = localStorage.getItem("3");
-export const t3tank = storedTank3
+const t3tank = storedTank3
     ? new Tank(JSON.parse(storedTank3))
     : new Tank({
         drill: "amazonite",
@@ -37,17 +37,3 @@ export const t3tank = storedTank3
         id: "3",
     });
 export const tankList = [t1tank, t2tank, t3tank];
-//I need to try replacing the current code for finding a tank by:
-// function findTankById(id: string): Tank {
-//   return tankList.find((tank) => tank.id === id)!;
-// }
-//$This line worked succesfully because it's a miracle :D
-export function findTankById(id) {
-    let matchingTank = null;
-    tankList.forEach((tank) => {
-        if (tank.id === id) {
-            matchingTank = tank;
-        }
-    });
-    return matchingTank;
-}

@@ -6,6 +6,8 @@ interface TankDetails {
   isStorageOpen: boolean;
   movingStatus: string;
   id: string;
+
+  questionMarkIsUsedToIndicateUncertainty?: string;
 }
 
 ;
@@ -15,7 +17,6 @@ export class Tank {
   engine: string;
   fuelType: string;
   speed: number = 0;
-  //! probably i could set this to always be initialized as false But I will never risk it until later:
   isStorageOpen: boolean = false
   movingStatus: string
   tankMessage: string = "";
@@ -61,9 +62,6 @@ export class Tank {
     }
     this.updateMovingStatus();
   }
-  updateMovingStatus(): void {
-    this.movingStatus = this.speed > 0 ? "moving" : "stopped";
-  }
   openStorage(): void {
     if (this.isStorageOpen === true) {
       this.tankMessage = "storage is already open!";
@@ -83,5 +81,8 @@ export class Tank {
     if (this.speed === 0) {
       this.isStorageOpen = false;
     }
+  }
+  updateMovingStatus(): void {
+    this.movingStatus = this.speed > 0 ? "moving" : "stopped";
   }
 }

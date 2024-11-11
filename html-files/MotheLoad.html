@@ -16,55 +16,58 @@
     <!-- *Start of JavaScript ---------------------------------------------------------- -->
     <div class="tank-menu">
       <!-- 
-        <div class="functions-container">
-          <div class="speedUp-button-container">
-            <button class="speedUp-button">Speed Up</button>
-          </div>
-          <div class="slowDown-button-container">
-            <button class="slow-down-button">Slow down</button>
-          </div>
-          <div class="open-storage-button-container">
-            <button class="open-storage-button">Open storage</button>
-          </div>
-          <div class="close-storage-button-container">
-            <button class="close-storage-button">Close storage</button>
-          </div>
-        </div>
-  
-        <div class="status-container">
-          <div class="moving-status-container">
-            <p class="moving-status">Moving <br/>status: ${
-              t1tank.movingStatus
-            }</p>
-          </div>
-          <div class="storage-status-container">
-            <p>
-              Storage <br />
-              status: ${t1tank.isStorageOpen === true ? "Open" : "Closed"}
-            </p>
-          </div>
-          <div class="speed">
-            <p>Speed: ${t1tank.speed}</p>
-          </div>
-        </div>
-  
-        <div class="features-container">
-          <div class="drill-container">
-            <img class="item-feature" src="../../images/${
-              t1tank.drill
-            }-drill.PNG">
-          </div>
-          <div class="engine-container">
-            <img class="item-feature" src="../../images/${
-              t1tank.engine
-            }-engine.PNG">
-          </div>
-          <div class="fuel-type-container">
-            <img class="item-feature" src="../../images/${
-              t1tank.fuelType
-            }-fuel.PNG">
-          </div>
-        </div>
+           <div class="functions-container">
+      <div class="speedUp-button-container">
+        <button class="speedUp-button"
+        data-tank-id="${tank.id}">Speed Up</button>
+      </div>
+      <div class="slowDown-button-container">
+        <button class="slow-down-button"
+        data-tank-id="${tank.id}">Slow down</button>
+      </div>
+      <div class="open-storage-button-container">
+        <button class="open-storage-button"
+        data-tank-id="${tank.id}">Open storage</button>
+      </div>
+      <div class="close-storage-button-container">
+        <button class="close-storage-button"
+        data-tank-id="${tank.id}">Close storage</button>
+      </div>
+    </div>
+
+    <div class="status-container">
+      <div class="moving-status-container">
+        <p class="moving-status">Moving <br/>status: ${tank.movingStatus}</p>
+      </div>
+      <div class="storage-status-container">
+        <p>
+          Storage <br />
+          status: ${tank.isStorageOpen === true ? "Open" : "Closed"}
+        </p>
+      </div>
+      <div class="speed">
+        <p>Speed: ${tank.speed}</p>
+      </div>
+    </div>
+
+    <div class="features-container">
+      <div class="drill-container">
+        <img class="item-feature" src="../../images/${tank.drill}-drill.PNG">
+      </div>
+      <div class="engine-container">
+        <img class="item-feature" src="../../images/${tank.engine}-engine.PNG">
+      </div>
+      <div class="fuel-type-container">
+        <img class="item-feature" src="../../images/${tank.fuelType}-fuel.PNG">
+      </div>
+    </div>
+    <div class="message-container">
+      <div class="message js-message${tank.id}">${tank.tankMessage}</div>
+      <div class="remove-message-button-container">
+        <button class="remove-message-button"
+        data-tank-id="${tank.id}"">Remove message</button>
+      </div>
+    </div>
       -->
         
     </div>

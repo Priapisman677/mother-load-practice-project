@@ -1,5 +1,6 @@
-import { tankList, findTankById } from "./tankObjects.js";
-// import { tankMessage } from "./tankClass.js";
+import { tankList } from "./tankObjects.js";
+import { setToLocalStorage, findTankById, issueMessage, startRemoveMessageTimer } from "./utils.js";
+//$ Couldn't I just pass tanks as a parameter to the function below?
 function renderHTML() {
     let menuHTML = "";
     tankList.forEach((tank) => {
@@ -49,103 +50,84 @@ function renderHTML() {
         <img class="item-feature" src="../../images/${tank.fuelType}-fuel.PNG">
       </div>
     </div>
+    
     <div class="message-container">
       <div class="message js-message${tank.id}">${tank.tankMessage}</div>
-      <div class="remove-message"
-      data-tank-id="${tank.id}">
-        <button>Remove message</button>
+      <div class="remove-message-button-container">
+        <button class="remove-message-button"
+        data-tank-id="${tank.id}"">Remove message</button>
       </div>
     </div>
   `;
     });
     const tankMenu = document.querySelector(".tank-menu");
     tankMenu.innerHTML = menuHTML;
-    document.querySelectorAll(".speedUp-button").forEach((button) => {
+    //*Functionality of the "speed up" button
+    const speedUpButtons = document.querySelectorAll(".speedUp-button");
+    speedUpButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
             let matchingTank = findTankById(tankId);
+            //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
             matchingTank.go();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
-            renderMessageSection(matchingTank);
+            issueMessage(matchingTank);
             startRemoveMessageTimer(matchingTank);
         });
     });
-    document.querySelectorAll(".slow-down-button").forEach((button) => {
+    //*Functionality of the "slow down" button
+    const slowDownButtons = document.querySelectorAll(".slow-down-button");
+    slowDownButtons.forEach((button) => {
         button.addEventListener("click", () => {
+            //!Down here I used the keyword as instead of the question mark and I believe it is very important to understand why.
             const tankId = button.dataset.tankId;
             let matchingTank = findTankById(tankId);
+            //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
             matchingTank.break();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
-            renderMessageSection(matchingTank);
+            issueMessage(matchingTank);
             startRemoveMessageTimer(matchingTank);
         });
     });
-    document.querySelectorAll(".open-storage-button").forEach((button) => {
+    //*Functionality of the open storage button
+    const openStorageButtons = document.querySelectorAll(".open-storage-button");
+    openStorageButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
             let matchingTank = findTankById(tankId);
+            //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
             matchingTank.openStorage();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
-            renderMessageSection(matchingTank);
+            issueMessage(matchingTank);
             startRemoveMessageTimer(matchingTank);
         });
     });
-    document.querySelectorAll(".close-storage-button").forEach((button) => {
+    //*Functionality of the close storage button:
+    const closeStorageButtons = document.querySelectorAll(".close-storage-button");
+    //! I also could add the word void to all functions:
+    closeStorageButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
             let matchingTank = findTankById(tankId);
             matchingTank.closeStorage();
-            setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
-            renderMessageSection(matchingTank);
+            issueMessage(matchingTank);
+            setToLocalStorage(matchingTank.id, matchingTank);
             startRemoveMessageTimer(matchingTank);
         });
     });
-    function renderMessageSection(matchingTank) {
-        let message = document.querySelector(`.js-message${matchingTank.id}`);
-        message.innerHTML = matchingTank.tankMessage;
-        //!This will not work because the message is not being updated.To fix it I need to pass the matchingTank as a parameter to the renderMessageSection function.
-    }
-    // //*Functionality of remove message button:
-    document.querySelectorAll(".remove-message").forEach((button) => {
+    //*Functionality of remove message button:
+    //! this just needs review for a better understanding:
+    document.querySelectorAll(".remove-message-button").forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
             let matchingTank = findTankById(tankId);
             matchingTank.tankMessage = "";
-            renderMessageSection(matchingTank);
+            issueMessage(matchingTank);
         });
     });
-    //renderMessageSection();
 }
 renderHTML();
-let timeOutId1 = 0;
-function startRemoveMessageTimer(matchingTank) {
-    //I need to be careful and think about where I am going to initialize the "timeOutId" And where I am going to run the "clearTimeOut".
-    clearTimeout(timeOutId1);
-    timeOutId1 = setTimeout(() => {
-        console.log(" timer Test");
-        let message = document.querySelector(`.js-message${matchingTank.id}`);
-        message.innerHTML = "";
-        matchingTank.tankMessage = "";
-    }, 3300);
-}
-function setToLocalStorage(tankId, matchingTank) {
-    localStorage.setItem(tankId, JSON.stringify(matchingTank));
-}
-//* This is a new function that I created to test the localStorage functionality:
-// function new1(param: string) {
-//   const LOCSTOR = localStorage.getItem(param);
-//   console.log(LOCSTOR); // This will log the string retrieved from localStorage
-//   if (LOCSTOR) {
-//     // Check if there is data before parsing
-//     const parsedData = JSON.parse(LOCSTOR);
-//     console.log(parsedData); // Logs the parsed data, which should be an object
-//     console.log(typeof parsedData); // Logs "object"
-//   } else {
-//     console.log("No data found for this key in localStorage.");
-//   }
-// }
-// new1("1");
