@@ -1,4 +1,4 @@
-import { tankList } from "./tankObjects.js";
+import { tankList } from "./tankObjectList.js";
 import { Tank, Tier1Tank, Tier2Tank, Tier3Tank } from "./tankClass.js";
 //!Delete this: I just typed this because to rid of the error "not being used"
 // console.log("🚀 ~ Tier3Tank:", Tier3Tank)

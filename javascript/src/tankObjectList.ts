@@ -46,9 +46,6 @@ export const tankList: (Tank)[] = [
   t2tank,
   t3tank,
 ];
-console.log(t1tank)
-console.log(t2tank)
-console.log(t3tank)
 
 
 // console.log(t2tank.test())

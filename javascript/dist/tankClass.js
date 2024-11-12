@@ -65,43 +65,49 @@ export class Tank {
 export class Tier1Tank extends Tank {
     constructor() {
         super(...arguments);
-        this.test = 'test';
+        this.speedMultiplier = 1;
+        this.breakMultiplier = 1;
         this.speedLimit = 200;
     }
     go() {
-        super.go(1, this.speedLimit);
+        super.go(this.speedMultiplier, this.speedLimit);
+        console.log('engine test: ', this.engine);
     }
     break() {
-        super.break(1);
-        console.log('This is the break() function: This should only work for Tier 1 tank');
+        super.break(this.breakMultiplier);
+        // console.log('This is the break() function: This should only work for Tier 1 tank')
     }
 }
 //* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank {
     constructor() {
         super(...arguments);
-        this.test = 'test';
+        this.speedMultiplier = 2;
+        this.breakMultiplier = 2;
+        this.speedLimit = 300;
     }
     go() {
-        super.go(2, 300);
+        super.go(this.speedMultiplier, this.speedLimit);
     }
     break() {
-        super.break(2);
-        console.log('This is the break() function: This should only work for Tier 2 tank');
+        super.break(this.breakMultiplier);
+        // console.log('This is the break() function: This should only work for Tier 2 tank')
     }
 }
 //* Tier 2 tank class----------------------------------------
 export class Tier3Tank extends Tank {
     constructor() {
         super(...arguments);
-        this.test = 'test';
+        this.speedMultiplier = 3;
+        this.breakMultiplier = 3;
+        this.speedLimit = 400;
     }
     go() {
-        super.go(3, 400);
+        super.go(this.speedMultiplier, this.speedLimit);
     }
     break() {
-        super.break(3);
-        console.log('This is the break() function: This should only work for Tier 3 tank');
+        super.break(this.breakMultiplier);
+        // console.log('This is the break() function: This should only work for Tier 3 tank')
     }
 }
 // test1(){
