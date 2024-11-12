@@ -40,7 +40,7 @@ export class Tank {
       }`, `movingStatus: ${this.movingStatus}`,  `fuelType: ${this.fuelType}`
     );
   }
-  go(): void {
+   go(): void {
     if (this.isStorageOpen === false) {
       this.speed += 5;
     } else {
@@ -88,16 +88,43 @@ export class Tank {
 }
 
 
+//* Tier 1 tank class----------------------------------------
+export class Tier1Tank extends Tank{
+  test:string='test'
+  test1(){
+    // super.go()
+    console.log('This is the test() function: This should only work for Tier 1 tank')
+    // return '1.-This function does not exist on the parent class (1)'
+  }
+  go(): void{
+    super.go()
+    // console.log('Tier2Tank go')
+  }
+}
+//* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank{
-  test1:string='test'
-  test(){
-    return '1.-This function does not exist on the parent class (1)'
+  test:string='test'
+  test1(){
+    // super.go()
+    console.log('This is the test() function: This should only work for Tier 2 tank')
+    // return '2.-This function does not exist on the parent class (2)' 
+  }
+  go(): void{
+    super.go()
+    // console.log('Tier2Tank go')
+  }
+}
+//* Tier 2 tank class----------------------------------------
+export class Tier3Tank extends Tank{
+  test:string='test'
+  test1(){
+    // super.go()
+    console.log('This is the test() function: This should only work for Tier 3 tank')
+    // return '3.-This function does not exist on the parent class (3)' 
+  }
+    go(): void{
+    super.go()
+    // console.log('Tier2Tank go')
   }
 }
 
-export class Tier3Tank extends Tank{
-  test2:string='test'
-  test3(){
-    return '2.-This function does not exist on the parent class (2)'
-  }
-}

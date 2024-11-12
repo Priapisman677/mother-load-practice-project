@@ -1,4 +1,7 @@
 import { tankList } from "./tankObjects.js";
+import { Tank, Tier1Tank, Tier2Tank, Tier3Tank } from "./tankClass.js";
+//!Delete this: I just typed this because to rid of the error "not being used"
+// console.log("🚀 ~ Tier3Tank:", Tier3Tank)
 import { setToLocalStorage, issueMessage, startRemoveMessageTimer, } from "./utils.js";
 //$ Couldn't I just pass tanks as a parameter to the function below?
 function renderHTML() {
@@ -70,7 +73,23 @@ function renderHTML() {
             const matchingTank = tankList.find((tank) => {
                 return tank.id === tankId;
             });
-            matchingTank.go();
+            if (matchingTank instanceof Tank) {
+                console.log("All tanks should print this");
+            }
+            if (matchingTank instanceof Tier1Tank) {
+                matchingTank.test1();
+                matchingTank.go();
+                console.log('Test');
+            }
+            if (matchingTank instanceof Tier2Tank) {
+                matchingTank.test1();
+                matchingTank.go();
+            }
+            if (matchingTank instanceof Tier3Tank) {
+                matchingTank.test1();
+                matchingTank.go();
+            }
+            //! Nov 12: Now I just realised that it is not working and it is actually throwing a type error. Now I understand that instance of is actually necessary and I know why The thing is that if matching tank was to be a tier 3 and I didn't have an if statement the code would fuck up when calling "(matchingTank as Tier2Tank).test()".
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
             issueMessage(matchingTank);

@@ -1,13 +1,10 @@
-import { Tank, Tier2Tank, Tier3Tank } from "./tankClass.js";
-
-
-
+import { Tank, Tier1Tank, Tier2Tank, Tier3Tank } from "./tankClass.js";
 
 //*In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
 const storedTank1: string | null = localStorage.getItem("1");
-const t1tank: Tank = storedTank1
-  ? new Tank(JSON.parse(storedTank1))
-  : new Tank({
+const t1tank: Tier1Tank = storedTank1
+  ? new Tier1Tank(JSON.parse(storedTank1))
+  : new Tier1Tank({
       drill: "silver",
       engine: "turboDynamo",
       fuelType: "gas",
@@ -43,13 +40,21 @@ const t3tank: Tier3Tank = storedTank3
       id: "3",
     });
 
-export const tankList: (Tank | Tier2Tank | Tier3Tank)[] =
- [t1tank as Tank, t2tank as Tier2Tank, t3tank as Tier3Tank];
+export const tankList: (Tank)[] = [
+  //This below is not even necessary to assert.
+  t1tank as Tier1Tank,
+  t2tank,
+  t3tank,
+];
+console.log(t1tank)
+console.log(t2tank)
+console.log(t3tank)
 
 
 // console.log(t2tank.test())
 
 // console.log(tankList[1] as Tier2Tank)
 
-// console.log((tankList[1]as Tier2Tank).test())
-// console.log((tankList[2]as Tier3Tank).test3())
+// console.log((t2tank).test());
+// // console.log((tankList[2]as Tier3Tank).test3())
+// console.log(t2tank)

@@ -61,21 +61,51 @@ export class Tank {
         this.movingStatus = this.speed > 0 ? "moving" : "stopped";
     }
 }
+//* Tier 1 tank class----------------------------------------
+export class Tier1Tank extends Tank {
+    constructor() {
+        super(...arguments);
+        this.test = 'test';
+    }
+    test1() {
+        // super.go()
+        console.log('This is the test() function: This should only work for Tier 1 tank');
+        // return '1.-This function does not exist on the parent class (1)'
+    }
+    go() {
+        super.go();
+        // console.log('Tier2Tank go')
+    }
+}
+//* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank {
     constructor() {
         super(...arguments);
-        this.test1 = 'test';
+        this.test = 'test';
     }
-    test() {
-        return '1.-This function does not exist on the parent class (1)';
+    test1() {
+        // super.go()
+        console.log('This is the test() function: This should only work for Tier 2 tank');
+        // return '2.-This function does not exist on the parent class (2)' 
+    }
+    go() {
+        super.go();
+        // console.log('Tier2Tank go')
     }
 }
+//* Tier 2 tank class----------------------------------------
 export class Tier3Tank extends Tank {
     constructor() {
         super(...arguments);
-        this.test2 = 'test';
+        this.test = 'test';
     }
-    test3() {
-        return '2.-This function does not exist on the parent class (2)';
+    test1() {
+        // super.go()
+        console.log('This is the test() function: This should only work for Tier 3 tank');
+        // return '3.-This function does not exist on the parent class (3)' 
+    }
+    go() {
+        super.go();
+        // console.log('Tier2Tank go')
     }
 }
