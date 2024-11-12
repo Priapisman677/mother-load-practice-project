@@ -1,5 +1,5 @@
 import { tankList } from "./tankObjects.js";
-import { setToLocalStorage, findTankById, issueMessage, startRemoveMessageTimer } from "./utils.js";
+import { setToLocalStorage, issueMessage, startRemoveMessageTimer } from "./utils.js";
 //$ Couldn't I just pass tanks as a parameter to the function below?
 function renderHTML() {
     let menuHTML = "";
@@ -67,8 +67,7 @@ function renderHTML() {
     speedUpButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            let matchingTank = findTankById(tankId);
-            //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
+            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
             matchingTank.go();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
@@ -80,10 +79,8 @@ function renderHTML() {
     const slowDownButtons = document.querySelectorAll(".slow-down-button");
     slowDownButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            //!Down here I used the keyword as instead of the question mark and I believe it is very important to understand why.
             const tankId = button.dataset.tankId;
-            let matchingTank = findTankById(tankId);
-            //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
+            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
             matchingTank.break();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
@@ -96,8 +93,7 @@ function renderHTML() {
     openStorageButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            let matchingTank = findTankById(tankId);
-            //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
+            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
             matchingTank.openStorage();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
@@ -111,7 +107,7 @@ function renderHTML() {
     closeStorageButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            let matchingTank = findTankById(tankId);
+            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
             matchingTank.closeStorage();
             renderHTML();
             issueMessage(matchingTank);
@@ -120,11 +116,11 @@ function renderHTML() {
         });
     });
     //*Functionality of remove message button:
-    //! this just needs review for a better understanding:
-    document.querySelectorAll(".remove-message-button").forEach((button) => {
+    const removeMessageButtons = document.querySelectorAll(".remove-message-button");
+    removeMessageButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            let matchingTank = findTankById(tankId);
+            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
             matchingTank.tankMessage = "";
             issueMessage(matchingTank);
         });

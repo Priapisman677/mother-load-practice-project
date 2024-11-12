@@ -1,26 +1,11 @@
 import { Tank } from "./tankClass.js";
-import { tankList } from "./tankObjects.js";
 
 //*Function to set to local storage:
 export function setToLocalStorage(tankId: string, matchingTank: Tank): void {
   localStorage.setItem(tankId, JSON.stringify(matchingTank));
 }
 
-//*function to find the tank object based on an ID:
-//$This line worked succesfully because of a miracle :D
-//$I need to try replacing the current code for finding a tank by:
-//$ function findTankById(id: string): Tank {
-//$   return tankList.find((tank) => tank.id === id)!;
 
-export function findTankById(id: string): Tank | null {
-  let matchingTank: Tank | null = null;
-  tankList.forEach((tank) => {
-    if (tank.id === id) {
-      matchingTank = tank;
-    }
-  });
-  return matchingTank;
-}
 
 //*Function to issue a message to the correct tank:
 //! this just needs review for a better understanding:
@@ -44,3 +29,14 @@ export function startRemoveMessageTimer(matchingTank: Tank): void {
     matchingTank.tankMessage = "";
   }, 3300);
 }
+
+//$ The function below was deprecated because I added ".find()" instead
+// export function findTankById(id: string): Tank | null {
+//   let matchingTank: Tank | null = null;
+//   tankList.forEach((tank) => {
+//     if (tank.id === id) {
+//       matchingTank = tank;
+//     }
+//   });
+//   return matchingTank;
+// }

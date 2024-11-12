@@ -1,6 +1,6 @@
 import { tankList } from "./tankObjects.js";
 import { Tank } from "./tankClass.js";
-import { setToLocalStorage, findTankById, issueMessage, startRemoveMessageTimer } from "./utils.js";
+import { setToLocalStorage, issueMessage, startRemoveMessageTimer } from "./utils.js";
 
 //$ Couldn't I just pass tanks as a parameter to the function below?
 function renderHTML() {
@@ -72,8 +72,7 @@ function renderHTML() {
   speedUpButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      let matchingTank: Tank = findTankById(tankId) as Tank;
-      //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
+      const matchingTank: Tank = tankList.find((tank: Tank):boolean => {return tank.id as string === tankId as string}) as Tank;
       matchingTank.go();
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
@@ -87,8 +86,7 @@ function renderHTML() {
   slowDownButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      let matchingTank: Tank = findTankById(tankId) as Tank;
-      //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
+      const matchingTank: Tank = tankList.find((tank: Tank):boolean => {return tank.id as string === tankId as string}) as Tank
       matchingTank.break();
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
@@ -103,8 +101,7 @@ function renderHTML() {
   openStorageButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      let matchingTank: Tank = findTankById(tankId) as Tank;
-      //$ I need to find "How the hell does .find() work?" to replace "findTankById" with it.
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean=>{return tank.id as string === tankId as string}) as Tank;
       matchingTank.openStorage();
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
@@ -119,7 +116,7 @@ function renderHTML() {
   closeStorageButtons.forEach((button): void => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      let matchingTank: Tank = findTankById(tankId) as Tank;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean=>{return tank.id as string === tankId as string}) as Tank;
       matchingTank.closeStorage();
       renderHTML();
       issueMessage(matchingTank as Tank);
@@ -133,7 +130,7 @@ function renderHTML() {
   removeMessageButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      let matchingTank: Tank = findTankById(tankId) as Tank;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean=>{return tank.id as string === tankId as string}) as Tank;
       matchingTank.tankMessage = "";
       issueMessage(matchingTank);
     });
