@@ -1,6 +1,10 @@
 import { tankList } from "./tankObjects.js";
 import { Tank } from "./tankClass.js";
-import { setToLocalStorage, issueMessage, startRemoveMessageTimer } from "./utils.js";
+import {
+  setToLocalStorage,
+  issueMessage,
+  startRemoveMessageTimer,
+} from "./utils.js";
 
 //$ Couldn't I just pass tanks as a parameter to the function below?
 function renderHTML() {
@@ -28,12 +32,16 @@ function renderHTML() {
 
     <div class="status-container">
       <div class="moving-status-container">
-        <p class="moving-status">Moving <br/>status: ${tank.movingStatus as string}</p>
+        <p class="moving-status">Moving <br/>status: ${
+          tank.movingStatus as string
+        }</p>
       </div>
       <div class="storage-status-container">
         <p>
           Storage <br />
-          status: ${tank.isStorageOpen as boolean === true ? "Open" : "Closed"}
+          status: ${
+            (tank.isStorageOpen as boolean) === true ? "Open" : "Closed"
+          }
         </p>
       </div>
       <div class="speed">
@@ -43,18 +51,26 @@ function renderHTML() {
 
     <div class="features-container">
       <div class="drill-container">
-        <img class="item-feature" src="../../images/${tank.drill as string}-drill.PNG">
+        <img class="item-feature" src="../../images/${
+          tank.drill as string
+        }-drill.PNG">
       </div>
       <div class="engine-container">
-        <img class="item-feature" src="../../images/${tank.engine as string}-engine.PNG">
+        <img class="item-feature" src="../../images/${
+          tank.engine as string
+        }-engine.PNG">
       </div>
       <div class="fuel-type-container">
-        <img class="item-feature" src="../../images/${tank.fuelType as string}-fuel.PNG">
+        <img class="item-feature" src="../../images/${
+          tank.fuelType as string
+        }-fuel.PNG">
       </div>
     </div>
     
     <div class="message-container">
-      <div class="message js-message${tank.id as string}">${tank.tankMessage as string}</div>
+      <div class="message js-message${tank.id as string}">${
+      tank.tankMessage as string
+    }</div>
       <div class="remove-message-button-container">
         <button class="remove-message-button"
         data-tank-id="${tank.id as string}"">Remove message</button>
@@ -72,7 +88,9 @@ function renderHTML() {
   speedUpButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank):boolean => {return tank.id as string === tankId as string}) as Tank;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
+        return (tank.id as string) === (tankId as string);
+      }) as Tank;
       matchingTank.go();
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
@@ -86,7 +104,9 @@ function renderHTML() {
   slowDownButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank):boolean => {return tank.id as string === tankId as string}) as Tank
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
+        return (tank.id as string) === (tankId as string);
+      }) as Tank;
       matchingTank.break();
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
@@ -101,7 +121,9 @@ function renderHTML() {
   openStorageButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean=>{return tank.id as string === tankId as string}) as Tank;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
+        return (tank.id as string) === (tankId as string);
+      }) as Tank;
       matchingTank.openStorage();
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
@@ -116,7 +138,9 @@ function renderHTML() {
   closeStorageButtons.forEach((button): void => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean=>{return tank.id as string === tankId as string}) as Tank;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
+        return (tank.id as string) === (tankId as string);
+      }) as Tank;
       matchingTank.closeStorage();
       renderHTML();
       issueMessage(matchingTank as Tank);
@@ -126,17 +150,17 @@ function renderHTML() {
   });
 
   //*Functionality of remove message button:
-  const removeMessageButtons : NodeListOf<HTMLElement> = document.querySelectorAll(".remove-message-button");
+  const removeMessageButtons: NodeListOf<HTMLElement> =
+    document.querySelectorAll(".remove-message-button");
   removeMessageButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean=>{return tank.id as string === tankId as string}) as Tank;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
+        return (tank.id as string) === (tankId as string);
+      }) as Tank;
       matchingTank.tankMessage = "";
       issueMessage(matchingTank);
     });
   });
 }
 renderHTML();
-
-
-
