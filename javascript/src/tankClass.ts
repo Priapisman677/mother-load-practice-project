@@ -40,22 +40,22 @@ export class Tank {
       }`, `movingStatus: ${this.movingStatus}`,  `fuelType: ${this.fuelType}`
     );
   }
-   go(): void {
+   go(speedMultiplier: number, speedLimit: number): void {
     if (this.isStorageOpen === false) {
-      this.speed += 5;
+      this.speed += (5 * speedMultiplier);
     } else {
       this.tankMessage = "You tried moving the tank but the storage is open!";
     }
-    if (this.speed > 200) {
-      this.speed = 200;
+    if (this.speed > speedLimit) {
+      this.speed = speedLimit;
       this.tankMessage = "The tank is already at its maximum speed";
     }
     //console.log(`Speed: ${this.speed}`);
     this.updateMovingStatus();
   }
 
-  break(): void {
-    this.speed -= 5;
+  break(breakMultiplier: number): void {
+    this.speed -= (5 * breakMultiplier);
     if (this.speed < 0) {
       this.speed = 0;
       this.tankMessage = "The tank is already stopped, There is no purpose on using the break!"; 
@@ -91,40 +91,40 @@ export class Tank {
 //* Tier 1 tank class----------------------------------------
 export class Tier1Tank extends Tank{
   test:string='test'
-  test1(){
-    // super.go()
-    console.log('This is the test() function: This should only work for Tier 1 tank')
-    // return '1.-This function does not exist on the parent class (1)'
-  }
+  speedLimit: number = 200;
   go(): void{
-    super.go()
-    // console.log('Tier2Tank go')
+    super.go(1, this.speedLimit)
+  }
+  break(): void {
+    super.break(1)
+    console.log('This is the break() function: This should only work for Tier 1 tank')
   }
 }
 //* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank{
   test:string='test'
-  test1(){
-    // super.go()
-    console.log('This is the test() function: This should only work for Tier 2 tank')
-    // return '2.-This function does not exist on the parent class (2)' 
-  }
   go(): void{
-    super.go()
-    // console.log('Tier2Tank go')
+    super.go(2,300)
+  }
+  break(): void {
+    super.break(2)
+    console.log('This is the break() function: This should only work for Tier 2 tank')
   }
 }
 //* Tier 2 tank class----------------------------------------
 export class Tier3Tank extends Tank{
   test:string='test'
-  test1(){
-    // super.go()
-    console.log('This is the test() function: This should only work for Tier 3 tank')
-    // return '3.-This function does not exist on the parent class (3)' 
-  }
     go(): void{
-    super.go()
-    // console.log('Tier2Tank go')
+    super.go(3,400)
+  }  
+  break(): void {
+    super.break(3)
+    console.log('This is the break() function: This should only work for Tier 3 tank')
   }
 }
+
+
+  // test1(){
+  //   console.log('This is the test() function: This should only work for Tier 1 tank')
+  // }
 

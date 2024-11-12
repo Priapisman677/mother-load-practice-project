@@ -13,3 +13,8 @@
     startRemoveMessageTimer(matchingTank);
   });
 });
+
+
+break(): void {
+  super.break()
+}

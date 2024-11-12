@@ -4,7 +4,15 @@
 -Create 3 tank using inheritance and each tank with different functionality.
     For example one of them should have their speed limit capped at 300 and it should be able to increase its speed by 15 each time.
 
--Also be able to give other functionalities to the other two tanks that perform a function that is not available in the first tank.
+-I also should make the buttons state what is the increase of speed that they could have as well as things as the speed limit specified for each tank.
+
+-Also it should be interesting to get the speed limit based on the type of engine instead of just assigning it inside of the different classes.
+
+
+
+-Also be able to give other functionalities to the other two tanks that perform a function that is not available in tanks of other tiers.
+To work with inheritance I could start with something as simple as not being able to create a tech with a fan without it being of a sub-class.
+
  They can be something simple such as fly recharge fuel.
  But it will be better to start when something like "Shield type" That is just going to throw another image for the 2nd and 3rd tank.
  And act one thing to the third class such as a turbine type

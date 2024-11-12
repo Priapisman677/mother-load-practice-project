@@ -77,19 +77,18 @@ function renderHTML() {
                 console.log("All tanks should print this");
             }
             if (matchingTank instanceof Tier1Tank) {
-                matchingTank.test1();
+                // matchingTank.test1();
                 matchingTank.go();
                 console.log('Test');
             }
             if (matchingTank instanceof Tier2Tank) {
-                matchingTank.test1();
+                // matchingTank.test1();
                 matchingTank.go();
             }
             if (matchingTank instanceof Tier3Tank) {
-                matchingTank.test1();
+                // matchingTank.test1();
                 matchingTank.go();
             }
-            //! Nov 12: Now I just realised that it is not working and it is actually throwing a type error. Now I understand that instance of is actually necessary and I know why The thing is that if matching tank was to be a tier 3 and I didn't have an if statement the code would fuck up when calling "(matchingTank as Tier2Tank).test()".
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
             issueMessage(matchingTank);
@@ -104,7 +103,15 @@ function renderHTML() {
             const matchingTank = tankList.find((tank) => {
                 return tank.id === tankId;
             });
-            matchingTank.break();
+            if (matchingTank instanceof Tier1Tank) {
+                matchingTank.break();
+            }
+            if (matchingTank instanceof Tier2Tank) {
+                matchingTank.break();
+            }
+            if (matchingTank instanceof Tier3Tank) {
+                matchingTank.break();
+            }
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
             issueMessage(matchingTank);
