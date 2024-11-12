@@ -1,4 +1,4 @@
-import { Tank } from "./tankClass.js";
+import { Tank, Tier2Tank, Tier3Tank } from "./tankClass.js";
 //*In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
 const storedTank1 = localStorage.getItem("1");
 const t1tank = storedTank1
@@ -14,8 +14,8 @@ const t1tank = storedTank1
     });
 const storedTank2 = localStorage.getItem("2");
 const t2tank = storedTank2
-    ? new Tank(JSON.parse(storedTank2))
-    : new Tank({
+    ? new Tier2Tank(JSON.parse(storedTank2))
+    : new Tier2Tank({
         drill: "ruby",
         engine: "fusionCore",
         fuelType: "uranium",
@@ -26,8 +26,8 @@ const t2tank = storedTank2
     });
 const storedTank3 = localStorage.getItem("3");
 const t3tank = storedTank3
-    ? new Tank(JSON.parse(storedTank3))
-    : new Tank({
+    ? new Tier3Tank(JSON.parse(storedTank3))
+    : new Tier3Tank({
         drill: "amazonite",
         engine: "quantumDrive",
         fuelType: "antimater",
@@ -37,3 +37,7 @@ const t3tank = storedTank3
         id: "3",
     });
 export const tankList = [t1tank, t2tank, t3tank];
+console.log(t2tank.test());
+console.log(tankList[1]);
+console.log(tankList[1].test());
+console.log(tankList[2].test3());

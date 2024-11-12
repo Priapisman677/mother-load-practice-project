@@ -3,7 +3,6 @@ export function setToLocalStorage(tankId, matchingTank) {
     localStorage.setItem(tankId, JSON.stringify(matchingTank));
 }
 //*Function to issue a message to the correct tank:
-//! this just needs review for a better understanding:
 export function issueMessage(matchingTank) {
     let message = document.querySelector(`.js-message${matchingTank.id}`);
     message.innerHTML = matchingTank.tankMessage;

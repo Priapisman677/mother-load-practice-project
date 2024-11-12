@@ -1,5 +1,5 @@
 import { tankList } from "./tankObjects.js";
-import { setToLocalStorage, issueMessage, startRemoveMessageTimer } from "./utils.js";
+import { setToLocalStorage, issueMessage, startRemoveMessageTimer, } from "./utils.js";
 //$ Couldn't I just pass tanks as a parameter to the function below?
 function renderHTML() {
     let menuHTML = "";
@@ -67,7 +67,9 @@ function renderHTML() {
     speedUpButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
+            const matchingTank = tankList.find((tank) => {
+                return tank.id === tankId;
+            });
             matchingTank.go();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
@@ -80,7 +82,9 @@ function renderHTML() {
     slowDownButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
+            const matchingTank = tankList.find((tank) => {
+                return tank.id === tankId;
+            });
             matchingTank.break();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
@@ -93,7 +97,9 @@ function renderHTML() {
     openStorageButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
+            const matchingTank = tankList.find((tank) => {
+                return tank.id === tankId;
+            });
             matchingTank.openStorage();
             setToLocalStorage(matchingTank.id, matchingTank);
             renderHTML();
@@ -107,7 +113,9 @@ function renderHTML() {
     closeStorageButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
+            const matchingTank = tankList.find((tank) => {
+                return tank.id === tankId;
+            });
             matchingTank.closeStorage();
             renderHTML();
             issueMessage(matchingTank);
@@ -120,7 +128,9 @@ function renderHTML() {
     removeMessageButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const tankId = button.dataset.tankId;
-            const matchingTank = tankList.find((tank) => { return tank.id === tankId; });
+            const matchingTank = tankList.find((tank) => {
+                return tank.id === tankId;
+            });
             matchingTank.tankMessage = "";
             issueMessage(matchingTank);
         });

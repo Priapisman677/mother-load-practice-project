@@ -8,7 +8,6 @@ export function setToLocalStorage(tankId: string, matchingTank: Tank): void {
 
 
 //*Function to issue a message to the correct tank:
-//! this just needs review for a better understanding:
 export function issueMessage(matchingTank: Tank): void {
   let message: Element = document.querySelector(`.js-message${matchingTank.id}`)!;
   message.innerHTML = matchingTank.tankMessage;
@@ -29,6 +28,8 @@ export function startRemoveMessageTimer(matchingTank: Tank): void {
     matchingTank.tankMessage = "";
   }, 3300);
 }
+
+
 
 //$ The function below was deprecated because I added ".find()" instead
 // export function findTankById(id: string): Tank | null {

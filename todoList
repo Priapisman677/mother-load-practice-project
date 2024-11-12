@@ -1,0 +1,12 @@
+-Add message to reset the tank settings
+-Make the message disappear after a time. ( including the remove message button in 10 seconds).
+  If I click the remove message button it should also disappear along with the message
+-Create 3 tank using inheritance and each tank with different functionality.
+    For example one of them should have their speed limit capped at 300 and it should be able to increase its speed by 15 each time.
+
+-Also be able to give other functionalities to the other two tanks that perform a function that is not available in the first tank.
+ They can be something simple such as fly recharge fuel.
+ But it will be better to start when something like "Shield type" That is just going to throw another image for the 2nd and 3rd tank.
+ And act one thing to the third class such as a turbine type
+
+Another feature that I could add is to have a fuel tank that will be specific for each tank and each time the tank performs a function the fuel could be reduced.

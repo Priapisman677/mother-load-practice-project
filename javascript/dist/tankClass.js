@@ -1,4 +1,5 @@
 ;
+//!I need to change the name of this tank class:
 export class Tank {
     constructor(tankDetails) {
         this.speed = 0;
@@ -58,5 +59,23 @@ export class Tank {
     }
     updateMovingStatus() {
         this.movingStatus = this.speed > 0 ? "moving" : "stopped";
+    }
+}
+export class Tier2Tank extends Tank {
+    constructor() {
+        super(...arguments);
+        this.test1 = 'test';
+    }
+    test() {
+        return '1.-This function does not exist on the parent class (1)';
+    }
+}
+export class Tier3Tank extends Tank {
+    constructor() {
+        super(...arguments);
+        this.test2 = 'test';
+    }
+    test3() {
+        return '2.-This function does not exist on the parent class (2)';
     }
 }
