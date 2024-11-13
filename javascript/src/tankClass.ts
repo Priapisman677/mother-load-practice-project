@@ -1,6 +1,6 @@
-import { Engine, Drill, FuelType } from "./itemsList.js";
+import { Engine, Drill, FuelType, ReserveFuel } from "./itemsList.js";
 
-console.log(JSON.parse(localStorage.getItem("2") as string) as Tank);
+
 
 interface TankDetails {
   drill: Drill;
@@ -12,9 +12,11 @@ interface TankDetails {
   id: string;
 
   questionMarkIsUsedToIndicateUncertainty?: string;
+  reserveFuel?:ReserveFuel;
 }
 
 export class Tank {
+  
   drill: Drill;
   engine: Engine;
   fuelType: FuelType;
@@ -26,6 +28,7 @@ export class Tank {
   fuelCapacity: number;
 
   constructor(tankDetails: TankDetails) {
+    
     this.drill = tankDetails.drill;
     this.engine = tankDetails.engine;
     this.id = tankDetails.id;
@@ -41,7 +44,6 @@ export class Tank {
     this.speed = tankDetails.speed;
     this.isStorageOpen = tankDetails.isStorageOpen;
     this.movingStatus = tankDetails.movingStatus;
-    //$I didn't know you could put functions inside of the constructor, Chat GPT said " I’ve added a call to checkFuelCapacity in the constructor (to handle cases where a tank is created without fuel)"
   }
 
   displayInfo(): void {
@@ -151,30 +153,24 @@ export class Tier1Tank extends Tank {
 }
 //* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank {
-  // speedMultiplier: number = 2
-  // breakMultiplier: number = 2
-  // speedLimit: number = 300;
-  // go(): void{
-  //   super.go(this.speedMultiplier as number, this.speedLimit as number)
-  // }
-  // break(): void {
-  //   super.break(this.breakMultiplier)
-  //   // console.log('This is the break() function: This should only work for Tier 2 tank')
-  // }
+  reserveFuel:ReserveFuel;
+  constructor(tankDetails: TankDetails){
+    super(tankDetails)
+    this.reserveFuel = tankDetails.reserveFuel as ReserveFuel
+    console.log('reserveFuel: ', this.reserveFuel)
+  }
 }
 //* Tier 3 tank class----------------------------------------
 export class Tier3Tank extends Tank {
-  // speedMultiplier: number = 3
-  // breakMultiplier: number = 3
-  // speedLimit: number = 400;
-  // go(): void{
-  //   super.go(this.speedMultiplier as number, this.speedLimit as number)
-  // }
-  // break(): void {
-  //   super.break(this.breakMultiplier as number)
-  //   // console.log('This is the break() function: This should only work for Tier 3 tank')
-  // }
+  reserveFuel:ReserveFuel;
+  constructor(tankDetails: TankDetails){
+    super(tankDetails);
+    this.reserveFuel = tankDetails.reserveFuel as ReserveFuel
+    console.log('reserveFuel: ', this.reserveFuel)
+  }
 }
+
+
 
 // test1(){
 //   console.log('This is the test() function: This should only work for Tier 1 tank')

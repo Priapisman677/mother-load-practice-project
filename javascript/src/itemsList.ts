@@ -55,15 +55,31 @@ export interface FuelType {
 export const gasFuelType: FuelType = {
   name: "gas",
   fuelCapacity: 150,
-  //$The fuel capacity for this to reach maximum Speed 1 time should be 150
 };
 export const uraniumFuelType: FuelType = {
   name: "uranium",
   fuelCapacity: 300,
-  //$The fuel capacity for this to reach maximum Speed 2 times should be 300
 };
 export const antimaterFuelType: FuelType = {
   name: "antimater",
   fuelCapacity: 450,
-  //$The fuel capacity for this to reach maximum Speed 2 times should be 450
 };
+
+//*reserveFuelTankType (types)-----------------------------------------
+export interface ReserveFuel{
+  name: string;
+  fuelRestoration: number;
+  initialAndMaxCount: number;
+}
+
+export const uraniumReserveFuel: ReserveFuel = {
+  name: 'uranium',
+  fuelRestoration: 50,
+  initialAndMaxCount: 5
+}
+
+export const antimaterReserveFuel: ReserveFuel = {
+  name: 'antimater',
+  fuelRestoration: 100,
+  initialAndMaxCount: 10
+}

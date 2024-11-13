@@ -29,15 +29,22 @@ export const amazoniteDrill = {
 export const gasFuelType = {
     name: "gas",
     fuelCapacity: 150,
-    //$The fuel capacity for this to reach maximum Speed 1 time should be 150
 };
 export const uraniumFuelType = {
     name: "uranium",
     fuelCapacity: 300,
-    //$The fuel capacity for this to reach maximum Speed 2 times should be 300
 };
 export const antimaterFuelType = {
     name: "antimater",
     fuelCapacity: 450,
-    //$The fuel capacity for this to reach maximum Speed 2 times should be 450
+};
+export const uraniumReserveFuel = {
+    name: 'uranium',
+    fuelRestoration: 50,
+    initialAndMaxCount: 5
+};
+export const antimaterReserveFuel = {
+    name: 'antimater',
+    fuelRestoration: 100,
+    initialAndMaxCount: 10
 };

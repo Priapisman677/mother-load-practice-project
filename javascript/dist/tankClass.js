@@ -1,4 +1,3 @@
-console.log(JSON.parse(localStorage.getItem("2")));
 export class Tank {
     constructor(tankDetails) {
         this.speed = 0;
@@ -15,7 +14,6 @@ export class Tank {
         this.speed = tankDetails.speed;
         this.isStorageOpen = tankDetails.isStorageOpen;
         this.movingStatus = tankDetails.movingStatus;
-        //$I didn't know you could put functions inside of the constructor, Chat GPT said " I’ve added a call to checkFuelCapacity in the constructor (to handle cases where a tank is created without fuel)"
     }
     displayInfo() {
         console.log(`drill: ${this.drill.name}, engine: ${this.engine.name}, speed: ${this.speed}km/h, ${this.isStorageOpen === true ? "Storage is open" : "Storage is closed"}`, `movingStatus: ${this.movingStatus}`, `fuelType: ${this.fuelType}`);
@@ -103,9 +101,19 @@ export class Tier1Tank extends Tank {
 }
 //* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank {
+    constructor(tankDetails) {
+        super(tankDetails);
+        this.reserveFuel = tankDetails.reserveFuel;
+        console.log('reserveFuel: ', this.reserveFuel);
+    }
 }
 //* Tier 3 tank class----------------------------------------
 export class Tier3Tank extends Tank {
+    constructor(tankDetails) {
+        super(tankDetails);
+        this.reserveFuel = tankDetails.reserveFuel;
+        console.log('reserveFuel: ', this.reserveFuel);
+    }
 }
 // test1(){
 //   console.log('This is the test() function: This should only work for Tier 1 tank')

@@ -8,7 +8,9 @@ import {
   amazoniteDrill,
   gasFuelType,
   uraniumFuelType,
-  antimaterFuelType
+  antimaterFuelType,
+  uraniumReserveFuel,
+  antimaterReserveFuel
 } from "./itemsList.js";
 
 //*In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
@@ -36,6 +38,7 @@ const t2tank: Tier2Tank = storedTank2
       isStorageOpen: false,
       movingStatus: "stopped",
       id: "2",
+      reserveFuel: uraniumReserveFuel
     });
 
 const storedTank3: string = localStorage.getItem("3")!;
@@ -49,6 +52,7 @@ const t3tank: Tier3Tank = storedTank3
       isStorageOpen: false,
       movingStatus: "stopped",
       id: "3",
+      reserveFuel: antimaterReserveFuel,
     });
 
 export const tankList: Tank[] = [
@@ -57,6 +61,9 @@ export const tankList: Tank[] = [
   t2tank,
   t3tank,
 ];
+
+console.log(t2tank);
+console.log(t3tank);
 
 // console.log(t2tank.test())
 
