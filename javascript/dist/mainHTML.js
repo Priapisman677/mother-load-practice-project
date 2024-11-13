@@ -25,6 +25,10 @@ function renderHTML() {
         <button class="close-storage-button"
         data-tank-id="${tank.id}">Close storage</button>
       </div>
+      <div class="refill-fuel-button-conainer">
+        <button class="refill-fuel-button"
+        data-tank-id="${tank.id}">Refill fuel</button>
+      </div>
     </div>
 
     <div class="status-container">
@@ -40,7 +44,15 @@ function renderHTML() {
       <div class="speed">
         <p>Speed: ${tank.speed}</p>
       </div>
+
+       <div class="fuel-status-container">Current fuel:  <br /> ${tank.fuelCapacity}</div>
+
     </div>
+
+
+   
+
+
 
     <div class="features-container">
       <div class="drill-container">
@@ -58,7 +70,7 @@ function renderHTML() {
       <div class="message js-message${tank.id}">${tank.tankMessage}</div>
       <div class="remove-message-button-container">
         <button class="remove-message-button"
-        data-tank-id="${tank.id}"">Remove message</button>
+        data-tank-id="${tank.id}">Remove message</button>
       </div>
     </div>
   `;
@@ -79,7 +91,7 @@ function renderHTML() {
             if (matchingTank instanceof Tier1Tank) {
                 // matchingTank.test1();
                 matchingTank.go();
-                console.log('Test');
+                console.log("Test");
             }
             if (matchingTank instanceof Tier2Tank) {
                 // matchingTank.test1();
@@ -143,6 +155,21 @@ function renderHTML() {
                 return tank.id === tankId;
             });
             matchingTank.closeStorage();
+            renderHTML();
+            issueMessage(matchingTank);
+            setToLocalStorage(matchingTank.id, matchingTank);
+            startRemoveMessageTimer(matchingTank);
+        });
+    });
+    //*Functionality of the refill fuel button:
+    const refillFuelButtons = document.querySelectorAll(".refill-fuel-button");
+    refillFuelButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const tankId = button.dataset.tankId;
+            const matchingTank = tankList.find((tank) => {
+                return tank.id === tankId;
+            });
+            matchingTank.reFillFuel();
             renderHTML();
             issueMessage(matchingTank);
             setToLocalStorage(matchingTank.id, matchingTank);

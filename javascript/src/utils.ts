@@ -9,7 +9,7 @@ export function setToLocalStorage(tankId: string, matchingTank: Tank): void {
 
 //*Function to issue a message to the correct tank:
 export function issueMessage(matchingTank: Tank): void {
-  let message: Element = document.querySelector(`.js-message${matchingTank.id}`)!;
+  let message: Element = document.querySelector(`.js-message${matchingTank.id as string}`) as Element;
   message.innerHTML = matchingTank.tankMessage;
 }
 
@@ -25,6 +25,7 @@ export function startRemoveMessageTimer(matchingTank: Tank): void {
       `.js-message${matchingTank.id}`
     )!;
     message.innerHTML = "";
+    //! I could put this function below inside of issue message instead.
     matchingTank.tankMessage = "";
   }, 5000);
 }

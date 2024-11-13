@@ -32,6 +32,10 @@ function renderHTML() {
         <button class="close-storage-button"
         data-tank-id="${tank.id as string}">Close storage</button>
       </div>
+      <div class="refill-fuel-button-conainer">
+        <button class="refill-fuel-button"
+        data-tank-id="${tank.id}">Refill fuel</button>
+      </div>
     </div>
 
     <div class="status-container">
@@ -51,7 +55,17 @@ function renderHTML() {
       <div class="speed">
         <p>Speed: ${tank.speed as number}</p>
       </div>
+
+       <div class="fuel-status-container">Current fuel:  <br /> ${
+         tank.fuelCapacity
+       }</div>
+
     </div>
+
+
+   
+
+
 
     <div class="features-container">
       <div class="drill-container">
@@ -77,7 +91,7 @@ function renderHTML() {
     }</div>
       <div class="remove-message-button-container">
         <button class="remove-message-button"
-        data-tank-id="${tank.id as string}"">Remove message</button>
+        data-tank-id="${tank.id as string}">Remove message</button>
       </div>
     </div>
   `;
@@ -100,16 +114,16 @@ function renderHTML() {
       }
       if (matchingTank instanceof Tier1Tank) {
         // matchingTank.test1();
-        matchingTank.go()
-        console.log('Test')
+        matchingTank.go();
+        console.log("Test");
       }
       if (matchingTank instanceof Tier2Tank) {
         // matchingTank.test1();
-        matchingTank.go()
+        matchingTank.go();
       }
       if (matchingTank instanceof Tier3Tank) {
         // matchingTank.test1();
-        matchingTank.go()
+        matchingTank.go();
       }
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
@@ -128,16 +142,16 @@ function renderHTML() {
         return (tank.id as string) === (tankId as string);
       }) as Tank;
 
-      if(matchingTank instanceof Tier1Tank){
-        matchingTank.break()
+      if (matchingTank instanceof Tier1Tank) {
+        matchingTank.break();
       }
-      if(matchingTank instanceof Tier2Tank){
-        matchingTank.break()
+      if (matchingTank instanceof Tier2Tank) {
+        matchingTank.break();
       }
-      if(matchingTank instanceof Tier3Tank){
-        matchingTank.break()
+      if (matchingTank instanceof Tier3Tank) {
+        matchingTank.break();
       }
-      
+
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
       issueMessage(matchingTank);
@@ -178,6 +192,25 @@ function renderHTML() {
       issueMessage(matchingTank as Tank);
       setToLocalStorage(matchingTank.id as string, matchingTank as Tank);
       startRemoveMessageTimer(matchingTank as Tank);
+    });
+  });
+
+  //*Functionality of the refill fuel button:
+  const refillFuelButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
+    ".refill-fuel-button"
+  );
+  refillFuelButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId = button.dataset.tankId;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
+        return tank.id === tankId;
+      }) as Tank;
+      matchingTank.reFillFuel()
+      renderHTML()
+      issueMessage(matchingTank as Tank)
+      setToLocalStorage(matchingTank.id as string, matchingTank as Tank)
+      startRemoveMessageTimer(matchingTank as Tank)
+      
     });
   });
 

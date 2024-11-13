@@ -41,6 +41,7 @@ export class Tank {
     this.speed = tankDetails.speed;
     this.isStorageOpen = tankDetails.isStorageOpen;
     this.movingStatus = tankDetails.movingStatus;
+    //$I didn't know you could put functions inside of the constructor, Chat GPT said " I’ve added a call to checkFuelCapacity in the constructor (to handle cases where a tank is created without fuel)"
   }
 
   displayInfo(): void {
@@ -56,8 +57,12 @@ export class Tank {
   }
   go(): void {
     if (this.isStorageOpen === false && this.fuelCapacity > 0) {
+      if(this.speed < this.engine.speedLimit){
+        this.fuelCapacity -= 10;
+      }
       this.speed += 5 * this.engine.speedMultiplier;
-      this.fuelCapacity -= 10;
+      
+      
     } else if (this.isStorageOpen === true && this.fuelCapacity <= 0) {
       this.tankMessage =
         "You tried moving the tank but the storage is open and there is no fuel!";
@@ -71,12 +76,8 @@ export class Tank {
       this.speed = this.engine.speedLimit;
       this.tankMessage = "The tank is already at its maximum speed";
     }
+    this.checkFuelCapacity();
     this.updateMovingStatus();
-
-    //$ (this.fuelType.fuelCapacity) -= 1; This line was modifying the original object.
-
-    console.log("Current capacity of this current tank:", this.fuelCapacity);
- 
   }
 
   break(): void {
@@ -103,13 +104,34 @@ export class Tank {
   closeStorage(): void {
     if (this.isStorageOpen === false) {
       this.tankMessage = "Storage is already closed!";
-    }
-    if (this.speed === 0) {
+    } else {
       this.isStorageOpen = false;
+      // this.reFillFuel();
+      // console.log("Test");
     }
   }
+  reFillFuel() {
+    if(this.fuelCapacity === this.fuelType.fuelCapacity){
+      this.tankMessage = 'The fuel is already at its maximum!'
+  }
+    else if (this.speed === 0) {
+      this.fuelCapacity = this.fuelType.fuelCapacity;
+    } else {
+      this.tankMessage = "You need to be stopped in order to refill your fuel!";
+    }
+    
+  }
+
   updateMovingStatus(): void {
     this.movingStatus = this.speed > 0 ? "moving" : "stopped";
+  }
+
+  checkFuelCapacity(){
+    if(this.fuelCapacity <= 0){
+      this.speed = 0;
+      this.tankMessage = 'The tank has stopped due to lack of fuel!'
+      this.updateMovingStatus()
+    }
   }
 }
 

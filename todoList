@@ -37,3 +37,10 @@ copy.age = 30;
 console.log(original.age); // 25 (unchanged)
 /////////////////////////////////////////////
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Other:
+-Minerals that can be mined depending on the type of drill.
+
+-Inventory
+
+-Tank factory (create your own tank)

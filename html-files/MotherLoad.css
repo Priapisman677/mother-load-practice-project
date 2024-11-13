@@ -42,24 +42,23 @@ body {
   font-size: 30px;
 }
 .functions-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   border: solid;
   border-radius: 5px;
   border-color: #10ff30;
-  height: 40px;
-  width: 500px;
+  height: 100%;
+  width: 100%;
 }
 
 .speedUp-button-container,
 .slowDown-button-container,
 .open-storage-button-container,
 .close-storage-button-container,
-.moving-status-container,
-.storage-status-container,
-.speed, 
 .drill-container,
 .engine-container,
-.fuel-type-container
+.fuel-type-container,
+.refill-fuel-button-conainer
  {
   flex: 1;
   display: flex;
@@ -69,14 +68,29 @@ body {
   border-radius: 5px;
   border-color: #ff0000;
   height: 100%;
-  width: 100px;
+}
+.moving-status-container,
+.storage-status-container,
+.speed,
+.fuel-status-container{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  border-radius: 5px;
+  border-color: #ff0000;
+  height: 100%;
+  background-color: #07002b
+;
 }
 
 .speedUp-button,
 .slow-down-button,
 .open-storage-button,
-.close-storage-button{
-  flex: 1;
+.close-storage-button,
+.refill-fuel-button{
+  width: 100%;
 }
 
 .status-container,
@@ -88,9 +102,17 @@ body {
   border: solid;
   border-radius: 5px;
   border-color: #10ff30;
-  height: 60px;
+  height: 7%;
   width: 100%;
+  padding-bottom: 5px;
 }
+
+.status-container{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+}
+
+
 .features-container{
   height: 110px;
 }

@@ -1,6 +1,4 @@
-//! Currently I don't know how fuel doesn't go lower than 0
-console.log(JSON.parse(localStorage.getItem('2')));
-;
+console.log(JSON.parse(localStorage.getItem("2")));
 export class Tank {
     constructor(tankDetails) {
         this.speed = 0;
@@ -17,38 +15,42 @@ export class Tank {
         this.speed = tankDetails.speed;
         this.isStorageOpen = tankDetails.isStorageOpen;
         this.movingStatus = tankDetails.movingStatus;
+        //$I didn't know you could put functions inside of the constructor, Chat GPT said " I’ve added a call to checkFuelCapacity in the constructor (to handle cases where a tank is created without fuel)"
     }
     displayInfo() {
         console.log(`drill: ${this.drill.name}, engine: ${this.engine.name}, speed: ${this.speed}km/h, ${this.isStorageOpen === true ? "Storage is open" : "Storage is closed"}`, `movingStatus: ${this.movingStatus}`, `fuelType: ${this.fuelType}`);
     }
     go() {
         if (this.isStorageOpen === false && this.fuelCapacity > 0) {
-            this.speed += (5 * this.engine.speedMultiplier);
-            this.fuelCapacity -= 10;
+            if (this.speed < this.engine.speedLimit) {
+                this.fuelCapacity -= 10;
+            }
+            this.speed += 5 * this.engine.speedMultiplier;
         }
         else if (this.isStorageOpen === true && this.fuelCapacity <= 0) {
-            this.tankMessage = "You tried moving the tank but the storage is open and there is no fuel!";
+            this.tankMessage =
+                "You tried moving the tank but the storage is open and there is no fuel!";
         }
         else if (this.isStorageOpen === false && this.fuelCapacity <= 0) {
             this.tankMessage = "You tried moving the tank but there is no fuel!";
         }
         else if (this.isStorageOpen === true && this.fuelCapacity > 0) {
-            this.tankMessage = "You tried moving the tank but but the storage is open!";
+            this.tankMessage =
+                "You tried moving the tank but but the storage is open!";
         }
         if (this.speed > this.engine.speedLimit) {
             this.speed = this.engine.speedLimit;
             this.tankMessage = "The tank is already at its maximum speed";
         }
+        this.checkFuelCapacity();
         this.updateMovingStatus();
-        //$ (this.fuelType.fuelCapacity) -= 1; This line was modifying the original object.
-        console.log("Current capacity of this current tank:", this.fuelCapacity);
-        // console.log('The capacity of the original object ',gasFuelType.fuelCapacity);
     }
     break() {
-        this.speed -= (5 * this.engine.breakMultiplier);
+        this.speed -= 5 * this.engine.breakMultiplier;
         if (this.speed < 0) {
             this.speed = 0;
-            this.tankMessage = "The tank is already stopped, There is no purpose on using the break!";
+            this.tankMessage =
+                "The tank is already stopped, There is no purpose on using the break!";
         }
         this.updateMovingStatus();
     }
@@ -60,19 +62,40 @@ export class Tank {
             this.isStorageOpen = true;
         }
         else {
-            this.tankMessage = "You tried opening the storage while the tank is moving!";
+            this.tankMessage =
+                "You tried opening the storage while the tank is moving!";
         }
     }
     closeStorage() {
         if (this.isStorageOpen === false) {
             this.tankMessage = "Storage is already closed!";
         }
-        if (this.speed === 0) {
+        else {
             this.isStorageOpen = false;
+            // this.reFillFuel();
+            // console.log("Test");
+        }
+    }
+    reFillFuel() {
+        if (this.fuelCapacity === this.fuelType.fuelCapacity) {
+            this.tankMessage = 'The fuel is already at its maximum!';
+        }
+        else if (this.speed === 0) {
+            this.fuelCapacity = this.fuelType.fuelCapacity;
+        }
+        else {
+            this.tankMessage = "You need to be stopped in order to refill your fuel!";
         }
     }
     updateMovingStatus() {
         this.movingStatus = this.speed > 0 ? "moving" : "stopped";
+    }
+    checkFuelCapacity() {
+        if (this.fuelCapacity <= 0) {
+            this.speed = 0;
+            this.tankMessage = 'The tank has stopped due to lack of fuel!';
+            this.updateMovingStatus();
+        }
     }
 }
 //* Tier 1 tank class----------------------------------------

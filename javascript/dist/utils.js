@@ -17,6 +17,7 @@ export function startRemoveMessageTimer(matchingTank) {
         console.log(" timer Test");
         let message = document.querySelector(`.js-message${matchingTank.id}`);
         message.innerHTML = "";
+        //! I could put this function below inside of issue message instead.
         matchingTank.tankMessage = "";
     }, 5000);
 }
