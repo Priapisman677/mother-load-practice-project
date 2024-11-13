@@ -44,13 +44,13 @@ function renderHTML() {
 
     <div class="features-container">
       <div class="drill-container">
-        <img class="item-feature" src="../../images/${tank.drill}-drill.PNG">
+        <img class="item-feature" src="../../images/${tank.drill.name}-drill.PNG">
       </div>
       <div class="engine-container">
-        <img class="item-feature" src="../../images/${tank.engine}-engine.PNG">
+        <img class="item-feature" src="../../images/${tank.engine.name}-engine.PNG">
       </div>
       <div class="fuel-type-container">
-        <img class="item-feature" src="../../images/${tank.fuelType}-fuel.PNG">
+        <img class="item-feature" src="../../images/${tank.fuelType.name}-fuel.PNG">
       </div>
     </div>
     

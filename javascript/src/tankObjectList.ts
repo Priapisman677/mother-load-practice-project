@@ -1,13 +1,24 @@
 import { Tank, Tier1Tank, Tier2Tank, Tier3Tank } from "./tankClass.js";
+import {
+  turboDynamoEngine,
+  fusionCoreEngine,
+  quantumDriveEngine,
+  silverDrill,
+  rubyDrill,
+  amazoniteDrill,
+  gasFuelType,
+  uraniumFuelType,
+  antimaterFuelType
+} from "./itemsList.js";
 
 //*In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
 const storedTank1: string | null = localStorage.getItem("1");
 const t1tank: Tier1Tank = storedTank1
   ? new Tier1Tank(JSON.parse(storedTank1))
   : new Tier1Tank({
-      drill: "silver",
-      engine: "turboDynamo",
-      fuelType: "gas",
+      drill: silverDrill,
+      engine: turboDynamoEngine,
+      fuelType: gasFuelType,
       speed: 0,
       isStorageOpen: false,
       movingStatus: "stopped",
@@ -18,9 +29,9 @@ const storedTank2: string | null = localStorage.getItem("2");
 const t2tank: Tier2Tank = storedTank2
   ? new Tier2Tank(JSON.parse(storedTank2))
   : new Tier2Tank({
-      drill: "ruby",
-      engine: "fusionCore",
-      fuelType: "uranium",
+      drill: rubyDrill,
+      engine: fusionCoreEngine,
+      fuelType: uraniumFuelType,
       speed: 0,
       isStorageOpen: false,
       movingStatus: "stopped",
@@ -31,25 +42,24 @@ const storedTank3: string = localStorage.getItem("3")!;
 const t3tank: Tier3Tank = storedTank3
   ? new Tier3Tank(JSON.parse(storedTank3))
   : new Tier3Tank({
-      drill: "amazonite",
-      engine: "quantumDrive",
-      fuelType: "antimater",
+      drill: amazoniteDrill,
+      engine: quantumDriveEngine,
+      fuelType: antimaterFuelType,
       speed: 0,
       isStorageOpen: false,
       movingStatus: "stopped",
       id: "3",
     });
 
-export const tankList: (Tank)[] = [
+export const tankList: Tank[] = [
   //This below is not even necessary to assert.
   t1tank as Tier1Tank,
   t2tank,
   t3tank,
 ];
 
-
 // console.log(t2tank.test())
-
+t1tank.displayInfo();
 // console.log(tankList[1] as Tier2Tank)
 
 // console.log((t2tank).test());

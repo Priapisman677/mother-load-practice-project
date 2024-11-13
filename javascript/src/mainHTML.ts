@@ -56,17 +56,17 @@ function renderHTML() {
     <div class="features-container">
       <div class="drill-container">
         <img class="item-feature" src="../../images/${
-          tank.drill as string
+          tank.drill.name as string
         }-drill.PNG">
       </div>
       <div class="engine-container">
         <img class="item-feature" src="../../images/${
-          tank.engine as string
+          tank.engine.name as string
         }-engine.PNG">
       </div>
       <div class="fuel-type-container">
         <img class="item-feature" src="../../images/${
-          tank.fuelType as string
+          tank.fuelType.name as string
         }-fuel.PNG">
       </div>
     </div>

@@ -1,7 +1,9 @@
+import { Engine, Drill, FuelType } from './itemsList.js'
+
 interface TankDetails {
-  drill: string;
-  engine: string;
-  fuelType: string;
+  drill: Drill;
+  engine: Engine;
+  fuelType: FuelType;
   speed: number;
   isStorageOpen: boolean;
   movingStatus: string;
@@ -13,9 +15,9 @@ interface TankDetails {
 ;
 //!I need to change the name of this tank class:
 export class Tank {
-  drill: string;
-  engine: string;
-  fuelType: string;
+  drill: Drill;
+  engine: Engine;
+  fuelType: FuelType;
   speed: number = 0;
   isStorageOpen: boolean = false
   movingStatus: string
@@ -33,29 +35,29 @@ export class Tank {
   }
   displayInfo(): void {
     console.log(
-      `drill: ${this.drill}, engine: ${this.engine}, speed: ${
+      `drill: ${this.drill.name}, engine: ${this.engine.name}, speed: ${
         this.speed
       }km/h, ${
         this.isStorageOpen === true ? "Storage is open" : "Storage is closed"
       }`, `movingStatus: ${this.movingStatus}`,  `fuelType: ${this.fuelType}`
     );
   }
-   go(speedMultiplier: number, speedLimit: number): void {
+   go(): void {
     if (this.isStorageOpen === false) {
-      this.speed += (5 * speedMultiplier);
+      this.speed += (5 * this.engine.speedMultiplier);
     } else {
       this.tankMessage = "You tried moving the tank but the storage is open!";
     }
-    if (this.speed > speedLimit) {
-      this.speed = speedLimit;
+    if (this.speed > this.engine.speedLimit) {
+      this.speed = this.engine.speedLimit;
       this.tankMessage = "The tank is already at its maximum speed";
     }
     //console.log(`Speed: ${this.speed}`);
     this.updateMovingStatus();
   }
 
-  break(breakMultiplier: number): void {
-    this.speed -= (5 * breakMultiplier);
+  break(): void {
+    this.speed -= (5 * this.engine.breakMultiplier);
     if (this.speed < 0) {
       this.speed = 0;
       this.tankMessage = "The tank is already stopped, There is no purpose on using the break!"; 
@@ -90,43 +92,43 @@ export class Tank {
 
 //* Tier 1 tank class----------------------------------------
 export class Tier1Tank extends Tank{
-  speedMultiplier: number = 1
-  breakMultiplier: number = 1
-  speedLimit: number = 200;
-  go(): void{
-    super.go(this.speedMultiplier as number, this.speedLimit as number)
-    console.log('engine test: ',this.engine)
-  }
-  break(): void {
-    super.break(this.breakMultiplier as number)
-    // console.log('This is the break() function: This should only work for Tier 1 tank')
-  }
+  // speedMultiplier: number = 1
+  // breakMultiplier: number = 1
+  // speedLimit: number = 200;
+  // go(): void{
+  //   super.go(this.speedMultiplier as number, this.speedLimit as number)
+  //   console.log('engine test: ',this.engine)
+  // }
+  // break(): void {
+  //   super.break(this.breakMultiplier as number)
+  //   // console.log('This is the break() function: This should only work for Tier 1 tank')
+  // }
 }
 //* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank{
-  speedMultiplier: number = 2
-  breakMultiplier: number = 2
-  speedLimit: number = 300;
-  go(): void{
-    super.go(this.speedMultiplier as number, this.speedLimit as number)
-  }
-  break(): void {
-    super.break(this.breakMultiplier)
-    // console.log('This is the break() function: This should only work for Tier 2 tank')
-  }
+  // speedMultiplier: number = 2
+  // breakMultiplier: number = 2
+  // speedLimit: number = 300;
+  // go(): void{
+  //   super.go(this.speedMultiplier as number, this.speedLimit as number)
+  // }
+  // break(): void {
+  //   super.break(this.breakMultiplier)
+  //   // console.log('This is the break() function: This should only work for Tier 2 tank')
+  // }
 }
-//* Tier 2 tank class----------------------------------------
+//* Tier 3 tank class----------------------------------------
 export class Tier3Tank extends Tank{
-  speedMultiplier: number = 3
-  breakMultiplier: number = 3
-  speedLimit: number = 400;
-  go(): void{
-    super.go(this.speedMultiplier as number, this.speedLimit as number)
-  }
-  break(): void {
-    super.break(this.breakMultiplier as number)
-    // console.log('This is the break() function: This should only work for Tier 3 tank')
-  }
+  // speedMultiplier: number = 3
+  // breakMultiplier: number = 3
+  // speedLimit: number = 400;
+  // go(): void{
+  //   super.go(this.speedMultiplier as number, this.speedLimit as number)
+  // }
+  // break(): void {
+  //   super.break(this.breakMultiplier as number)
+  //   // console.log('This is the break() function: This should only work for Tier 3 tank')
+  // }
 }
 
 
