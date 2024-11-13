@@ -18,3 +18,22 @@ To work with inheritance I could start with something as simple as not being abl
  And act one thing to the third class such as a turbine type
 
 Another feature that I could add is to have a fuel tank that will be specific for each tank and each time the tank performs a function the fuel could be reduced.
+
+Currently I had an issue that I was able to overcome basically I wanted to modify the property of an object without altering the original object itself and all I needed to do was to use that notation to pull that property outside of the object and leave the original untouched but another thing that I could do is to use the following type of code that i need to learn:
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Using the Object.assign Method:
+
+To ensure that no accidental modifications happen, you can create a shallow copy of the object and access properties from the copied version.
+Object.assign({}, obj) creates a new object with the same properties as obj without linking it to the original.
+
+////////////////////////////////////////////
+const original = { name: "Alice", age: 25 };
+const copy = Object.assign({}, original);
+
+// Now `copy` is an independent copy of `original`
+copy.age = 30;
+
+console.log(original.age); // 25 (unchanged)
+/////////////////////////////////////////////
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

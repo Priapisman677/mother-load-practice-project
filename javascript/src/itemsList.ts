@@ -1,4 +1,3 @@
-
 //*ENGINE INTERFACE-----------------------------------------
 export interface Engine {
   name: string;
@@ -8,8 +7,6 @@ export interface Engine {
   //! I don't know if I should give all of them an engin or just use the name property to load the image
   image?: string;
 }
-
-
 
 export const turboDynamoEngine: Engine = {
   name: "turboDynamo",
@@ -33,31 +30,47 @@ export const quantumDriveEngine: Engine = {
 };
 
 //*DRILL INTERFACE-----------------------------------------
-export interface Drill{
+export interface Drill {
   name: string;
 }
 
 export const silverDrill: Drill = {
-  name: 'silver',
-}
+  name: "silver",
+};
 export const rubyDrill: Drill = {
-  name: 'ruby',
-}
+  name: "ruby",
+};
 export const amazoniteDrill: Drill = {
-  name: 'amazonite',
-}
+  name: "amazonite",
+};
 
 //*FUEL TYPE INTERFACE-----------------------------------------
-export interface FuelType{
+export interface FuelType {
   name: string;
+  fuelCapacity: number;
 }
 
-export const gasFuelType: FuelType ={
-  name: 'gas'
-}
-export const uraniumFuelType: FuelType ={
-  name: 'uranium'
-}
-export const antimaterFuelType: FuelType ={
-  name: 'antimater'
-}
+export const gasFuelType: FuelType = {
+  name: "gas",
+  fuelCapacity: 80,
+};
+export const uraniumFuelType: FuelType = {
+  name: "uranium",
+  fuelCapacity: 160,
+};
+export const antimaterFuelType: FuelType = {
+  name: "antimater",
+  fuelCapacity: 240,
+};
+
+// const fuelTest = gasFuelType;
+
+// let retrieveFuel: number = gasFuelType.fuelCapacity;
+
+// console.log("fuel capacity:", (retrieveFuel += 10));
+
+// fuelTest.fuelCapacity += 1;
+// // The two values below should be the same because they are the same object and the same reference. so if I change one I change the other.
+// console.log("capacity of new variable:", fuelTest.fuelCapacity);
+
+// console.log("Capacity of the original object:", gasFuelType.fuelCapacity);

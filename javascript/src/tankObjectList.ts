@@ -59,7 +59,7 @@ export const tankList: Tank[] = [
 ];
 
 // console.log(t2tank.test())
-t1tank.displayInfo();
+
 // console.log(tankList[1] as Tier2Tank)
 
 // console.log((t2tank).test());

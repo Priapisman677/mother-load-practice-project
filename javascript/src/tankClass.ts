@@ -1,4 +1,4 @@
-import { Engine, Drill, FuelType } from './itemsList.js'
+import { Engine, Drill, FuelType, gasFuelType } from './itemsList.js'
 
 interface TankDetails {
   drill: Drill;
@@ -8,6 +8,7 @@ interface TankDetails {
   isStorageOpen: boolean;
   movingStatus: string;
   id: string;
+
 
   questionMarkIsUsedToIndicateUncertainty?: string;
 }
@@ -23,15 +24,20 @@ export class Tank {
   movingStatus: string
   tankMessage: string = "";
   id : string;
+  fuelCapacity: number;
 
   constructor(tankDetails: TankDetails) {
     this.drill = tankDetails.drill;
     this.engine = tankDetails.engine;
+    
     this.fuelType = tankDetails.fuelType;
+    this.fuelCapacity = tankDetails.fuelType.fuelCapacity;
+
     this.speed = tankDetails.speed;
     this.isStorageOpen = tankDetails.isStorageOpen;
     this.movingStatus = tankDetails.movingStatus;
     this.id = tankDetails.id;
+  
   }
   displayInfo(): void {
     console.log(
@@ -43,7 +49,7 @@ export class Tank {
     );
   }
    go(): void {
-    if (this.isStorageOpen === false) {
+    if (this.isStorageOpen === false {
       this.speed += (5 * this.engine.speedMultiplier);
     } else {
       this.tankMessage = "You tried moving the tank but the storage is open!";
@@ -52,9 +58,14 @@ export class Tank {
       this.speed = this.engine.speedLimit;
       this.tankMessage = "The tank is already at its maximum speed";
     }
-    //console.log(`Speed: ${this.speed}`);
     this.updateMovingStatus();
+    
+    //$ (this.fuelType.fuelCapacity) -= 1; This line was modifying the original object.
+    this.fuelCapacity -= 1;
+    // console.log("Current capacity of this current tank:", this.fuelCapacity)
+    // console.log('The capacity of the original object ',gasFuelType.fuelCapacity);
   }
+    
 
   break(): void {
     this.speed -= (5 * this.engine.breakMultiplier);
@@ -63,6 +74,7 @@ export class Tank {
       this.tankMessage = "The tank is already stopped, There is no purpose on using the break!"; 
     }
     this.updateMovingStatus();
+
   }
   openStorage(): void {
     if (this.isStorageOpen === true) {

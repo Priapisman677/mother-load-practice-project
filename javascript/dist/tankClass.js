@@ -1,3 +1,4 @@
+import { gasFuelType } from './itemsList.js';
 ;
 //!I need to change the name of this tank class:
 export class Tank {
@@ -8,6 +9,7 @@ export class Tank {
         this.drill = tankDetails.drill;
         this.engine = tankDetails.engine;
         this.fuelType = tankDetails.fuelType;
+        this.fuelCapacity = tankDetails.fuelType.fuelCapacity;
         this.speed = tankDetails.speed;
         this.isStorageOpen = tankDetails.isStorageOpen;
         this.movingStatus = tankDetails.movingStatus;
@@ -27,8 +29,11 @@ export class Tank {
             this.speed = this.engine.speedLimit;
             this.tankMessage = "The tank is already at its maximum speed";
         }
-        //console.log(`Speed: ${this.speed}`);
         this.updateMovingStatus();
+        //$ (this.fuelType.fuelCapacity) -= 1; This line was modifying the original object.
+        this.fuelCapacity -= 1;
+        console.log("Current capacity of this current tank:", this.fuelCapacity);
+        console.log('The capacity of the original object ', gasFuelType.fuelCapacity);
     }
     break() {
         this.speed -= (5 * this.engine.breakMultiplier);
