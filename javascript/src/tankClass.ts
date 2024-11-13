@@ -108,8 +108,6 @@ export class Tank {
       this.tankMessage = "Storage is already closed!";
     } else {
       this.isStorageOpen = false;
-      // this.reFillFuel();
-      // console.log("Test");
     }
   }
   reFillFuel() {
@@ -135,21 +133,14 @@ export class Tank {
       this.updateMovingStatus()
     }
   }
+  returnImageHTML(){
+    return '';
+  }
 }
 
 //* Tier 1 tank class----------------------------------------
 export class Tier1Tank extends Tank {
-  // speedMultiplier: number = 1
-  // breakMultiplier: number = 1
-  // speedLimit: number = 200;
-  // go(): void{
-  //   super.go(this.speedMultiplier as number, this.speedLimit as number)
-  //   console.log('engine test: ',this.engine)
-  // }
-  // break(): void {
-  //   super.break(this.breakMultiplier as number)
-  //   // console.log('This is the break() function: This should only work for Tier 1 tank')
-  // }
+
 }
 //* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank {
@@ -157,17 +148,21 @@ export class Tier2Tank extends Tank {
   constructor(tankDetails: TankDetails){
     super(tankDetails)
     this.reserveFuel = tankDetails.reserveFuel as ReserveFuel
-    console.log('reserveFuel: ', this.reserveFuel)
+    
+  }
+  returnImageHTML(){
+    return `
+      <div class="image-container">
+        <img class="item-image" src="../../images/${
+          this.reserveFuel.name as string
+        }-reserveFuel.PNG">
+      </div>
+    `;
   }
 }
 //* Tier 3 tank class----------------------------------------
-export class Tier3Tank extends Tank {
-  reserveFuel:ReserveFuel;
-  constructor(tankDetails: TankDetails){
-    super(tankDetails);
-    this.reserveFuel = tankDetails.reserveFuel as ReserveFuel
-    console.log('reserveFuel: ', this.reserveFuel)
-  }
+export class Tier3Tank extends Tier2Tank {
+    //$ I just realised that a subclass can inherit from another subclass in this case this subclass inherits from Tier2Tank
 }
 
 

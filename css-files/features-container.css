@@ -1,0 +1,23 @@
+.items-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px #10ff30;
+  border-radius: 5px;
+  margin-top: 20px;
+  height: 100%;
+  width: 100%;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.item-image {
+  height: 110px;
+}

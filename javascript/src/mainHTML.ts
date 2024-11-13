@@ -16,23 +16,23 @@ function renderHTML() {
   tankList.forEach((tank) => {
     menuHTML += `
     <div class="functions-container">
-      <div class="speedUp-button-container">
+      <div class="button-container">
         <button class="speedUp-button"
         data-tank-id="${tank.id as string}">Speed Up</button>
       </div>
-      <div class="slowDown-button-container">
+      <div class="button-container">
         <button class="slow-down-button"
         data-tank-id="${tank.id as string}">Slow down</button>
       </div>
-      <div class="open-storage-button-container">
+      <div class="button-container">
         <button class="open-storage-button"
         data-tank-id="${tank.id as string}">Open storage</button>
       </div>
-      <div class="close-storage-button-container">
+      <div class="button-container">
         <button class="close-storage-button"
         data-tank-id="${tank.id as string}">Close storage</button>
       </div>
-      <div class="refill-fuel-button-conainer">
+      <div class="button-container">
         <button class="refill-fuel-button"
         data-tank-id="${tank.id}">Refill fuel</button>
       </div>
@@ -62,27 +62,28 @@ function renderHTML() {
 
     </div>
 
-
-   
-
-
-
-    <div class="features-container">
-      <div class="drill-container">
-        <img class="item-feature" src="../../images/${
+    <div class="items-container">
+      <div class="image-container">
+        <img class="item-image" src="../../images/${
           tank.drill.name as string
         }-drill.PNG">
       </div>
-      <div class="engine-container">
-        <img class="item-feature" src="../../images/${
+      <div class="image-container">
+        <img class="item-image" src="../../images/${
           tank.engine.name as string
         }-engine.PNG">
       </div>
-      <div class="fuel-type-container">
-        <img class="item-feature" src="../../images/${
+      <div class="image-container">
+        <img class="item-image" src="../../images/${
           tank.fuelType.name as string
         }-fuel.PNG">
       </div>
+      <div class="image-container">
+        <img class="item-image" src="../../images/${
+          tank.fuelType.name as string
+        }-fuel.PNG">
+      </div>
+      ${tank.returnImageHTML()}
     </div>
     
     <div class="message-container">

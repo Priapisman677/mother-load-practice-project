@@ -70,8 +70,6 @@ export class Tank {
         }
         else {
             this.isStorageOpen = false;
-            // this.reFillFuel();
-            // console.log("Test");
         }
     }
     reFillFuel() {
@@ -95,6 +93,9 @@ export class Tank {
             this.updateMovingStatus();
         }
     }
+    returnImageHTML() {
+        return '';
+    }
 }
 //* Tier 1 tank class----------------------------------------
 export class Tier1Tank extends Tank {
@@ -104,16 +105,17 @@ export class Tier2Tank extends Tank {
     constructor(tankDetails) {
         super(tankDetails);
         this.reserveFuel = tankDetails.reserveFuel;
-        console.log('reserveFuel: ', this.reserveFuel);
+    }
+    returnImageHTML() {
+        return `
+      <div class="image-container">
+        <img class="item-image" src="../../images/${this.reserveFuel.name}-reserveFuel.PNG">
+      </div>
+    `;
     }
 }
 //* Tier 3 tank class----------------------------------------
-export class Tier3Tank extends Tank {
-    constructor(tankDetails) {
-        super(tankDetails);
-        this.reserveFuel = tankDetails.reserveFuel;
-        console.log('reserveFuel: ', this.reserveFuel);
-    }
+export class Tier3Tank extends Tier2Tank {
 }
 // test1(){
 //   console.log('This is the test() function: This should only work for Tier 1 tank')
