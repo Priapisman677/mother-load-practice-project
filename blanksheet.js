@@ -18,3 +18,6 @@
 break(): void {
   super.break()
 }
+
+
+this.fuelCapacity = JSON.parse(localStorage.getItem(tankDetails.fuelType.name) as string) ||

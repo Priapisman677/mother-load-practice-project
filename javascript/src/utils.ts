@@ -26,7 +26,7 @@ export function startRemoveMessageTimer(matchingTank: Tank): void {
     )!;
     message.innerHTML = "";
     matchingTank.tankMessage = "";
-  }, 3300);
+  }, 5000);
 }
 
 

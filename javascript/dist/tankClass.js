@@ -1,6 +1,6 @@
-import { gasFuelType } from './itemsList.js';
+//! Currently I don't know how fuel doesn't go lower than 0
+console.log(JSON.parse(localStorage.getItem('2')));
 ;
-//!I need to change the name of this tank class:
 export class Tank {
     constructor(tankDetails) {
         this.speed = 0;
@@ -8,22 +8,32 @@ export class Tank {
         this.tankMessage = "";
         this.drill = tankDetails.drill;
         this.engine = tankDetails.engine;
+        this.id = tankDetails.id;
         this.fuelType = tankDetails.fuelType;
-        this.fuelCapacity = tankDetails.fuelType.fuelCapacity;
+        const storedTank = JSON.parse(localStorage.getItem(this.id));
+        this.fuelCapacity = storedTank
+            ? storedTank.fuelCapacity
+            : tankDetails.fuelType.fuelCapacity;
         this.speed = tankDetails.speed;
         this.isStorageOpen = tankDetails.isStorageOpen;
         this.movingStatus = tankDetails.movingStatus;
-        this.id = tankDetails.id;
     }
     displayInfo() {
         console.log(`drill: ${this.drill.name}, engine: ${this.engine.name}, speed: ${this.speed}km/h, ${this.isStorageOpen === true ? "Storage is open" : "Storage is closed"}`, `movingStatus: ${this.movingStatus}`, `fuelType: ${this.fuelType}`);
     }
     go() {
-        if (this.isStorageOpen === false) {
+        if (this.isStorageOpen === false && this.fuelCapacity > 0) {
             this.speed += (5 * this.engine.speedMultiplier);
+            this.fuelCapacity -= 10;
         }
-        else {
-            this.tankMessage = "You tried moving the tank but the storage is open!";
+        else if (this.isStorageOpen === true && this.fuelCapacity <= 0) {
+            this.tankMessage = "You tried moving the tank but the storage is open and there is no fuel!";
+        }
+        else if (this.isStorageOpen === false && this.fuelCapacity <= 0) {
+            this.tankMessage = "You tried moving the tank but there is no fuel!";
+        }
+        else if (this.isStorageOpen === true && this.fuelCapacity > 0) {
+            this.tankMessage = "You tried moving the tank but but the storage is open!";
         }
         if (this.speed > this.engine.speedLimit) {
             this.speed = this.engine.speedLimit;
@@ -31,9 +41,8 @@ export class Tank {
         }
         this.updateMovingStatus();
         //$ (this.fuelType.fuelCapacity) -= 1; This line was modifying the original object.
-        this.fuelCapacity -= 1;
         console.log("Current capacity of this current tank:", this.fuelCapacity);
-        console.log('The capacity of the original object ', gasFuelType.fuelCapacity);
+        // console.log('The capacity of the original object ',gasFuelType.fuelCapacity);
     }
     break() {
         this.speed -= (5 * this.engine.breakMultiplier);

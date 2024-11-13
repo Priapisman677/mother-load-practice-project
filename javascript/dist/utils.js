@@ -18,7 +18,7 @@ export function startRemoveMessageTimer(matchingTank) {
         let message = document.querySelector(`.js-message${matchingTank.id}`);
         message.innerHTML = "";
         matchingTank.tankMessage = "";
-    }, 3300);
+    }, 5000);
 }
 //$ The function below was deprecated because I added ".find()" instead
 // export function findTankById(id: string): Tank | null {
