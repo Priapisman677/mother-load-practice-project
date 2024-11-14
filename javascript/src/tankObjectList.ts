@@ -39,6 +39,7 @@ export const t2tank: Tier2Tank = storedTank2
       movingStatus: "stopped",
       id: "2",
       reserveFuel: uraniumReserveFuel
+      
     });
 
 const storedTank3: string = localStorage.getItem("3")!;

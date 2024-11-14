@@ -163,7 +163,10 @@ export class Tier2Tank extends Tank {
     super(tankDetails)
     //! Be careful because if we needed to modify the variable below we wouldn't modify also the variable in the original object
     this.reserveFuel = tankDetails.reserveFuel as ReserveFuel
-    this.initialAndMaxCount = this.reserveFuel.initialAndMaxCount
+    const storedTank: Tier2Tank = JSON.parse(localStorage.getItem(this.id) as string) as Tier2Tank
+    this.initialAndMaxCount = storedTank
+    ? storedTank.initialAndMaxCount
+    :this.reserveFuel.initialAndMaxCount;
     //$ I didn't know we were able to call the own object just to check how it looks like once created the instance:
     console.log(this)
   
@@ -171,6 +174,7 @@ export class Tier2Tank extends Tank {
   reserveFuelImage(){
     return `
       <div class="image-container">
+        <p class="reserve-fuel-tanks">${this.initialAndMaxCount}<p>
         <img class="item-image" src="../../images/${
           this.reserveFuel.name as string
         }-reserveFuel.PNG">
