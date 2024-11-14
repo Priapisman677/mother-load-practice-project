@@ -87,7 +87,7 @@ export const antimaterReserveFuel: ReserveFuel = {
 //*fanType (types)-----------------------------------------
 
 export interface FanType {
- 
+  name: string;
   flyMultiplier: number;
    descendMultiplier: number;
   heightLimit: number;
@@ -95,6 +95,7 @@ export interface FanType {
 }
 
 export const stockFan: FanType ={
+  name: 'stock',
   flyMultiplier: 1,
   descendMultiplier:  1,
  heightLimit: 100

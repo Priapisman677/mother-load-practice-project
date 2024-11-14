@@ -37,17 +37,17 @@ function renderHTML() {
         data-tank-id="${tank.id}">Refill fuel</button>
       </div>
       ${tank.reserveFuelButton()}
-      ${tank.fly()}
+      ${tank.flyButton()}
       
     </div>
 
     <div class="status-container">
-      <div class="moving-status-container">
+      <div class="status">
         <p class="moving-status">Moving <br/>status: ${
           tank.movingStatus as string
         }</p>
       </div>
-      <div class="storage-status-container">
+      <div class="status">
         <p>
           Storage <br />
           status: ${
@@ -55,14 +55,13 @@ function renderHTML() {
           }
         </p>
       </div>
-      <div class="speed">
+      <div class="status">
         <p>Speed: ${tank.speed as number}</p>
       </div>
 
-       <div class="fuel-status-container">Current fuel:  <br /> ${
+       <div class="status">Current fuel:  <br /> ${
          tank.fuelCapacity
        }</div>
-
     </div>
 
     <div class="items-container">
@@ -83,6 +82,7 @@ function renderHTML() {
       </div>
       
       ${tank.reserveFuelImage()}
+      ${tank.fanImage()}
     </div>
     
     <div class="message-container">
@@ -140,6 +140,8 @@ function renderHTML() {
       const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
         return (tank.id as string) === (tankId as string);
       }) as Tank;
+
+      //! I just forgot why we needed to do this logic below so I need to review it:------
 
       if (matchingTank instanceof Tier1Tank) {
         matchingTank.break();
@@ -222,6 +224,23 @@ function renderHTML() {
       const matchingTank: Tank = tankList.find((tank: Tank):boolean=>{
         return tankId as string === tank.id as string}) as Tank;
       matchingTank.useReserveFuel()
+      renderHTML()
+      issueMessage(matchingTank as Tank)
+      setToLocalStorage(matchingTank.id as string, matchingTank as Tank)
+      startRemoveMessageTimer(matchingTank as Tank)
+      
+    });
+  });
+
+  const flyButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
+    ".fly-button"
+  );
+  flyButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId = button.dataset.tankId;
+      const matchingTank: Tank = tankList.find((tank: Tank):boolean=>{
+        return tankId as string === tank.id as string}) as Tank;
+      matchingTank.fly()
       renderHTML()
       issueMessage(matchingTank as Tank)
       setToLocalStorage(matchingTank.id as string, matchingTank as Tank)

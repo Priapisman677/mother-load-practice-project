@@ -30,26 +30,25 @@ function renderHTML() {
         data-tank-id="${tank.id}">Refill fuel</button>
       </div>
       ${tank.reserveFuelButton()}
-      ${tank.fly()}
+      ${tank.flyButton()}
       
     </div>
 
     <div class="status-container">
-      <div class="moving-status-container">
+      <div class="status">
         <p class="moving-status">Moving <br/>status: ${tank.movingStatus}</p>
       </div>
-      <div class="storage-status-container">
+      <div class="status">
         <p>
           Storage <br />
           status: ${tank.isStorageOpen === true ? "Open" : "Closed"}
         </p>
       </div>
-      <div class="speed">
+      <div class="status">
         <p>Speed: ${tank.speed}</p>
       </div>
 
-       <div class="fuel-status-container">Current fuel:  <br /> ${tank.fuelCapacity}</div>
-
+       <div class="status">Current fuel:  <br /> ${tank.fuelCapacity}</div>
     </div>
 
     <div class="items-container">
@@ -64,6 +63,7 @@ function renderHTML() {
       </div>
       
       ${tank.reserveFuelImage()}
+      ${tank.fanImage()}
     </div>
     
     <div class="message-container">
@@ -114,6 +114,7 @@ function renderHTML() {
             const matchingTank = tankList.find((tank) => {
                 return tank.id === tankId;
             });
+            //! I just forgot why we needed to do this logic below so I need to review it:------
             if (matchingTank instanceof Tier1Tank) {
                 matchingTank.break();
             }
@@ -184,6 +185,20 @@ function renderHTML() {
                 return tankId === tank.id;
             });
             matchingTank.useReserveFuel();
+            renderHTML();
+            issueMessage(matchingTank);
+            setToLocalStorage(matchingTank.id, matchingTank);
+            startRemoveMessageTimer(matchingTank);
+        });
+    });
+    const flyButtons = document.querySelectorAll(".fly-button");
+    flyButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const tankId = button.dataset.tankId;
+            const matchingTank = tankList.find((tank) => {
+                return tankId === tank.id;
+            });
+            matchingTank.fly();
             renderHTML();
             issueMessage(matchingTank);
             setToLocalStorage(matchingTank.id, matchingTank);

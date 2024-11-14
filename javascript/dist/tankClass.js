@@ -100,11 +100,14 @@ export class Tank {
     reserveFuelButton() {
         return '';
     }
-    useReserveFuel() {
-    }
-    fly() {
+    useReserveFuel() { }
+    flyButton() {
         return '';
     }
+    fanImage() {
+        return '';
+    }
+    fly() { }
 }
 //* Tier 1 tank class----------------------------------------
 export class Tier1Tank extends Tank {
@@ -163,11 +166,22 @@ export class Tier2Tank extends Tank {
 export class Tier3Tank extends Tier2Tank {
     constructor(tankDetails) {
         super(tankDetails);
+        this.height = 0;
         this.fan = tankDetails.fan;
-        this.height = this.fan.heightLimit;
         console.log('test1:', this.height);
     }
     fly() {
+        this.height += 10;
+        console.log('test2:', this.height);
+    }
+    fanImage() {
+        return `
+      <div class="image-container">
+        <img class="item-image" src="../../images/${this.fan.name}-fan.PNG">
+      </div>
+    `;
+    }
+    flyButton() {
         return `
       <div class="button-container">
         <button class="fly-button"

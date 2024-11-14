@@ -146,12 +146,14 @@ export class Tank {
   reserveFuelButton(){
     return '';
   }
-  useReserveFuel(){
-
+  useReserveFuel(){}
+  flyButton(){
+    return '';
   }
-  fly(){
-    return '' as string
+  fanImage(){
+    return '';
   }
+  fly(){}
 }
 
 //* Tier 1 tank class----------------------------------------
@@ -217,17 +219,30 @@ export class Tier2Tank extends Tank {
 export class Tier3Tank extends Tier2Tank {
   //$ I just realised that a subclass can inherit from another subclass in this case this subclass inherits from Tier2Tank
   fan: FanType;
-  height: number;
+  height: number = 0;
   
 
   constructor(tankDetails: TankDetails){
     super(tankDetails)
     this.fan = tankDetails.fan as FanType
-    
-    this.height = this.fan.heightLimit;
     console.log('test1:',this.height)
   }
+
   fly(){
+    this.height += 10;
+    console.log('test2:',this.height)
+  }
+
+  fanImage(){
+    return `
+      <div class="image-container">
+        <img class="item-image" src="../../images/${
+          this.fan.name as string
+        }-fan.PNG">
+      </div>
+    `;
+  }
+  flyButton(){
     return `
       <div class="button-container">
         <button class="fly-button"

@@ -49,6 +49,7 @@ export const antimaterReserveFuel = {
     initialAndMaxCount: 10
 };
 export const stockFan = {
+    name: 'stock',
     flyMultiplier: 1,
     descendMultiplier: 1,
     heightLimit: 100
