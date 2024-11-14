@@ -21,6 +21,8 @@
 .slow-down-button,
 .open-storage-button,
 .close-storage-button,
-.refill-fuel-button {
+.refill-fuel-button,
+.reserve-fuel-button,
+.fly-button {
   width: 100%;
 }

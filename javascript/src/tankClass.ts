@@ -1,6 +1,4 @@
-import { Engine, Drill, FuelType, ReserveFuel,
-   uraniumReserveFuel, antimaterReserveFuel
-   } from "./itemsList.js";
+import { Engine, Drill, FuelType, ReserveFuel,FanType} from "./itemsList.js";
 
 
 
@@ -15,6 +13,8 @@ interface TankDetails {
 
   questionMarkIsUsedToIndicateUncertainty?: string;
   reserveFuel?:ReserveFuel;
+  fan?: FanType;
+  height?: number;
 }
 
 export class Tank {
@@ -149,6 +149,9 @@ export class Tank {
   useReserveFuel(){
 
   }
+  fly(){
+    return '' as string
+  }
 }
 
 //* Tier 1 tank class----------------------------------------
@@ -168,8 +171,6 @@ export class Tier2Tank extends Tank {
     ? storedTank.initialAndMaxCount
     :this.reserveFuel.initialAndMaxCount;
     //$ I didn't know we were able to call the own object just to check how it looks like once created the instance:
-    console.log(this)
-  
   }
   reserveFuelImage(){
     return `
@@ -197,9 +198,6 @@ export class Tier2Tank extends Tank {
       //!I believe down here I should leave it as "this.initialAndMaxCount" If I don't want to modify the original object.
       //$ Update: I did leave it as "this.initialAndMaxCount" instead of "this.reserveFuel.initialAndMaxCount" since the latest why is modifying the original object
       this.initialAndMaxCount -= 1;
-      console.log('This is the current count of R.F:', this.initialAndMaxCount)
-      console.log('original object (uranium) count:', uraniumReserveFuel)
-      console.log('original object (antimater) count:', antimaterReserveFuel)
     }else{
       if(this.fuelCapacity === this.fuelType.fuelCapacity){
        this.tankMessage= 'The fuel is already at its maximum!'
@@ -217,7 +215,29 @@ export class Tier2Tank extends Tank {
 }
 //* Tier 3 tank class----------------------------------------
 export class Tier3Tank extends Tier2Tank {
-    //$ I just realised that a subclass can inherit from another subclass in this case this subclass inherits from Tier2Tank
+  //$ I just realised that a subclass can inherit from another subclass in this case this subclass inherits from Tier2Tank
+  fan: FanType;
+  height: number;
+  
+
+  constructor(tankDetails: TankDetails){
+    super(tankDetails)
+    this.fan = tankDetails.fan as FanType
+    
+    this.height = this.fan.heightLimit;
+    console.log('test1:',this.height)
+  }
+  fly(){
+    return `
+      <div class="button-container">
+        <button class="fly-button"
+        data-tank-id="${this.id}">
+        Fly
+        </button>
+      </div>
+    `;
+  }
+    
 }
 
 // console.log(t2tank);

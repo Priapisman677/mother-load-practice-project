@@ -84,8 +84,18 @@ export const antimaterReserveFuel: ReserveFuel = {
   initialAndMaxCount: 10
 }
 
-// function screenRestoreFuel(){
-//   console.log()
-//   console.log('Test')
-//   console.log('Test')
-// }
+//*fanType (types)-----------------------------------------
+
+export interface FanType {
+ 
+  flyMultiplier: number;
+   descendMultiplier: number;
+  heightLimit: number;
+
+}
+
+export const stockFan: FanType ={
+  flyMultiplier: 1,
+  descendMultiplier:  1,
+ heightLimit: 100
+}

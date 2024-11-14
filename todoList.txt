@@ -23,6 +23,11 @@ Another feature that I could add is to have a fuel tank that will be specific fo
 Other:
 -Minerals that can be mined depending on the type of drill.
 
+shop: Sell minerals and:
+    -refill fuel
+    -buy fuel tanks
+    -upgrade the tanks (increase their tier and buy features) very more complex I guess
+
 -Inventory
 
 -Tank factory (create your own tank)

@@ -10,7 +10,8 @@ import {
   uraniumFuelType,
   antimaterFuelType,
   uraniumReserveFuel,
-  antimaterReserveFuel
+  antimaterReserveFuel,
+  stockFan
 } from "./itemsList.js";
 
 //*In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
@@ -54,6 +55,7 @@ export const t3tank: Tier3Tank = storedTank3
       movingStatus: "stopped",
       id: "3",
       reserveFuel: antimaterReserveFuel,
+      fan: stockFan,
     });
 
 export const tankList: Tank[] = [
@@ -72,3 +74,4 @@ export const tankList: Tank[] = [
 // console.log((t2tank).test());
 // // console.log((tankList[2]as Tier3Tank).test3())
 // console.log(t2tank)
+

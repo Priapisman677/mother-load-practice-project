@@ -48,8 +48,8 @@ export const antimaterReserveFuel = {
     fuelRestoration: 100,
     initialAndMaxCount: 10
 };
-// function screenRestoreFuel(){
-//   console.log()
-//   console.log('Test')
-//   console.log('Test')
-// }
+export const stockFan = {
+    flyMultiplier: 1,
+    descendMultiplier: 1,
+    heightLimit: 100
+};

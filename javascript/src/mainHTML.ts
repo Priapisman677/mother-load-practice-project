@@ -37,7 +37,8 @@ function renderHTML() {
         data-tank-id="${tank.id}">Refill fuel</button>
       </div>
       ${tank.reserveFuelButton()}
-
+      ${tank.fly()}
+      
     </div>
 
     <div class="status-container">
@@ -114,9 +115,8 @@ function renderHTML() {
       if (matchingTank instanceof Tier1Tank) {
         // matchingTank.test1();
         matchingTank.go();
-        console.log("Test");
       }
-      if (matchingTank instanceof Tier2Tank) {
+      if ((matchingTank instanceof Tier2Tank) && !(matchingTank instanceof Tier3Tank)) {
         // matchingTank.test1();
         matchingTank.go();
       }
@@ -144,7 +144,7 @@ function renderHTML() {
       if (matchingTank instanceof Tier1Tank) {
         matchingTank.break();
       }
-      if (matchingTank instanceof Tier2Tank) {
+      if ((matchingTank instanceof Tier2Tank) && !(matchingTank instanceof Tier3Tank)) {
         matchingTank.break();
       }
       if (matchingTank instanceof Tier3Tank) {
@@ -245,3 +245,4 @@ function renderHTML() {
   });
 }
 renderHTML();
+
