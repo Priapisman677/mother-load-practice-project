@@ -29,6 +29,8 @@ function renderHTML() {
         <button class="refill-fuel-button"
         data-tank-id="${tank.id}">Refill fuel</button>
       </div>
+      ${tank.reserveFuelButton()}
+
     </div>
 
     <div class="status-container">
@@ -59,10 +61,8 @@ function renderHTML() {
       <div class="image-container">
         <img class="item-image" src="../../images/${tank.fuelType.name}-fuel.PNG">
       </div>
-      <div class="image-container">
-        <img class="item-image" src="../../images/${tank.fuelType.name}-fuel.PNG">
-      </div>
-      ${tank.returnImageHTML()}
+      
+      ${tank.reserveFuelImage()}
     </div>
     
     <div class="message-container">
@@ -169,6 +169,21 @@ function renderHTML() {
                 return tank.id === tankId;
             });
             matchingTank.reFillFuel();
+            renderHTML();
+            issueMessage(matchingTank);
+            setToLocalStorage(matchingTank.id, matchingTank);
+            startRemoveMessageTimer(matchingTank);
+        });
+    });
+    //*Functionality of the refill fuel button:
+    const reserveFuelButtons = document.querySelectorAll(".reserve-fuel-button");
+    reserveFuelButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const tankId = button.dataset.tankId;
+            const matchingTank = tankList.find((tank) => {
+                return tankId === tank.id;
+            });
+            matchingTank.useReserveFuel();
             renderHTML();
             issueMessage(matchingTank);
             setToLocalStorage(matchingTank.id, matchingTank);

@@ -83,3 +83,9 @@ export const antimaterReserveFuel: ReserveFuel = {
   fuelRestoration: 100,
   initialAndMaxCount: 10
 }
+
+// function screenRestoreFuel(){
+//   console.log()
+//   console.log('Test')
+//   console.log('Test')
+// }

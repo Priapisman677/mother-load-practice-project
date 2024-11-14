@@ -36,6 +36,8 @@ function renderHTML() {
         <button class="refill-fuel-button"
         data-tank-id="${tank.id}">Refill fuel</button>
       </div>
+      ${tank.reserveFuelButton()}
+
     </div>
 
     <div class="status-container">
@@ -78,12 +80,8 @@ function renderHTML() {
           tank.fuelType.name as string
         }-fuel.PNG">
       </div>
-      <div class="image-container">
-        <img class="item-image" src="../../images/${
-          tank.fuelType.name as string
-        }-fuel.PNG">
-      </div>
-      ${tank.returnImageHTML()}
+      
+      ${tank.reserveFuelImage()}
     </div>
     
     <div class="message-container">
@@ -207,6 +205,23 @@ function renderHTML() {
         return tank.id === tankId;
       }) as Tank;
       matchingTank.reFillFuel()
+      renderHTML()
+      issueMessage(matchingTank as Tank)
+      setToLocalStorage(matchingTank.id as string, matchingTank as Tank)
+      startRemoveMessageTimer(matchingTank as Tank)
+      
+    });
+  });
+  //*Functionality of the refill fuel button:
+  const reserveFuelButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
+    ".reserve-fuel-button"
+  );
+  reserveFuelButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId = button.dataset.tankId;
+      const matchingTank: Tank = tankList.find((tank: Tank):boolean=>{
+        return tankId as string === tank.id as string}) as Tank;
+      matchingTank.useReserveFuel()
       renderHTML()
       issueMessage(matchingTank as Tank)
       setToLocalStorage(matchingTank.id as string, matchingTank as Tank)

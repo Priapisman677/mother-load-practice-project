@@ -28,7 +28,7 @@ const t1tank: Tier1Tank = storedTank1
     });
 
 const storedTank2: string | null = localStorage.getItem("2");
-const t2tank: Tier2Tank = storedTank2
+export const t2tank: Tier2Tank = storedTank2
   ? new Tier2Tank(JSON.parse(storedTank2))
   : new Tier2Tank({
       drill: rubyDrill,
@@ -42,7 +42,7 @@ const t2tank: Tier2Tank = storedTank2
     });
 
 const storedTank3: string = localStorage.getItem("3")!;
-const t3tank: Tier3Tank = storedTank3
+export const t3tank: Tier3Tank = storedTank3
   ? new Tier3Tank(JSON.parse(storedTank3))
   : new Tier3Tank({
       drill: amazoniteDrill,
@@ -62,8 +62,7 @@ export const tankList: Tank[] = [
   t3tank,
 ];
 
-console.log(t2tank);
-console.log(t3tank);
+
 
 // console.log(t2tank.test())
 

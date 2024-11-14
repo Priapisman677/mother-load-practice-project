@@ -1,4 +1,6 @@
-import { Engine, Drill, FuelType, ReserveFuel } from "./itemsList.js";
+import { Engine, Drill, FuelType, ReserveFuel,
+   uraniumReserveFuel, antimaterReserveFuel
+   } from "./itemsList.js";
 
 
 
@@ -19,19 +21,24 @@ export class Tank {
   
   drill: Drill;
   engine: Engine;
+
   fuelType: FuelType;
+  fuelCapacity: number;
+
   speed: number = 0;
   isStorageOpen: boolean = false;
   movingStatus: string;
   tankMessage: string = "";
   id: string;
-  fuelCapacity: number;
+  
 
   constructor(tankDetails: TankDetails) {
-    
+
+    this.id = tankDetails.id;
     this.drill = tankDetails.drill;
     this.engine = tankDetails.engine;
-    this.id = tankDetails.id;
+
+    //$Notice that the way I did it so that I didn't alter the original value for fuel capacity was to declare 2 things: this.fuelType = tankDetails.fuelType; and this.fuelCapacity
     this.fuelType = tankDetails.fuelType;
 
     const storedTank: Tank = JSON.parse(
@@ -133,8 +140,14 @@ export class Tank {
       this.updateMovingStatus()
     }
   }
-  returnImageHTML(){
+  reserveFuelImage(){
     return '';
+  }
+  reserveFuelButton(){
+    return '';
+  }
+  useReserveFuel(){
+
   }
 }
 
@@ -145,12 +158,17 @@ export class Tier1Tank extends Tank {
 //* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank {
   reserveFuel:ReserveFuel;
+  initialAndMaxCount: number;
   constructor(tankDetails: TankDetails){
     super(tankDetails)
+    //! Be careful because if we needed to modify the variable below we wouldn't modify also the variable in the original object
     this.reserveFuel = tankDetails.reserveFuel as ReserveFuel
-    
+    this.initialAndMaxCount = this.reserveFuel.initialAndMaxCount
+    //$ I didn't know we were able to call the own object just to check how it looks like once created the instance:
+    console.log(this)
+  
   }
-  returnImageHTML(){
+  reserveFuelImage(){
     return `
       <div class="image-container">
         <img class="item-image" src="../../images/${
@@ -159,13 +177,47 @@ export class Tier2Tank extends Tank {
       </div>
     `;
   }
+  reserveFuelButton(){
+    return `
+      <div class="button-container">
+        <button class="reserve-fuel-button"
+        data-tank-id="${this.id}">
+        Use reserve fuel
+        </button>
+      </div>
+    `;
+  }
+  useReserveFuel(){
+    if(this.fuelCapacity !== this.fuelType.fuelCapacity && this.initialAndMaxCount > 0){
+      this.fuelCapacity += this.reserveFuel.fuelRestoration;
+      //!I believe down here I should leave it as "this.initialAndMaxCount" If I don't want to modify the original object.
+      //$ Update: I did leave it as "this.initialAndMaxCount" instead of "this.reserveFuel.initialAndMaxCount" since the latest why is modifying the original object
+      this.initialAndMaxCount -= 1;
+      console.log('This is the current count of R.F:', this.initialAndMaxCount)
+      console.log('original object (uranium) count:', uraniumReserveFuel)
+      console.log('original object (antimater) count:', antimaterReserveFuel)
+    }else{
+      if(this.fuelCapacity === this.fuelType.fuelCapacity){
+       this.tankMessage= 'The fuel is already at its maximum!'
+
+      }
+      if(this.initialAndMaxCount === 0){
+        this.tankMessage= 'You ran out of reserve fuel!'
+      }
+    }
+    if(this.fuelCapacity > this.fuelType.fuelCapacity){
+      this.fuelCapacity = this.fuelType.fuelCapacity
+    }
+  }
+
 }
 //* Tier 3 tank class----------------------------------------
 export class Tier3Tank extends Tier2Tank {
     //$ I just realised that a subclass can inherit from another subclass in this case this subclass inherits from Tier2Tank
 }
 
-
+// console.log(t2tank);
+// console.log(t3tank)
 
 // test1(){
 //   console.log('This is the test() function: This should only work for Tier 1 tank')
