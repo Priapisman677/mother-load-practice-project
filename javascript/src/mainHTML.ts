@@ -1,18 +1,17 @@
 import { tankList } from "./tankObjectList.js";
-import { Tank, Tier1Tank, Tier2Tank, Tier3Tank } from "./tankClass.js";
-
-//!Delete this: I just typed this because to rid of the error "not being used"
-// console.log("🚀 ~ Tier3Tank:", Tier3Tank)
-
+import { Tank} from "./tankClass.js";
 import {
   setToLocalStorage,
   issueMessage,
   startRemoveMessageTimer,
+  buttonFunction,
+  speedUpButtons
 } from "./utils.js";
 
-//$ Couldn't I just pass tanks as a parameter to the function below?
-function renderHTML() {
+
+export function renderHTML() {
   let menuHTML: string = "";
+
   tankList.forEach((tank) => {
     menuHTML += `
     <div class="functions-container">
@@ -96,40 +95,22 @@ function renderHTML() {
     </div>
   `;
   });
-
   const tankMenu: Element = document.querySelector(".tank-menu")!;
   tankMenu.innerHTML = menuHTML;
 
+
   //*Functionality of the "speed up" button
-  const speedUpButtons: NodeListOf<HTMLElement> =
-    document.querySelectorAll(".speedUp-button");
-  speedUpButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
-        return (tank.id as string) === (tankId as string);
-      }) as Tank;
-      if (matchingTank instanceof Tank) {
-        console.log("All tanks should print this");
-      }
-      if (matchingTank instanceof Tier1Tank) {
-        // matchingTank.test1();
-        matchingTank.go();
-      }
-      if ((matchingTank instanceof Tier2Tank) && !(matchingTank instanceof Tier3Tank)) {
-        // matchingTank.test1();
-        matchingTank.go();
-      }
-      if (matchingTank instanceof Tier3Tank) {
-        // matchingTank.test1();
-        matchingTank.go();
-      }
-      setToLocalStorage(matchingTank.id, matchingTank);
-      renderHTML();
-      issueMessage(matchingTank);
-      startRemoveMessageTimer(matchingTank);
-    });
-  });
+
+  buttonFunction(speedUpButtons);
+
+
+
+
+
+
+
+
+
 
   //*Functionality of the "slow down" button
   const slowDownButtons: NodeListOf<HTMLElement> =
@@ -140,19 +121,7 @@ function renderHTML() {
       const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
         return (tank.id as string) === (tankId as string);
       }) as Tank;
-
-      //! I just forgot why we needed to do this logic below so I need to review it:------
-
-      if (matchingTank instanceof Tier1Tank) {
-        matchingTank.break();
-      }
-      if ((matchingTank instanceof Tier2Tank) && !(matchingTank instanceof Tier3Tank)) {
-        matchingTank.break();
-      }
-      if (matchingTank instanceof Tier3Tank) {
-        matchingTank.break();
-      }
-
+      matchingTank.break();
       setToLocalStorage(matchingTank.id, matchingTank);
       renderHTML();
       issueMessage(matchingTank);
@@ -232,6 +201,7 @@ function renderHTML() {
     });
   });
 
+  //*Functionality of the fly button:
   const flyButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
     ".fly-button"
   );

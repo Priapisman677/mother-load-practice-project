@@ -1,3 +1,5 @@
+import { tankList } from "./tankObjectList.js";
+import { renderHTML } from "./mainHTML.js";
 //*Function to set to local storage:
 export function setToLocalStorage(tankId, matchingTank) {
     localStorage.setItem(tankId, JSON.stringify(matchingTank));
@@ -21,13 +23,25 @@ export function startRemoveMessageTimer(matchingTank) {
         matchingTank.tankMessage = "";
     }, 5000);
 }
-//$ The function below was deprecated because I added ".find()" instead
-// export function findTankById(id: string): Tank | null {
-//   let matchingTank: Tank | null = null;
-//   tankList.forEach((tank) => {
-//     if (tank.id === id) {
-//       matchingTank = tank;
-//     }
-//   });
-//   return matchingTank;
-// }
+export const speedUpButtons = {
+    buttonName: ".speedUp-button",
+    functionName: "go",
+};
+//*Function to add functionalities to buttons:
+export function buttonFunction(buttonObject) {
+    const buttonList = document.querySelectorAll(buttonObject.buttonName);
+    buttonList.forEach((button) => {
+        button.addEventListener("click", () => {
+            const tankId = button.dataset.tankId;
+            const matchingTank = tankList.find((tank) => {
+                return tank.id === tankId;
+            });
+            matchingTank[buttonObject.functionName]();
+            setToLocalStorage(matchingTank.id, matchingTank);
+            renderHTML();
+            issueMessage(matchingTank);
+            startRemoveMessageTimer(matchingTank);
+        });
+    });
+}
+buttonFunction(speedUpButtons);

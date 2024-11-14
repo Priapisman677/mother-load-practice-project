@@ -1,6 +1,4 @@
-import { Engine, Drill, FuelType, ReserveFuel,FanType} from "./itemsList.js";
-
-
+import { Engine, Drill, FuelType, ReserveFuel, FanType } from "./itemsList.js";
 
 interface TankDetails {
   drill: Drill;
@@ -10,30 +8,22 @@ interface TankDetails {
   isStorageOpen: boolean;
   movingStatus: string;
   id: string;
-
-  questionMarkIsUsedToIndicateUncertainty?: string;
-  reserveFuel?:ReserveFuel;
+  reserveFuel?: ReserveFuel;
   fan?: FanType;
-  height?: number;
 }
 
 export class Tank {
-  
   drill: Drill;
   engine: Engine;
-
   fuelType: FuelType;
   fuelCapacity: number;
-
   speed: number = 0;
   isStorageOpen: boolean = false;
   movingStatus: string;
   tankMessage: string = "";
   id: string;
-  
 
   constructor(tankDetails: TankDetails) {
-
     this.id = tankDetails.id;
     this.drill = tankDetails.drill;
     this.engine = tankDetails.engine;
@@ -66,12 +56,10 @@ export class Tank {
   }
   go(): void {
     if (this.isStorageOpen === false && this.fuelCapacity > 0) {
-      if(this.speed < this.engine.speedLimit){
+      if (this.speed < this.engine.speedLimit) {
         this.fuelCapacity -= 10;
       }
       this.speed += 5 * this.engine.speedMultiplier;
-      
-      
     } else if (this.isStorageOpen === true && this.fuelCapacity <= 0) {
       this.tankMessage =
         "You tried moving the tank but the storage is open and there is no fuel!";
@@ -118,63 +106,51 @@ export class Tank {
     }
   }
   reFillFuel() {
-    if(this.fuelCapacity === this.fuelType.fuelCapacity){
-      this.tankMessage = 'The fuel is already at its maximum!'
-  }
-    else if (this.speed === 0) {
+    if (this.fuelCapacity === this.fuelType.fuelCapacity) {
+      this.tankMessage = "The fuel is already at its maximum!";
+    } else if (this.speed === 0) {
       this.fuelCapacity = this.fuelType.fuelCapacity;
     } else {
       this.tankMessage = "You need to be stopped in order to refill your fuel!";
     }
-    
   }
 
   updateMovingStatus(): void {
     this.movingStatus = this.speed > 0 ? "moving" : "stopped";
   }
 
-  checkFuelCapacity(){
-    if(this.fuelCapacity <= 0){
+  checkFuelCapacity() {
+    if (this.fuelCapacity <= 0) {
       this.speed = 0;
-      this.tankMessage = 'The tank has stopped due to lack of fuel!'
-      this.updateMovingStatus()
+      this.tankMessage = "The tank has stopped due to lack of fuel!";
+      this.updateMovingStatus();
     }
   }
-  reserveFuelImage(){
-    return '';
-  }
-  reserveFuelButton(){
-    return '';
-  }
-  useReserveFuel(){}
-  flyButton(){
-    return '';
-  }
-  fanImage(){
-    return '';
-  }
-  fly(){}
+  reserveFuelImage() {return "";}
+  reserveFuelButton() {return "";}
+  useReserveFuel() {}
+  flyButton() {return "";}
+  fanImage() {return "";}
+  fly() {}
 }
 
 //* Tier 1 tank class----------------------------------------
-export class Tier1Tank extends Tank {
-
-}
+export class Tier1Tank extends Tank {}
 //* Tier 2 tank class----------------------------------------
 export class Tier2Tank extends Tank {
-  reserveFuel:ReserveFuel;
+  reserveFuel: ReserveFuel;
   initialAndMaxCount: number;
-  constructor(tankDetails: TankDetails){
-    super(tankDetails)
-    //! Be careful because if we needed to modify the variable below we wouldn't modify also the variable in the original object
-    this.reserveFuel = tankDetails.reserveFuel as ReserveFuel
-    const storedTank: Tier2Tank = JSON.parse(localStorage.getItem(this.id) as string) as Tier2Tank
+  constructor(tankDetails: TankDetails) {
+    super(tankDetails);
+    this.reserveFuel = tankDetails.reserveFuel as ReserveFuel;
+    const storedTank: Tier2Tank = JSON.parse(
+      localStorage.getItem(this.id) as string
+    ) as Tier2Tank;
     this.initialAndMaxCount = storedTank
-    ? storedTank.initialAndMaxCount
-    :this.reserveFuel.initialAndMaxCount;
-    //$ I didn't know we were able to call the own object just to check how it looks like once created the instance:
+      ? storedTank.initialAndMaxCount
+      : this.reserveFuel.initialAndMaxCount;
   }
-  reserveFuelImage(){
+  reserveFuelImage() {
     return `
       <div class="image-container">
         <p class="reserve-fuel-tanks">${this.initialAndMaxCount}<p>
@@ -184,7 +160,7 @@ export class Tier2Tank extends Tank {
       </div>
     `;
   }
-  reserveFuelButton(){
+  reserveFuelButton() {
     return `
       <div class="button-container">
         <button class="reserve-fuel-button"
@@ -194,46 +170,43 @@ export class Tier2Tank extends Tank {
       </div>
     `;
   }
-  useReserveFuel(){
-    if(this.fuelCapacity !== this.fuelType.fuelCapacity && this.initialAndMaxCount > 0){
+  useReserveFuel() {
+    if (
+      this.fuelCapacity !== this.fuelType.fuelCapacity &&
+      this.initialAndMaxCount > 0
+    ) {
       this.fuelCapacity += this.reserveFuel.fuelRestoration;
-      //!I believe down here I should leave it as "this.initialAndMaxCount" If I don't want to modify the original object.
-      //$ Update: I did leave it as "this.initialAndMaxCount" instead of "this.reserveFuel.initialAndMaxCount" since the latest why is modifying the original object
       this.initialAndMaxCount -= 1;
-    }else{
-      if(this.fuelCapacity === this.fuelType.fuelCapacity){
-       this.tankMessage= 'The fuel is already at its maximum!'
-
+    } else {
+      if (this.fuelCapacity === this.fuelType.fuelCapacity) {
+        this.tankMessage = "The fuel is already at its maximum!";
       }
-      if(this.initialAndMaxCount === 0){
-        this.tankMessage= 'You ran out of reserve fuel!'
+      if (this.initialAndMaxCount === 0) {
+        this.tankMessage = "You ran out of reserve fuel!";
       }
     }
-    if(this.fuelCapacity > this.fuelType.fuelCapacity){
-      this.fuelCapacity = this.fuelType.fuelCapacity
+    if (this.fuelCapacity > this.fuelType.fuelCapacity) {
+      this.fuelCapacity = this.fuelType.fuelCapacity;
     }
   }
-
 }
 //* Tier 3 tank class----------------------------------------
 export class Tier3Tank extends Tier2Tank {
-  //$ I just realised that a subclass can inherit from another subclass in this case this subclass inherits from Tier2Tank
+
   fan: FanType;
   height: number = 0;
-  
 
-  constructor(tankDetails: TankDetails){
-    super(tankDetails)
-    this.fan = tankDetails.fan as FanType
-    console.log('test1:',this.height)
+  constructor(tankDetails: TankDetails) {
+    super(tankDetails);
+    this.fan = tankDetails.fan as FanType;
   }
 
-  fly(){
+  fly() {
     this.height += 10;
-    console.log('test2:',this.height)
+    console.log("test2:", this.height);
   }
 
-  fanImage(){
+  fanImage() {
     return `
       <div class="image-container">
         <img class="item-image" src="../../images/${
@@ -242,7 +215,7 @@ export class Tier3Tank extends Tier2Tank {
       </div>
     `;
   }
-  flyButton(){
+  flyButton() {
     return `
       <div class="button-container">
         <button class="fly-button"
@@ -252,12 +225,4 @@ export class Tier3Tank extends Tier2Tank {
       </div>
     `;
   }
-    
 }
-
-// console.log(t2tank);
-// console.log(t3tank)
-
-// test1(){
-//   console.log('This is the test() function: This should only work for Tier 1 tank')
-// }

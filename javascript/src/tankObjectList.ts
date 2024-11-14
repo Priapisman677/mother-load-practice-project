@@ -14,7 +14,7 @@ import {
   stockFan
 } from "./itemsList.js";
 
-//*In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
+//In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
 const storedTank1: string | null = localStorage.getItem("1");
 const t1tank: Tier1Tank = storedTank1
   ? new Tier1Tank(JSON.parse(storedTank1))
@@ -43,7 +43,7 @@ export const t2tank: Tier2Tank = storedTank2
       
     });
 
-const storedTank3: string = localStorage.getItem("3")!;
+const storedTank3: string = localStorage.getItem("3") as string;
 export const t3tank: Tier3Tank = storedTank3
   ? new Tier3Tank(JSON.parse(storedTank3))
   : new Tier3Tank({
@@ -64,14 +64,4 @@ export const tankList: Tank[] = [
   t2tank,
   t3tank,
 ];
-
-
-
-// console.log(t2tank.test())
-
-// console.log(tankList[1] as Tier2Tank)
-
-// console.log((t2tank).test());
-// // console.log((tankList[2]as Tier3Tank).test3())
-// console.log(t2tank)
 

@@ -1,15 +1,17 @@
 import { Tank } from "./tankClass.js";
+import { tankList } from "./tankObjectList.js";
+import { renderHTML } from "./mainHTML.js";
 
 //*Function to set to local storage:
 export function setToLocalStorage(tankId: string, matchingTank: Tank): void {
   localStorage.setItem(tankId, JSON.stringify(matchingTank));
 }
 
-
-
 //*Function to issue a message to the correct tank:
 export function issueMessage(matchingTank: Tank): void {
-  let message: Element = document.querySelector(`.js-message${matchingTank.id as string}`) as Element;
+  let message: Element = document.querySelector(
+    `.js-message${matchingTank.id as string}`
+  ) as Element;
   message.innerHTML = matchingTank.tankMessage;
 }
 
@@ -31,14 +33,37 @@ export function startRemoveMessageTimer(matchingTank: Tank): void {
 }
 
 
+//* Buttons interface and button objects
+interface Button {
+  buttonName: string;
+  functionName: keyof Tank;
+}
 
-//$ The function below was deprecated because I added ".find()" instead
-// export function findTankById(id: string): Tank | null {
-//   let matchingTank: Tank | null = null;
-//   tankList.forEach((tank) => {
-//     if (tank.id === id) {
-//       matchingTank = tank;
-//     }
-//   });
-//   return matchingTank;
-// }
+export const speedUpButtons: Button = {
+  buttonName: ".speedUp-button",
+  functionName: "go",
+};
+
+
+//*Function to add functionalities to buttons:
+
+export function buttonFunction(buttonObject: Button): void {
+  const buttonList: NodeListOf<HTMLElement> = document.querySelectorAll(
+    buttonObject.buttonName
+  );
+  buttonList.forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId: string = button.dataset.tankId as string;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
+        return (tank.id as string) === (tankId as string);
+      }) as Tank;
+      (matchingTank[buttonObject.functionName] as Function)();
+      setToLocalStorage(matchingTank.id, matchingTank);
+      renderHTML();
+      issueMessage(matchingTank);
+      startRemoveMessageTimer(matchingTank);
+    });
+  });
+}
+
+buttonFunction(speedUpButtons);
