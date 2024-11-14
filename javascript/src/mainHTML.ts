@@ -1,11 +1,8 @@
 import { tankList } from "./tankObjectList.js";
-import { Tank} from "./tankClass.js";
+
 import {
-  setToLocalStorage,
-  issueMessage,
-  startRemoveMessageTimer,
   buttonFunction,
-  speedUpButtons
+  TankButton,
 } from "./utils.js";
 
 
@@ -42,25 +39,22 @@ export function renderHTML() {
 
     <div class="status-container">
       <div class="status">
-        <p class="moving-status">Moving <br/>status: ${
-          tank.movingStatus as string
-        }</p>
+        <p class="moving-status">Moving <br/>status: ${tank.movingStatus as string}</p>
       </div>
       <div class="status">
         <p>
           Storage <br />
-          status: ${
-            (tank.isStorageOpen as boolean) === true ? "Open" : "Closed"
-          }
+          status: ${(tank.isStorageOpen as boolean) === true ? "Open" : "Closed"}
         </p>
       </div>
       <div class="status">
         <p>Speed: ${tank.speed as number}</p>
       </div>
 
-       <div class="status">Current fuel:  <br /> ${
-         tank.fuelCapacity
-       }</div>
+       <div class="status">
+        <p>Current fuel:  <br /> ${tank.fuelCapacity}</p>
+       </div>
+       ${tank.heightStatus()}
     </div>
 
     <div class="items-container">
@@ -98,140 +92,50 @@ export function renderHTML() {
   const tankMenu: Element = document.querySelector(".tank-menu")!;
   tankMenu.innerHTML = menuHTML;
 
+ //* Button objects
 
-  //*Functionality of the "speed up" button
+const speedUpButtons: TankButton = {
+  buttonName: ".speedUp-button",
+  functionName: "go",
+};
+const slowDownButtons: TankButton = {
+  buttonName: ".slow-down-button",
+  functionName: "break",
+};
+const openStorageButtons: TankButton = {
+  buttonName: ".open-storage-button",
+  functionName: "openStorage",
+};
+const closeStorageButtons: TankButton = {
+  buttonName: ".close-storage-button",
+  functionName: "closeStorage",
+};
+const refillFuelButtons: TankButton = {
+  buttonName: ".refill-fuel-button",
+  functionName: "reFillFuel",
+};
+const reserveFuelButtons: TankButton = {
+  buttonName: ".reserve-fuel-button",
+  functionName: "useReserveFuel",
+};
+const flyButtons: TankButton = {
+  buttonName: ".fly-button",
+  functionName: "fly",
+};
+const removeMessageButtons: TankButton = {
+  buttonName: ".remove-message-button",
+  functionName: "removeMessage",
+};
 
+  //*Functionality of all buttons:
   buttonFunction(speedUpButtons);
-
-
-
-
-
-
-
-
-
-
-  //*Functionality of the "slow down" button
-  const slowDownButtons: NodeListOf<HTMLElement> =
-    document.querySelectorAll(".slow-down-button");
-  slowDownButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
-        return (tank.id as string) === (tankId as string);
-      }) as Tank;
-      matchingTank.break();
-      setToLocalStorage(matchingTank.id, matchingTank);
-      renderHTML();
-      issueMessage(matchingTank);
-      startRemoveMessageTimer(matchingTank);
-    });
-  });
-
-  //*Functionality of the open storage button
-  const openStorageButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
-    ".open-storage-button"
-  );
-  openStorageButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
-        return (tank.id as string) === (tankId as string);
-      }) as Tank;
-      matchingTank.openStorage();
-      setToLocalStorage(matchingTank.id, matchingTank);
-      renderHTML();
-      issueMessage(matchingTank);
-      startRemoveMessageTimer(matchingTank);
-    });
-  });
-
-  //*Functionality of the close storage button:
-  const closeStorageButtons: NodeListOf<HTMLElement> =
-    document.querySelectorAll(".close-storage-button");
-  //! I also could add the word void to all functions:
-  closeStorageButtons.forEach((button): void => {
-    button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
-        return (tank.id as string) === (tankId as string);
-      }) as Tank;
-      matchingTank.closeStorage();
-      renderHTML();
-      issueMessage(matchingTank as Tank);
-      setToLocalStorage(matchingTank.id as string, matchingTank as Tank);
-      startRemoveMessageTimer(matchingTank as Tank);
-    });
-  });
-
-  //*Functionality of the refill fuel button:
-  const refillFuelButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
-    ".refill-fuel-button"
-  );
-  refillFuelButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tankId = button.dataset.tankId;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
-        return tank.id === tankId;
-      }) as Tank;
-      matchingTank.reFillFuel()
-      renderHTML()
-      issueMessage(matchingTank as Tank)
-      setToLocalStorage(matchingTank.id as string, matchingTank as Tank)
-      startRemoveMessageTimer(matchingTank as Tank)
-      
-    });
-  });
-  //*Functionality of the refill fuel button:
-  const reserveFuelButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
-    ".reserve-fuel-button"
-  );
-  reserveFuelButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tankId = button.dataset.tankId;
-      const matchingTank: Tank = tankList.find((tank: Tank):boolean=>{
-        return tankId as string === tank.id as string}) as Tank;
-      matchingTank.useReserveFuel()
-      renderHTML()
-      issueMessage(matchingTank as Tank)
-      setToLocalStorage(matchingTank.id as string, matchingTank as Tank)
-      startRemoveMessageTimer(matchingTank as Tank)
-      
-    });
-  });
-
-  //*Functionality of the fly button:
-  const flyButtons: NodeListOf<HTMLElement> = document.querySelectorAll(
-    ".fly-button"
-  );
-  flyButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tankId = button.dataset.tankId;
-      const matchingTank: Tank = tankList.find((tank: Tank):boolean=>{
-        return tankId as string === tank.id as string}) as Tank;
-      matchingTank.fly()
-      renderHTML()
-      issueMessage(matchingTank as Tank)
-      setToLocalStorage(matchingTank.id as string, matchingTank as Tank)
-      startRemoveMessageTimer(matchingTank as Tank)
-      
-    });
-  });
-
-  //*Functionality of remove message button:
-  const removeMessageButtons: NodeListOf<HTMLElement> =
-    document.querySelectorAll(".remove-message-button");
-  removeMessageButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
-        return (tank.id as string) === (tankId as string);
-      }) as Tank;
-      matchingTank.tankMessage = "";
-      issueMessage(matchingTank);
-    });
-  });
+  buttonFunction(slowDownButtons);
+  buttonFunction(openStorageButtons);
+  buttonFunction(closeStorageButtons);
+  buttonFunction(refillFuelButtons);
+  buttonFunction(reserveFuelButtons);
+  buttonFunction(flyButtons);
+  buttonFunction(removeMessageButtons);
 }
 renderHTML();
 

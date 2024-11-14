@@ -17,7 +17,7 @@ export class Tank {
   engine: Engine;
   fuelType: FuelType;
   fuelCapacity: number;
-  speed: number = 0;
+  speed: number;
   isStorageOpen: boolean = false;
   movingStatus: string;
   tankMessage: string = "";
@@ -27,8 +27,6 @@ export class Tank {
     this.id = tankDetails.id;
     this.drill = tankDetails.drill;
     this.engine = tankDetails.engine;
-
-    //$Notice that the way I did it so that I didn't alter the original value for fuel capacity was to declare 2 things: this.fuelType = tankDetails.fuelType; and this.fuelCapacity
     this.fuelType = tankDetails.fuelType;
 
     const storedTank: Tank = JSON.parse(
@@ -119,6 +117,10 @@ export class Tank {
     this.movingStatus = this.speed > 0 ? "moving" : "stopped";
   }
 
+  removeMessage(): void {
+    this.tankMessage = "";
+  }
+
   checkFuelCapacity() {
     if (this.fuelCapacity <= 0) {
       this.speed = 0;
@@ -126,12 +128,23 @@ export class Tank {
       this.updateMovingStatus();
     }
   }
-  reserveFuelImage() {return "";}
-  reserveFuelButton() {return "";}
+  reserveFuelImage() {
+    return "";
+  }
+  reserveFuelButton() {
+    return "";
+  }
   useReserveFuel() {}
-  flyButton() {return "";}
-  fanImage() {return "";}
+  flyButton() {
+    return "";
+  }
+  fanImage() {
+    return "";
+  }
   fly() {}
+  heightStatus() {
+    return "";
+  }
 }
 
 //* Tier 1 tank class----------------------------------------
@@ -192,18 +205,33 @@ export class Tier2Tank extends Tank {
 }
 //* Tier 3 tank class----------------------------------------
 export class Tier3Tank extends Tier2Tank {
-
   fan: FanType;
-  height: number = 0;
+  height: number;
 
   constructor(tankDetails: TankDetails) {
     super(tankDetails);
     this.fan = tankDetails.fan as FanType;
+
+    const storedTank: Tier3Tank = JSON.parse(
+      localStorage.getItem(this.id) as string
+    ) as Tier3Tank;
+
+    this.height = storedTank ? storedTank.height : 0;
   }
 
   fly() {
-    this.height += 10;
-    console.log("test2:", this.height);
+    if (
+      this.height < this.fan.heightLimit &&
+      this.fuelCapacity > 0 &&
+      this.isStorageOpen === false
+    ) {
+      this.height += 10 * this.fan.flyMultiplier;
+      this.fuelCapacity -= 10;
+    }
+    if (this.height >= this.fan.heightLimit){
+      this.height = this.fan.heightLimit;
+        this.tankMessage = "The tank has reached its height limit!";
+      }
   }
 
   fanImage() {
@@ -223,6 +251,13 @@ export class Tier3Tank extends Tier2Tank {
         Fly
         </button>
       </div>
+    `;
+  }
+  heightStatus() {
+    return `
+      <div class="status">
+        <p>Height:  <br /> ${this.height}</p>
+       </div>
     `;
   }
 }

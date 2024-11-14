@@ -5,16 +5,6 @@
 
 -I also should make the buttons state what is the increase of speed that they could have as well as things as the speed limit specified for each tank.
 
--Also it should be interesting to get the speed limit based on the type of engine instead of just assigning it inside of the different classes.
-
-
-
--Also be able to give other functionalities to the other two tanks that perform a function that is not available in tanks of other tiers.
-To work with inheritance I could start with something as simple as not being able to create a tank with a fan without it being of a sub-class.
-
- They can be something simple such as  an item that let's you recharge fuel while you are moving (with a count screener) fan for 'fly' (with height screener) or .
- But it will be better to start when something like "Shield type" That is just going to throw another image for the 2nd and 3rd tank.
- And add one thing to the third class such as a turbine type
 
 Another feature that I could add is to have a fuel tank that will be specific for each tank and each time the tank performs a function the fuel could be reduced.
 
@@ -24,7 +14,7 @@ Other:
 -Minerals that can be mined depending on the type of drill.
 
 shop: Sell minerals and:
-    -refill fuel
+    -Global fuel reserve   (Decreases after every tank uses fuel).
     -buy fuel tanks
     -upgrade the tanks (increase their tier and buy features) very more complex I guess
 

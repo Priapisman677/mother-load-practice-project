@@ -1,5 +1,21 @@
 import { tankList } from "./tankObjectList.js";
 import { renderHTML } from "./mainHTML.js";
+export function buttonFunction(buttonObject) {
+    const buttonList = document.querySelectorAll(buttonObject.buttonName);
+    buttonList.forEach((button) => {
+        button.addEventListener("click", () => {
+            const tankId = button.dataset.tankId;
+            const matchingTank = tankList.find((tank) => {
+                return tank.id === tankId;
+            });
+            matchingTank[buttonObject.functionName]();
+            setToLocalStorage(matchingTank.id, matchingTank);
+            renderHTML();
+            issueMessage(matchingTank);
+            startRemoveMessageTimer(matchingTank);
+        });
+    });
+}
 //*Function to set to local storage:
 export function setToLocalStorage(tankId, matchingTank) {
     localStorage.setItem(tankId, JSON.stringify(matchingTank));
@@ -23,25 +39,3 @@ export function startRemoveMessageTimer(matchingTank) {
         matchingTank.tankMessage = "";
     }, 5000);
 }
-export const speedUpButtons = {
-    buttonName: ".speedUp-button",
-    functionName: "go",
-};
-//*Function to add functionalities to buttons:
-export function buttonFunction(buttonObject) {
-    const buttonList = document.querySelectorAll(buttonObject.buttonName);
-    buttonList.forEach((button) => {
-        button.addEventListener("click", () => {
-            const tankId = button.dataset.tankId;
-            const matchingTank = tankList.find((tank) => {
-                return tank.id === tankId;
-            });
-            matchingTank[buttonObject.functionName]();
-            setToLocalStorage(matchingTank.id, matchingTank);
-            renderHTML();
-            issueMessage(matchingTank);
-            startRemoveMessageTimer(matchingTank);
-        });
-    });
-}
-buttonFunction(speedUpButtons);

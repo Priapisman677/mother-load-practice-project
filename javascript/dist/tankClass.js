@@ -1,6 +1,5 @@
 export class Tank {
     constructor(tankDetails) {
-        this.speed = 0;
         this.isStorageOpen = false;
         this.tankMessage = "";
         this.id = tankDetails.id;
@@ -87,6 +86,9 @@ export class Tank {
     updateMovingStatus() {
         this.movingStatus = this.speed > 0 ? "moving" : "stopped";
     }
+    removeMessage() {
+        this.tankMessage = "";
+    }
     checkFuelCapacity() {
         if (this.fuelCapacity <= 0) {
             this.speed = 0;
@@ -94,12 +96,23 @@ export class Tank {
             this.updateMovingStatus();
         }
     }
-    reserveFuelImage() { return ""; }
-    reserveFuelButton() { return ""; }
+    reserveFuelImage() {
+        return "";
+    }
+    reserveFuelButton() {
+        return "";
+    }
     useReserveFuel() { }
-    flyButton() { return ""; }
-    fanImage() { return ""; }
+    flyButton() {
+        return "";
+    }
+    fanImage() {
+        return "";
+    }
     fly() { }
+    heightStatus() {
+        return "";
+    }
 }
 //* Tier 1 tank class----------------------------------------
 export class Tier1Tank extends Tank {
@@ -155,12 +168,21 @@ export class Tier2Tank extends Tank {
 export class Tier3Tank extends Tier2Tank {
     constructor(tankDetails) {
         super(tankDetails);
-        this.height = 0;
         this.fan = tankDetails.fan;
+        const storedTank = JSON.parse(localStorage.getItem(this.id));
+        this.height = storedTank ? storedTank.height : 0;
     }
     fly() {
-        this.height += 10;
-        console.log("test2:", this.height);
+        if (this.height < this.fan.heightLimit &&
+            this.fuelCapacity > 0 &&
+            this.isStorageOpen === false) {
+            this.height += 10 * this.fan.flyMultiplier;
+            this.fuelCapacity -= 10;
+            if (this.height >= this.fan.heightLimit) {
+                this.height = this.fan.heightLimit;
+                this.tankMessage = "The tank has reached its height limit!";
+            }
+        }
     }
     fanImage() {
         return `
@@ -177,6 +199,13 @@ export class Tier3Tank extends Tier2Tank {
         Fly
         </button>
       </div>
+    `;
+    }
+    heightStatus() {
+        return `
+      <div class="status">
+        <p>Height:  <br /> ${this.height}</p>
+       </div>
     `;
     }
 }

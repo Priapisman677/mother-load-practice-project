@@ -2,6 +2,38 @@ import { Tank } from "./tankClass.js";
 import { tankList } from "./tankObjectList.js";
 import { renderHTML } from "./mainHTML.js";
 
+
+
+
+//*Function to add functionalities to buttons:
+
+//! Ideally this interface should be placed in the mainHTML.ts file: But we would need to do it outside of the function renderHTML() And it could get lost easily.
+export interface TankButton {
+  buttonName: string;
+  functionName: keyof Tank;
+}
+
+export function buttonFunction(buttonObject: TankButton): void {
+  const buttonList: NodeListOf<HTMLElement> = document.querySelectorAll(
+    buttonObject.buttonName
+  );
+  buttonList.forEach((button) => {
+    button.addEventListener("click", () => {
+      const tankId: string = button.dataset.tankId as string;
+      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
+        return (tank.id as string) === (tankId as string);
+      }) as Tank;
+      (matchingTank[buttonObject.functionName] as Function)();
+      setToLocalStorage(matchingTank.id, matchingTank);
+      renderHTML();
+      issueMessage(matchingTank);
+      startRemoveMessageTimer(matchingTank);
+    });
+  });
+}
+
+
+
 //*Function to set to local storage:
 export function setToLocalStorage(tankId: string, matchingTank: Tank): void {
   localStorage.setItem(tankId, JSON.stringify(matchingTank));
@@ -33,37 +65,5 @@ export function startRemoveMessageTimer(matchingTank: Tank): void {
 }
 
 
-//* Buttons interface and button objects
-interface Button {
-  buttonName: string;
-  functionName: keyof Tank;
-}
-
-export const speedUpButtons: Button = {
-  buttonName: ".speedUp-button",
-  functionName: "go",
-};
 
 
-//*Function to add functionalities to buttons:
-
-export function buttonFunction(buttonObject: Button): void {
-  const buttonList: NodeListOf<HTMLElement> = document.querySelectorAll(
-    buttonObject.buttonName
-  );
-  buttonList.forEach((button) => {
-    button.addEventListener("click", () => {
-      const tankId: string = button.dataset.tankId as string;
-      const matchingTank: Tank = tankList.find((tank: Tank): boolean => {
-        return (tank.id as string) === (tankId as string);
-      }) as Tank;
-      (matchingTank[buttonObject.functionName] as Function)();
-      setToLocalStorage(matchingTank.id, matchingTank);
-      renderHTML();
-      issueMessage(matchingTank);
-      startRemoveMessageTimer(matchingTank);
-    });
-  });
-}
-
-buttonFunction(speedUpButtons);
