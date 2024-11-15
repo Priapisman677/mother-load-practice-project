@@ -1,4 +1,4 @@
-import { tankList } from "./tankObjectList.js";
+import { tankList, t1tank} from "./tankObjectList.js";
 
 import {
   buttonFunction,
@@ -64,12 +64,12 @@ export function renderHTML() {
         }-drill.PNG">
       </div>
       <div class="image-container">
-        <img class="item-image" src="/images/${
+        <img class="item-image" src="../images/${
           tank.engine.name as string
         }-engine.PNG">
       </div>
       <div class="image-container">
-        <img class="item-image" src="../../images/${
+        <img class="item-image" src="../images/${
           tank.fuelType.name as string
         }-fuel.PNG">
       </div>
@@ -138,4 +138,5 @@ const removeMessageButtons: TankButton = {
   buttonFunction(removeMessageButtons);
 }
 renderHTML();
+
 

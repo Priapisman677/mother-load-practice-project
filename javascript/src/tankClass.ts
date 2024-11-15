@@ -167,7 +167,7 @@ export class Tier2Tank extends Tank {
     return `
       <div class="image-container">
         <p class="reserve-fuel-tanks">${this.initialAndMaxCount}<p>
-        <img class="item-image" src="../../images/${
+        <img class="item-image" src="../images/${
           this.reserveFuel.name as string
         }-reserveFuel.PNG">
       </div>
@@ -237,7 +237,7 @@ export class Tier3Tank extends Tier2Tank {
   fanImage() {
     return `
       <div class="image-container">
-        <img class="item-image" src="../../images/${
+        <img class="item-image" src="../images/${
           this.fan.name as string
         }-fan.PNG">
       </div>

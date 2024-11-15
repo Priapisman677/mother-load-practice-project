@@ -16,7 +16,7 @@ import {
 
 //In the TWO instances below I used the type string | null just for learning but I could also use the Exclamation mark which leaves room for uncertainty and ERRORS.
 const storedTank1: string | null = localStorage.getItem("1");
-const t1tank: Tier1Tank = storedTank1
+export const t1tank: Tier1Tank = storedTank1
   ? new Tier1Tank(JSON.parse(storedTank1))
   : new Tier1Tank({
       drill: silverDrill,

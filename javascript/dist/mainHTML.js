@@ -1,4 +1,4 @@
-import { tankList } from "./tankObjectList.js";
+import { tankList, t1tank } from "./tankObjectList.js";
 import { buttonFunction, } from "./utils.js";
 export function renderHTML() {
     let menuHTML = "";
@@ -52,10 +52,10 @@ export function renderHTML() {
 
     <div class="items-container">
       <div class="image-container">
-        <img class="item-image" src="../images/${tank.drill.name}-drill.PNG">
+        <img class="item-image" src="../../images/${tank.drill.name}-drill.PNG">
       </div>
       <div class="image-container">
-        <img class="item-image" src="/images/${tank.engine.name}-engine.PNG">
+        <img class="item-image" src="../../images/${tank.engine.name}-engine.PNG">
       </div>
       <div class="image-container">
         <img class="item-image" src="../../images/${tank.fuelType.name}-fuel.PNG">
@@ -120,3 +120,4 @@ export function renderHTML() {
     buttonFunction(removeMessageButtons);
 }
 renderHTML();
+console.log(`Image path: ../../images/${t1tank.drill.name}-drill.PNG`);
