@@ -59,17 +59,17 @@ export function renderHTML() {
 
     <div class="items-container">
       <div class="image-container">
-        <img class="item-image" src="../images/${
+        <img class="item-image " src="../images/${
           tank.drill.name as string
         }-drill.PNG">
       </div>
       <div class="image-container">
-        <img class="item-image" src="../images/${
+        <img class="item-image " src="../images/${
           tank.engine.name as string
         }-engine.PNG">
       </div>
       <div class="image-container">
-        <img class="item-image" src="../images/${
+        <img class="item-image " src="../images/${
           tank.fuelType.name as string
         }-fuel.PNG">
       </div>
@@ -139,4 +139,4 @@ const removeMessageButtons: TankButton = {
 }
 renderHTML();
 
-
+console.log(`Image path: ../../images/${t1tank.drill.name}-drill.PNG`);

@@ -52,13 +52,13 @@ export function renderHTML() {
 
     <div class="items-container">
       <div class="image-container">
-        <img class="item-image" src="../../images/${tank.drill.name}-drill.PNG">
+        <img class="item-image " src="../images/${tank.drill.name}-drill.PNG">
       </div>
       <div class="image-container">
-        <img class="item-image" src="../../images/${tank.engine.name}-engine.PNG">
+        <img class="item-image " src="../images/${tank.engine.name}-engine.PNG">
       </div>
       <div class="image-container">
-        <img class="item-image" src="../../images/${tank.fuelType.name}-fuel.PNG">
+        <img class="item-image " src="../images/${tank.fuelType.name}-fuel.PNG">
       </div>
       
       ${tank.reserveFuelImage()}
