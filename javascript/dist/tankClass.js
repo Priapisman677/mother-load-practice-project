@@ -5,7 +5,6 @@ export class Tank {
         this.id = tankDetails.id;
         this.drill = tankDetails.drill;
         this.engine = tankDetails.engine;
-        //$Notice that the way I did it so that I didn't alter the original value for fuel capacity was to declare 2 things: this.fuelType = tankDetails.fuelType; and this.fuelCapacity
         this.fuelType = tankDetails.fuelType;
         const storedTank = JSON.parse(localStorage.getItem(this.id));
         this.fuelCapacity = storedTank
@@ -178,10 +177,10 @@ export class Tier3Tank extends Tier2Tank {
             this.isStorageOpen === false) {
             this.height += 10 * this.fan.flyMultiplier;
             this.fuelCapacity -= 10;
-            if (this.height >= this.fan.heightLimit) {
-                this.height = this.fan.heightLimit;
-                this.tankMessage = "The tank has reached its height limit!";
-            }
+        }
+        if (this.height >= this.fan.heightLimit) {
+            this.height = this.fan.heightLimit;
+            this.tankMessage = "The tank has reached its height limit!";
         }
     }
     fanImage() {
