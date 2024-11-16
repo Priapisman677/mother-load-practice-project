@@ -140,3 +140,6 @@ const removeMessageButtons: TankButton = {
 renderHTML();
 
 console.log(`Image path: ../../images/${t1tank.drill.name}-drill.PNG`);
+
+
+console.log('updating github')
